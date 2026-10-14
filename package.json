@@ -1,0 +1,22 @@
+{
+  "name": "ai-labs-by-nimbus",
+  "version": "1.0.0",
+  "description": "AI Labs by Nimbus - Frontier Artificial Intelligence & Autonomous Systems PWA with Kinetic Snap-Scroll Engine",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "docker:build": "docker build -t ai-labs-nimbus .",
+    "docker:run": "docker run -d -p 3000:3000 --name ai-labs-nimbus ai-labs-nimbus"
+  },
+  "keywords": [
+    "ai",
+    "pwa",
+    "kinetic-scroll",
+    "parallax",
+    "webflow",
+    "graphify"
+  ],
+  "author": "AI Labs by Nimbus",
+  "license": "MIT"
+}

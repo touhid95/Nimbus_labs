@@ -1,0 +1,38 @@
+{
+  "combined.js": {
+    "mtime": 1791874742.3439236,
+    "seen": 1791875542.8378472,
+    "ast_hash": "563e39ebc324ae16bd44d7f6d9f82f2f",
+    "semantic_hash": "563e39ebc324ae16bd44d7f6d9f82f2f"
+  },
+  "script.js": {
+    "mtime": 1791297930.8883097,
+    "seen": 1791875542.8378556,
+    "ast_hash": "7ad422118bfb3e8359588acd05ccab8e",
+    "semantic_hash": "7ad422118bfb3e8359588acd05ccab8e"
+  },
+  "server.js": {
+    "mtime": 1791297930.889308,
+    "seen": 1791875542.8378594,
+    "ast_hash": "04152f55cb1286aa03398b82be4354bf",
+    "semantic_hash": "04152f55cb1286aa03398b82be4354bf"
+  },
+  "index.html": {
+    "mtime": 1791874580.6918738,
+    "seen": 1791875542.8378613,
+    "ast_hash": "105ea9be0250cdaf187b9fcf9b110658",
+    "semantic_hash": "105ea9be0250cdaf187b9fcf9b110658"
+  },
+  "assets/hero-01.png": {
+    "mtime": 1791293468.5250893,
+    "seen": 1791875542.8378632,
+    "ast_hash": "a8036ac16f046caffc300c22424e2abe",
+    "semantic_hash": "a8036ac16f046caffc300c22424e2abe"
+  },
+  "assets/hero-cloud1.png": {
+    "mtime": 1791293468.5962563,
+    "seen": 1791875542.8378646,
+    "ast_hash": "416f5c95929fc44fec91adecd0f59d91",
+    "semantic_hash": "416f5c95929fc44fec91adecd0f59d91"
+  }
+}
