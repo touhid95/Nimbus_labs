@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" fill="none" preserveAspectRatio="none" role="img" aria-label="Layered mountain ridge silhouette">
+  <defs>
+    <linearGradient id="ridge-far" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2f122e" stop-opacity="0.0"/>
+      <stop offset="1" stop-color="#2f122e" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="ridge-near" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#020016" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#020016" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+  <path d="M0 210 L120 168 L230 214 L330 150 L460 226 L560 176 L690 232 L820 158 L940 220 L1060 172 L1180 228 L1300 176 L1440 218 L1440 320 L0 320 Z" fill="url(#ridge-far)"/>
+  <path d="M0 252 L140 214 L250 254 L360 206 L500 262 L620 220 L760 268 L900 214 L1030 260 L1160 220 L1290 264 L1440 222 L1440 320 L0 320 Z" fill="url(#ridge-near)"/>
+</svg>

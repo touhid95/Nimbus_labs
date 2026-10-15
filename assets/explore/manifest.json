@@ -1,0 +1,42 @@
+{
+  "neural": {
+    "file": "neural.png",
+    "bytes": 2337604,
+    "source": "Wikimedia Commons",
+    "title": "File:Neural network - Midjourney and Grok.png",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/67/Neural_network_-_Midjourney_and_Grok.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain / CC (verify per-title on Wikimedia)"
+  },
+  "abstract": {
+    "file": "abstract.png",
+    "bytes": 3262952,
+    "source": "Wikimedia Commons",
+    "title": "File:Symmetrical Abstract Art - Bird Emoticon.png",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Symmetrical_Abstract_Art_-_Bird_Emoticon.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain / CC (verify per-title on Wikimedia)"
+  },
+  "technology": {
+    "file": "technology.jpg",
+    "bytes": 2229271,
+    "source": "Wikimedia Commons",
+    "title": "File:A futuristic vision Wellcome V0041098.jpg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/42/A_futuristic_vision_Wellcome_V0041098.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain / CC (verify per-title on Wikimedia)"
+  },
+  "server": {
+    "file": "server.jpg",
+    "bytes": 3755006,
+    "source": "Wikimedia Commons",
+    "title": "File:139 Server Room 01.jpg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/139_Server_Room_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain / CC (verify per-title on Wikimedia)"
+  },
+  "supercomputer": {
+    "file": "supercomputer.png",
+    "bytes": 19187160,
+    "source": "Wikimedia Commons",
+    "title": "File:Dutch national supercomputer \"Huygens\" - 8183833489.png",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/53/Dutch_national_supercomputer_%22Huygens%22_-_8183833489.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain / CC (verify per-title on Wikimedia)"
+  }
+}

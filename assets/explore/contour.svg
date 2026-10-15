@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 520" fill="none" preserveAspectRatio="none" role="img" aria-label="Topographic contour horizon motif">
+  <defs>
+    <linearGradient id="ctr-fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6459e8" stop-opacity="0.08"/>
+      <stop offset="0.55" stop-color="#7c72ff" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#e25c80" stop-opacity="0.65"/>
+    </linearGradient>
+    <linearGradient id="ctr-fade-b" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e25c80" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#e25c80" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#6459e8" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g stroke="url(#ctr-fade)" stroke-width="1.1" stroke-linecap="round">
+    <path d="M-40 300 C 180 250 300 340 520 300 C 740 260 860 330 1080 300 C 1250 278 1360 316 1480 296" opacity="0.25"/>
+    <path d="M-40 336 C 200 292 320 372 540 336 C 760 300 880 366 1100 336 C 1270 314 1380 350 1480 332" opacity="0.32"/>
+    <path d="M-40 372 C 220 334 340 404 560 372 C 780 340 900 400 1120 372 C 1290 350 1400 384 1480 368" opacity="0.4"/>
+    <path d="M-40 410 C 240 378 360 438 580 410 C 800 382 920 436 1140 410 C 1310 390 1420 420 1480 406" opacity="0.5"/>
+    <path d="M-40 452 C 260 424 380 476 600 452 C 820 428 940 476 1160 452 C 1330 434 1440 460 1480 448" opacity="0.6"/>
+    <path d="M-40 496 C 280 472 400 516 620 496 C 840 476 960 516 1180 496 C 1350 480 1460 502 1480 492" opacity="0.72"/>
+  </g>
+  <path d="M-40 452 C 260 424 380 476 600 452 C 820 428 940 476 1160 452 C 1330 434 1440 460 1480 448"
+        stroke="url(#ctr-fade-b)" stroke-width="1.6" fill="none" opacity="0.9"/>
+</svg>

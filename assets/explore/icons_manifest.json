@@ -1,0 +1,50 @@
+{
+  "pytorch": {
+    "file": "icon_pytorch.svg",
+    "bytes": 451,
+    "source": "simple-icons (OFL)",
+    "url": "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/pytorch.svg"
+  },
+  "tensorflow": {
+    "file": "icon_tensorflow.svg",
+    "bytes": 285,
+    "source": "simple-icons (OFL)",
+    "url": "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/tensorflow.svg"
+  },
+  "kubernetes": {
+    "file": "icon_kubernetes.svg",
+    "bytes": 3565,
+    "source": "simple-icons (OFL)",
+    "url": "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/kubernetes.svg"
+  },
+  "docker": {
+    "file": "icon_docker.svg",
+    "bytes": 1765,
+    "source": "simple-icons (OFL)",
+    "url": "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/docker.svg"
+  },
+  "python": {
+    "file": "icon_python.svg",
+    "bytes": 1518,
+    "source": "simple-icons (OFL)",
+    "url": "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/python.svg"
+  },
+  "linux": {
+    "file": "icon_linux.svg",
+    "bytes": 5463,
+    "source": "simple-icons (OFL)",
+    "url": "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/linux.svg"
+  },
+  "nvidia": {
+    "file": "icon_nvidia.svg",
+    "bytes": 881,
+    "source": "simple-icons (OFL)",
+    "url": "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/nvidia.svg"
+  },
+  "blender": {
+    "file": "icon_blender.svg",
+    "bytes": 1294,
+    "source": "simple-icons (OFL)",
+    "url": "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/blender.svg"
+  }
+}

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>Explore Products &amp; Services | AI Labs by Nimbus</title>
+  <meta name="description" content="Explore the Nimbus Labs product and services catalogue — a temporary field catalogue of upcoming frontier intelligence products and engagement models.">
+  <meta name="theme-color" content="#020016">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Nimbus Labs">
+  <link rel="apple-touch-icon" href="./assets/icon-192.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Explore Products & Services | AI Labs by Nimbus">
+  <meta property="og:description" content="A field catalogue of upcoming Nimbus Labs products and services.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="./assets/logo.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./explore.css">
+  <link rel="icon" type="image/png" href="./assets/logo_tight.png">
+  <noscript><style>#preloader{display:none !important}</style></noscript>
+</head>
+<body class="xp-page">
+
+  <!-- PRELOADER (shared Curtain Reveal for brand continuity) -->
+  <div id="preloader" class="preloader" aria-hidden="true">
+    <div class="preloader__item">
+      <div class="preloader__logo-container">
+        <img src="./assets/logo_tight.png" alt="AI Labs by Nimbus" class="preloader__logo">
+      </div>
+      <div class="preloader__status-text">OPENING NIMBUS FIELD CATALOGUE...</div>
+      <div class="preloader__loading-bar">
+        <div id="preloader-progress" class="preloader__progressbar"></div>
+      </div>
+    </div>
+    <div class="preloader__bg-top"></div>
+    <div class="preloader__bg-middle"></div>
+    <div class="preloader__bg-bottom"></div>
+  </div>
+
+  <!-- FILM GRAIN -->
+  <div class="xp-grain" aria-hidden="true"></div>
+
+  <!-- NAVIGATION BAR -->
+  <header id="site-header" class="site-header">
+    <div class="nav-container">
+      <div class="nav-brand-section">
+        <a href="./" class="brand-logo-link" id="brand-logo-link" aria-label="AI Labs by Nimbus — Home">
+          <img src="./assets/logo_tight.png" alt="AI Labs Logo" class="brand-logo-img">
+        </a>
+        <div class="brand-meta" id="brand-meta-wrapper">
+          <span class="brand-divider">/</span>
+          <span class="brand-status-tag" id="brand-status-tag">FIELD CATALOGUE</span>
+        </div>
+      </div>
+
+      <nav id="desktop-nav" class="nav-links" aria-label="Primary">
+        <a href="./" class="nav-link">Home</a>
+        <a href="#products" class="nav-link">Products</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#contact" class="btn btn-primary" id="btn-contact-top">Contact Us</a>
+        <button id="mobile-menu-btn" class="mobile-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="mobile-menu">
+      <a href="./" class="mobile-nav-link">Home</a>
+      <a href="#products" class="mobile-nav-link">Products</a>
+      <a href="#services" class="mobile-nav-link">Services</a>
+      <a href="#contact" class="mobile-nav-link">Contact</a>
+      <a href="#contact" class="btn btn-primary mobile-cta">Contact Us</a>
+    </div>
+  </header>
+
+  <main class="xp-main">
+
+    <!-- ================= HERO ================= -->
+    <section id="hero" class="xp-hero" aria-labelledby="xp-hero-title">
+      <div class="xp-hero__aurora" aria-hidden="true"></div>
+      <div class="xp-hero__grid" aria-hidden="true"></div>
+      <canvas class="xp-hero__canvas" id="atmosphere-canvas" aria-hidden="true"></canvas>
+      <img class="xp-hero__contour" src="./assets/explore/contour.svg" alt="" aria-hidden="true">
+      <img class="xp-hero__ridge" src="./assets/explore/horizon-ridge.svg" alt="" aria-hidden="true">
+
+      <div class="xp-hero__rail" aria-hidden="true">
+        <span class="is-active">CATALOGUE</span>
+        <span>PRODUCTS</span>
+        <span>SERVICES</span>
+        <span>CONTACT</span>
+      </div>
+
+      <div class="xp-shell xp-hero__inner">
+        <div class="xp-hero__content">
+          <span class="xp-eyebrow">Field Catalogue — 2026</span>
+
+          <h1 class="xp-hero__title" id="xp-hero-title">
+            <span class="xp-hero__title-line1">
+              EXPLORE
+              <span class="xp-hero__title-sup" aria-hidden="true">01</span>
+            </span>
+            <span class="xp-hero__title-line2">Products &amp; Services</span>
+          </h1>
+
+          <p class="xp-hero__lead">
+            A temporary overview of what the Nimbus Labs frontier programme will ship.
+            Replace this copy and every entry below with the real catalogue.
+          </p>
+
+          <div class="xp-hero__cta">
+            <a href="#products" class="btn btn-glow" id="hero-cta-products">
+              <span>Browse Products</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#services" class="btn btn-glass" id="hero-cta-services">
+              <span>View Services</span>
+            </a>
+          </div>
+
+          <div class="xp-hero__meta">
+            <span><span class="dot" aria-hidden="true"></span></span>
+            <span>Placeholder catalogue</span>
+            <span><b id="meta-products">—</b> Products</span>
+            <span><b id="meta-services">—</b> Services</span>
+            <span>Content pending</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="xp-hero__cue" aria-hidden="true">
+        <span class="bar"></span>
+        <span>Scroll to explore</span>
+      </div>
+    </section>
+
+    <!-- ================= KINETIC BRIDGE ================= -->
+    <section class="xp-bridge" aria-hidden="true">
+      <div class="xp-bridge__rail" id="xp-bridge-rail">
+        <span class="xp-bridge__word is-fill">Products <i>◆</i> Services <i>◆</i></span>
+        <span class="xp-bridge__word">Discover <i>◆</i> Design <i>◆</i></span>
+        <span class="xp-bridge__word is-fill">Nimbus <i>◆</i> Horizon <i>◆</i></span>
+      </div>
+    </section>
+
+    <!-- ================= PRODUCTS ================= -->
+    <section id="products" class="xp-section" aria-labelledby="xp-products-title">
+      <div class="xp-shell">
+        <div class="xp-section__head xp-reveal">
+          <span class="xp-eyebrow">01 — Products</span>
+          <h2 class="xp-section__title" id="xp-products-title">The product observatory</h2>
+          <p class="xp-section__sub">
+            Select an entry to preview it. Every product below is a clearly marked
+            placeholder — swap the data in <code>explore-data.js</code> for the real thing.
+          </p>
+        </div>
+
+        <div class="xp-viewer xp-reveal">
+          <div class="xp-viewer__visual" id="xp-product-visual" role="img" aria-label="Placeholder product visual">
+            <div class="xp-vis__base"></div>
+            <div class="xp-vis__pattern" aria-hidden="true"></div>
+            <span class="xp-vis__status" id="xp-product-status"><span class="tick" aria-hidden="true"></span><span data-field="status">Status</span></span>
+            <span class="xp-vis__index" id="xp-product-index" aria-hidden="true">01</span>
+            <span class="xp-vis__glyph" id="xp-product-glyph">P—01</span>
+          </div>
+
+          <div class="xp-viewer__panel">
+            <span class="xp-viewer__cat" id="xp-product-cat">Category</span>
+            <h3 class="xp-viewer__name" id="xp-product-name">Product</h3>
+            <p class="xp-viewer__summary" id="xp-product-summary">Summary</p>
+            <p class="xp-viewer__desc" id="xp-product-desc">Description</p>
+            <ul class="xp-viewer__features" id="xp-product-features"></ul>
+            <div class="xp-viewer__foot">
+              <span class="xp-viewer__ghost" id="xp-product-ghost">Details arrive with the real catalogue</span>
+              <a href="#contact" class="btn btn-primary" id="xp-product-link">Enquire</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="xp-rail" id="xp-product-rail" role="tablist" aria-label="Product catalogue"></div>
+      </div>
+    </section>
+
+    <!-- ================= SERVICES ================= -->
+    <section id="services" class="xp-section" aria-labelledby="xp-services-title">
+      <div class="xp-shell">
+        <div class="xp-section__head xp-reveal">
+          <span class="xp-eyebrow">02 — Services</span>
+          <h2 class="xp-section__title" id="xp-services-title">Engagements &amp; services</h2>
+          <p class="xp-section__sub">
+            Where products are a catalogue, services are a spectrum of engagements.
+            Expand a row to see how each placeholder service is structured.
+          </p>
+        </div>
+
+        <div class="xp-services xp-reveal" id="xp-services-list"></div>
+      </div>
+    </section>
+
+    <!-- ================= CLOSING ================= -->
+    <section id="closing" class="xp-closing" aria-labelledby="xp-closing-title">
+      <div class="xp-closing__glow" aria-hidden="true"></div>
+      <div class="xp-shell xp-closing__inner">
+        <span class="xp-eyebrow xp-reveal">Ready when you are</span>
+        <h2 class="xp-closing__title xp-reveal" id="xp-closing-title">Build the <em>horizon</em> with Nimbus</h2>
+        <p class="xp-closing__sub xp-reveal">
+          The catalogue is still forming. Partner with the lab early to shape what
+          comes next — or head back and keep exploring.
+        </p>
+        <div class="xp-closing__actions xp-reveal">
+          <a href="mailto:contact@ailabsnimbus.com" class="btn btn-glow" id="closing-contact">
+            <span>Partner With Our Lab</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </a>
+          <a href="./" class="btn btn-glass" id="closing-home">Back to Home</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer id="contact" class="section-footer">
+      <div class="footer-background">
+        <img src="./assets/bg-footer.png" alt="Footer mountain background" class="bg-footer" loading="lazy">
+      </div>
+
+      <div class="container-footer">
+        <div class="footer-cta-block reveal-on-scroll">
+          <div class="brand-logo-footer-container">
+            <img src="./assets/logo_tight.png" alt="AI Labs by Nimbus" class="footer-logo-img">
+          </div>
+          <h2 class="footer-headline">Join Us in Building Artificial Superintelligence</h2>
+          <p class="footer-subtext">
+            Partner with AI Labs by Nimbus on frontier research or enterprise agentic deployment.
+          </p>
+          <div class="magnetic-button-wrap" id="magnetic-btn-wrap">
+            <a href="mailto:contact@ailabsnimbus.com" class="magnetic-btn" id="footer-contact-btn">
+              <span class="btn-text">Partner With Our Lab</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-bottom-row">
+          <div class="footer-col-brand">
+            <div class="footer-brand-title">AI LABS BY NIMBUS</div>
+            <div class="footer-brand-desc">Advancing humanity's intelligence horizon through computational neuroscience and synthetic reasoning.</div>
+          </div>
+
+          <div class="footer-col-links">
+            <div class="link-group">
+              <span class="group-title">EXPLORE</span>
+              <a href="#products" class="f-link">Products</a>
+              <a href="#services" class="f-link">Services</a>
+              <a href="#closing" class="f-link">Partner</a>
+              <a href="./" class="f-link">Home</a>
+            </div>
+
+            <div class="link-group">
+              <span class="group-title">RESOURCES</span>
+              <a href="./#dapper" class="f-link">Chapters</a>
+              <a href="./#hero" class="f-link">Documentation</a>
+              <a href="./#contact" class="f-link">Compute Grants</a>
+              <a href="mailto:contact@ailabsnimbus.com" class="f-link">Contact</a>
+            </div>
+
+            <div class="link-group">
+              <span class="group-title">CONNECT</span>
+              <a href="https://github.com" target="_blank" rel="noopener" class="f-link">GitHub</a>
+              <a href="https://huggingface.co" target="_blank" rel="noopener" class="f-link">HuggingFace</a>
+              <a href="https://twitter.com" target="_blank" rel="noopener" class="f-link">X / Twitter</a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener" class="f-link">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-copyright-bar">
+          <div class="copyright-text">
+            &copy; <span id="xp-year">2026</span> AI Labs by Nimbus. All rights reserved.
+            <span class="xp-footer-note">· Explore page — placeholder content.</span>
+          </div>
+          <div class="status-indicator">
+            <span class="cluster-dot"></span>
+            <span>All Global Nimbus Clusters Operational</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <noscript>
+    <div style="padding:160px 24px 60px;text-align:center;color:#94a3b8;font-family:sans-serif">
+      This Explore catalogue renders its product and service entries with JavaScript.
+      Enable JavaScript to view the placeholder catalogue.
+    </div>
+  </noscript>
+
+  <script src="./assets/explore/explore-data.js"></script>
+  <script src="./explore.js"></script>
+</body>
+</html>

@@ -35,7 +35,16 @@ const server = http.createServer((req, res) => {
   }
 
   let reqPath = decodeURI(req.url.split('?')[0]);
-  if (reqPath === '/') reqPath = '/index.html';
+
+  // Clean-URL routes (static site, no framework router)
+  const ROUTES = {
+    '/': '/index.html',
+    '/explore': '/explore.html',
+    '/explore/': '/explore.html'
+  };
+  if (Object.prototype.hasOwnProperty.call(ROUTES, reqPath)) {
+    reqPath = ROUTES[reqPath];
+  }
 
   const fullPath = path.join(__dirname, reqPath);
 
