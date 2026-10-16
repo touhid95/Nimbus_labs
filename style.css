@@ -1177,10 +1177,10 @@ button {
   width: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 6rem 2rem 3rem;
+  padding: 3.5rem 2rem 3rem;
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 3.5rem;
 }
 
 .footer-cta-block {
