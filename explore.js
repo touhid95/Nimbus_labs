@@ -213,186 +213,235 @@
   })();
 
   /* ------------------------------------------------------
-     4. PRODUCT OBSERVATORY
+     4. PRODUCT SHOWCASE (Dapper Sticky Pinned 500vh Curtain Slides)
      ------------------------------------------------------ */
   (function products() {
     var products = DATA.products || [];
-    var rail = document.getElementById('xp-product-rail');
-    if (!rail || !products.length) return;
-
-    var visual = document.getElementById('xp-product-visual');
-    var elStatus = document.getElementById('xp-product-status').querySelector('[data-field="status"]');
-    var elIndex = document.getElementById('xp-product-index');
-    var elGlyph = document.getElementById('xp-product-glyph');
-    var elCat = document.getElementById('xp-product-cat');
-    var elName = document.getElementById('xp-product-name');
-    var elSummary = document.getElementById('xp-product-summary');
-    var elDesc = document.getElementById('xp-product-desc');
-    var elFeatures = document.getElementById('xp-product-features');
-    var elGhost = document.getElementById('xp-product-ghost');
-    var elLink = document.getElementById('xp-product-link');
-    var panel = document.querySelector('.xp-viewer__panel');
-    var tabs = [];
-
-    if (panel) { panel.setAttribute('role', 'tabpanel'); panel.id = panel.id || 'xp-product-panel'; panel.setAttribute('aria-live', 'polite'); }
+    var container = document.getElementById('xp-dapper-layers');
+    var section = document.getElementById('products');
+    if (!container || !section || !products.length) return;
 
     function pad(n) { return (n < 10 ? '0' : '') + n; }
 
-    function renderFeatures(list) {
-      elFeatures.innerHTML = '';
-      (list || []).forEach(function (f) {
-        var li = document.createElement('li');
-        li.textContent = f;
-        elFeatures.appendChild(li);
-      });
-    }
-
-    function applyPalette(node, palette) {
-      node.style.setProperty('--v1', palette[0]);
-      node.style.setProperty('--v2', palette[1]);
-      node.style.setProperty('--v3', palette[2] || palette[0]);
-    }
-
-    function select(i, focus) {
-      var p = products[i];
-      if (!p) return;
-      var pal = (p.visual && p.visual.palette) || ['#6459e8', '#a855f7', '#e25c80'];
-
-      applyPalette(visual, pal);
-      visual.setAttribute('data-pattern', (p.visual && p.visual.pattern) || 'orbit');
-      if (elStatus) elStatus.textContent = p.status || 'Concept';
-      if (elIndex) elIndex.textContent = pad(i + 1);
-      if (elGlyph) elGlyph.textContent = (p.visual && p.visual.glyph) || ('P—' + pad(i + 1));
-      if (elCat) elCat.textContent = p.category || 'Placeholder Category';
-      if (elName) elName.textContent = p.label || ('Product ' + pad(i + 1));
-      if (elSummary) elSummary.textContent = p.summary || 'Temporary product summary.';
-      if (elDesc) elDesc.textContent = p.description || 'Temporary product description.';
-      renderFeatures(p.features);
-
-      var hasLink = p.link && p.link !== '#';
-      if (elGhost) elGhost.textContent = hasLink ? 'Open product' : 'Details arrive with the real catalogue';
-      if (elLink) {
-        elLink.textContent = hasLink ? 'Open' : 'Enquire';
-        elLink.href = hasLink ? p.link : '#contact';
-        if (hasLink) elLink.setAttribute('target', '_blank');
-      }
-
-      tabs.forEach(function (t, ti) {
-        var sel = ti === i;
-        t.setAttribute('aria-selected', String(sel));
-        t.tabIndex = sel ? 0 : -1;
-      });
-      if (focus) tabs[i].focus();
-    }
+    var layerEls = [];
 
     products.forEach(function (p, i) {
-      var pal = (p.visual && p.visual.palette) || ['#6459e8', '#a855f7', '#e25c80'];
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'xp-rail__tab';
-      b.setAttribute('role', 'tab');
-      b.setAttribute('aria-selected', 'false');
-      b.id = 'xp-tab-' + i;
-      if (panel) b.setAttribute('aria-controls', panel.id);
-      b.style.setProperty('--v1', pal[0]);
-      b.style.setProperty('--v2', pal[1]);
-      b.innerHTML =
-        '<span class="idx">' + pad(i + 1) + ' · ' + (p.status || 'Concept').toUpperCase() + '</span>' +
-        '<span class="nm">' + (p.label || ('Product ' + pad(i + 1))) + '</span>' +
-        '<span class="ct">' + (p.category || 'Placeholder Category') + '</span>';
-      b.addEventListener('click', function () { select(i); });
-      b.addEventListener('keydown', function (e) {
-        var k = e.key;
-        if (k === 'ArrowRight' || k === 'ArrowDown') { e.preventDefault(); select((i + 1) % products.length, true); }
-        else if (k === 'ArrowLeft' || k === 'ArrowUp') { e.preventDefault(); select((i - 1 + products.length) % products.length, true); }
-        else if (k === 'Home') { e.preventDefault(); select(0, true); }
-        else if (k === 'End') { e.preventDefault(); select(products.length - 1, true); }
-      });
-      rail.appendChild(b);
-      tabs.push(b);
-    });
+      var isOdd = i % 2 === 1;
+      var layer = document.createElement('article');
+      layer.className = 'xp-dapper-layer is--' + (i + 1);
+      layer.id = p.id;
+      layer.setAttribute('data-theme', p.theme || 'plum');
+      layer.setAttribute('data-contrast', p.contrast || 'dark');
+      layer.setAttribute('data-bg', p.bg || '#2f122e');
 
-    select(0);
+      var featuresHtml = '';
+      if (p.features && p.features.length) {
+        featuresHtml = '<ul class="xp-dapper-features">' +
+          p.features.map(function (f) {
+            return '<li class="xp-dapper-feature-item">' +
+              '<span class="xp-dapper-dash" aria-hidden="true">&mdash;</span>' +
+              '<span>' + f + '</span>' +
+            '</li>';
+          }).join('') +
+        '</ul>';
+      }
 
-    if (elLink) elLink.setAttribute('aria-label', 'Enquire about this placeholder product');
-  })();
+      var badgeHtml = p.badge ? '<span class="xp-dapper-badge">' + p.badge + '</span>' : '';
 
-  /* ------------------------------------------------------
-     5. SERVICES SPECTRUM (accordion)
-     ------------------------------------------------------ */
-  (function services() {
-    var services = DATA.services || [];
-    var list = document.getElementById('xp-services-list');
-    if (!list || !services.length) return;
+      var visualMediaHtml = '';
+      if (p.image) {
+        visualMediaHtml = '<div class="xp-dapper-media">' +
+          '<div class="xp-dapper-media__frame">' +
+            '<img src="' + p.image + '" alt="' + (p.label || 'Product') + '" class="xp-dapper-img" loading="lazy">' +
+            '<div class="xp-dapper-media__overlay"></div>' +
+            '<div class="xp-dapper-media-hud">' +
+              '<span>// ' + (p.visual && p.visual.glyph ? p.visual.glyph : ('PRD-' + pad(i + 1))) + '</span>' +
+              '<span>' + pad(i + 1) + ' / 05</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }
 
-    function pad(n) { return (n < 10 ? '0' : '') + n; }
-    var heads = [];
-
-    services.forEach(function (s, i) {
-      var wrap = document.createElement('div');
-      wrap.className = 'xp-svc';
-      wrap.style.setProperty('--svc-accent', s.accent || '#6459e8');
-      wrap.setAttribute('data-open', 'false');
-
-      var bodyId = 'xp-svc-body-' + i;
-      var head = document.createElement('button');
-      head.type = 'button';
-      head.className = 'xp-svc__head';
-      head.setAttribute('aria-expanded', 'false');
-      head.setAttribute('aria-controls', bodyId);
-      head.innerHTML =
-        '<span class="xp-svc__idx">' + (s.label || ('Service ' + pad(i + 1))).toUpperCase() + '</span>' +
-        '<span class="xp-svc__titlewrap">' +
-          '<span class="xp-svc__title">' + (s.title || 'Placeholder Service Name') + '</span>' +
-          '<span class="xp-svc__summary">' + (s.summary || 'Temporary service summary.') + '</span>' +
-        '</span>' +
-        '<span class="xp-svc__toggle" aria-hidden="true">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>' +
-        '</span>';
-
-      var body = document.createElement('div');
-      body.className = 'xp-svc__body';
-      body.id = bodyId;
-      var deliverables = (s.features || []).map(function (f) {
-        return '<li>' + f + '</li>';
-      }).join('');
-      body.innerHTML =
-        '<div class="xp-svc__body-inner">' +
-          '<p class="xp-svc__detail">' + (s.detail || 'Temporary service detail.') + '</p>' +
-          '<ul class="xp-svc__deliverables">' + deliverables + '</ul>' +
+      layer.innerHTML =
+        '<div class="xp-dapper-slide-shell">' +
+          '<div class="xp-dapper-slide-grid ' + (isOdd ? 'xp-dapper-slide-grid--reverse' : '') + '">' +
+            visualMediaHtml +
+            '<div class="xp-dapper-content">' +
+              '<div class="xp-dapper-meta">' +
+                '<span class="xp-dapper-chapter">// CHAPTER 0' + (i + 1) + ' / 05 &mdash; ' + (p.category ? p.category.toUpperCase() : 'SYSTEMS') + '</span>' +
+                badgeHtml +
+              '</div>' +
+              '<h2 class="xp-dapper-title">' + (p.label || ('Product ' + pad(i + 1))) + '</h2>' +
+              '<p class="xp-dapper-summary">' + (p.summary || '') + '</p>' +
+              '<p class="xp-dapper-desc">' + (p.description || '') + '</p>' +
+              featuresHtml +
+              '<div class="xp-dapper-actions">' +
+                '<a href="#contact" class="xp-dapper-btn" aria-label="Deploy ' + (p.label || 'product') + '">' +
+                  '<span>Deploy ' + (p.label || 'Product') + '</span>' +
+                  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+                '</a>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
         '</div>';
 
-      head.addEventListener('click', function () {
-        var isOpen = wrap.getAttribute('data-open') === 'true';
-        heads.forEach(function (h) {
-          h.wrap.setAttribute('data-open', 'false');
-          h.head.setAttribute('aria-expanded', 'false');
-        });
-        if (!isOpen) {
-          wrap.setAttribute('data-open', 'true');
-          head.setAttribute('aria-expanded', 'true');
-        }
-      });
-
-      wrap.appendChild(head);
-      wrap.appendChild(body);
-      list.appendChild(wrap);
-      heads.push({ wrap: wrap, head: head });
+      container.appendChild(layer);
+      layerEls.push(layer);
     });
 
-    if (heads.length) {
-      heads[0].wrap.setAttribute('data-open', 'true');
-      heads[0].head.setAttribute('aria-expanded', 'true');
+    // ----------------------------------------------------
+    // DAPPER STICKY CURTAIN SCRUB CONTROLLER
+    // Layer 1 is stationary at translateY(0%)
+    // Layers 2, 3, 4, 5 wipe up from 100% to 0% as scroll progresses
+    // Dynamic Navbar Brand Tag tracks current product title
+    // ----------------------------------------------------
+    var isTicking = false;
+    var brandTag = document.getElementById('brand-status-tag');
+    var currentTagText = 'SOLUTIONS';
+    var isUpdatingTag = false;
+
+    function setBrandTag(text) {
+      if (!brandTag || currentTagText === text || isUpdatingTag) return;
+      currentTagText = text;
+      isUpdatingTag = true;
+      brandTag.classList.add('is-updating');
+      setTimeout(function () {
+        brandTag.textContent = text;
+        brandTag.classList.remove('is-updating');
+        isUpdatingTag = false;
+      }, 120);
     }
+
+    function updateDapperCurtains() {
+      isTicking = false;
+      var rect = section.getBoundingClientRect();
+      var winH = window.innerHeight;
+      var totalScroll = section.offsetHeight - winH;
+      if (totalScroll <= 0) return;
+
+      var scrolled = -rect.top;
+      var overallProgress = Math.max(0, Math.min(1.0, scrolled / totalScroll));
+      var chapterProgress = overallProgress * 4; // 0.0 to 4.0 across 5 chapters
+
+      // Layer 2: Sunset Rose (slides 100% -> 0% during chapter 0 to 1)
+      if (layerEls[1]) {
+        var p2 = Math.max(0, Math.min(1, chapterProgress));
+        layerEls[1].style.transform = 'translate3d(0px, ' + ((1 - p2) * 100).toFixed(2) + '%, 0px)';
+      }
+
+      // Layer 3: Electric Violet (slides 100% -> 0% during chapter 1 to 2)
+      if (layerEls[2]) {
+        var p3 = Math.max(0, Math.min(1, chapterProgress - 1));
+        layerEls[2].style.transform = 'translate3d(0px, ' + ((1 - p3) * 100).toFixed(2) + '%, 0px)';
+      }
+
+      // Layer 4: Cognition White (slides 100% -> 0% during chapter 2 to 3)
+      if (layerEls[3]) {
+        var p4 = Math.max(0, Math.min(1, chapterProgress - 2));
+        layerEls[3].style.transform = 'translate3d(0px, ' + ((1 - p4) * 100).toFixed(2) + '%, 0px)';
+      }
+
+      // Layer 5: Midnight Nimbus (slides 100% -> 0% during chapter 3 to 4)
+      if (layerEls[4]) {
+        var p5 = Math.max(0, Math.min(1, chapterProgress - 3));
+        layerEls[4].style.transform = 'translate3d(0px, ' + ((1 - p5) * 100).toFixed(2) + '%, 0px)';
+      }
+
+      // Dynamic Navbar Brand Tag:
+      // Show 'SOLUTIONS' in hero/bridge and closing/footer
+      // Show active product title (uppercase) during Dapper slides
+      var targetTag = 'SOLUTIONS';
+      if (rect.top <= 80 && rect.bottom > winH) {
+        var activeIdx = Math.max(0, Math.min(products.length - 1, Math.floor(chapterProgress + 0.5)));
+        targetTag = (products[activeIdx].label || ('Product ' + (activeIdx + 1))).toUpperCase();
+      }
+      setBrandTag(targetTag);
+    }
+
+    function onScroll() {
+      if (!isTicking) {
+        isTicking = true;
+        requestAnimationFrame(updateDapperCurtains);
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    updateDapperCurtains();
   })();
 
   /* ------------------------------------------------------
-     6. KINETIC BRIDGE SCROLL
+     6. KINETIC BRIDGE (DYNAMIC MARQUEE LINKS TO SLIDES)
      ------------------------------------------------------ */
   (function bridge() {
     var section = document.querySelector('.xp-bridge');
     var rail = document.getElementById('xp-bridge-rail');
-    if (!section || !rail || reduceMotion) return;
+    if (!section || !rail) return;
+
+    var products = DATA.products || [];
+    if (!products.length) return;
+
+    // Render product links alternating between solid white fill and stroke outline
+    var html = '';
+    products.forEach(function (p, i) {
+      var isFill = (i % 2 === 0);
+      var wordsWithDiamonds = (p.label || ('Product ' + (i + 1)))
+        .split(' ')
+        .join(' <i>◆</i> ') + ' <i>◆</i>';
+
+      html += '<a href="#' + p.id + '" class="xp-bridge__word ' + (isFill ? 'is-fill ' : '') + 'xp-bridge__link" data-slide-index="' + i + '" aria-label="Explore ' + (p.label || 'product') + '">' +
+        wordsWithDiamonds +
+      '</a>';
+    });
+    rail.innerHTML = html;
+
+    function scrollToProductIndex(idx, isSmooth) {
+      var dapperSection = document.getElementById('products');
+      if (!dapperSection || idx < 0 || idx >= products.length) return;
+      var winH = window.innerHeight;
+      var totalScroll = dapperSection.offsetHeight - winH;
+      var sectionTop = dapperSection.getBoundingClientRect().top + window.pageYOffset;
+      var progress = (products.length > 1) ? (idx / (products.length - 1)) : 0;
+      var targetScrollY = sectionTop + (progress * totalScroll);
+      window.scrollTo({
+        top: targetScrollY,
+        behavior: isSmooth && !reduceMotion ? 'smooth' : 'auto'
+      });
+    }
+
+    // Smooth scroll directly to the exact pinned position for that product slide
+    rail.addEventListener('click', function (e) {
+      var link = e.target.closest('.xp-bridge__link');
+      if (!link) return;
+      e.preventDefault();
+
+      var idx = parseInt(link.getAttribute('data-slide-index'), 10);
+      if (isNaN(idx)) return;
+
+      scrollToProductIndex(idx, true);
+
+      if (window.history && window.history.pushState) {
+        window.history.pushState(null, '', link.getAttribute('href'));
+      }
+    });
+
+    function checkInitialHash() {
+      if (window.location.hash) {
+        var hashId = window.location.hash.replace('#', '');
+        var matchIdx = -1;
+        for (var i = 0; i < products.length; i++) {
+          if (products[i].id === hashId) { matchIdx = i; break; }
+        }
+        if (matchIdx !== -1) {
+          setTimeout(function () { scrollToProductIndex(matchIdx, false); }, 200);
+        }
+      }
+    }
+    window.addEventListener('hashchange', checkInitialHash);
+    setTimeout(checkInitialHash, 250);
+
+    if (reduceMotion) return;
+
     var ticking = false;
     var maxX = 0;
     var visible = false;

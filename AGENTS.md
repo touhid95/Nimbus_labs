@@ -57,5 +57,6 @@ through the Node server.
 - Don't rewrite unrelated files; don't delete existing assets without checking their use.
 
 ## Where things are
-See `ARCHITECTURE.md` for the file map and the Explore page internals, and
-`PROJECT_STATE.md` for the current verified status.
+See `ARCHITECTURE.md` for the file map, `GRAPHIFY.md` for the architectural knowledge graph and Explore page rules, and `PROJECT_STATE.md` for the current verified status.
+All agents working on the Explore / Solutions page MUST follow the rules in `GRAPHIFY.md`.
+

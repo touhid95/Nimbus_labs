@@ -28,62 +28,112 @@
       note: 'Placeholder catalogue · content pending'
     },
 
-    /* ---------------- PRODUCTS (temporary) ---------------- */
+    /* ---------------- PRODUCTS ---------------- */
     products: [
       {
         id: 'product-01',
-        label: 'Product 01',
-        category: 'Placeholder Category A',
-        status: 'In design',
-        summary: 'Temporary product summary for the first catalogue entry.',
-        description: 'Placeholder long-form product copy. Describe the real capability, the problem it removes and who it is for. Replace together with the accompanying visual.',
-        features: ['Placeholder feature one', 'Placeholder feature two', 'Placeholder feature three'],
-        link: '#',
-        visual: { palette: ['#6459e8', '#a855f7', '#e25c80'], pattern: 'orbit', glyph: 'P—01' }
+        label: 'Nimbus Horizon',
+        badge: 'Flagship Architecture',
+        category: 'Autonomous Systems & Infrastructure',
+        status: 'Active Programme',
+        summary: 'Frontier computational foundation and autonomous problem-solving architecture.',
+        description: 'Nimbus Horizon delivers dedicated, mission-critical autonomous intelligence. Rather than paying enterprise licenses for bloated generic software suites, Horizon isolates the core bottleneck and runs precision agents targeted exclusively at solving that problem.',
+        features: [
+          'Autonomous task decomposition & dependency resolution',
+          'Real-time neural synthesis & deterministic verification',
+          'Direct problem-targeted compute allocation',
+          'Self-healing orchestration workflows'
+        ],
+        link: '#contact',
+        image: './assets/explore/supercomputer.jpg',
+        theme: 'plum',
+        bg: '#2f122e',
+        contrast: 'dark',
+        visual: { palette: ['#6459e8', '#5eead4', '#f43f5e'], pattern: 'orbit', glyph: 'HORIZON' }
       },
       {
         id: 'product-02',
-        label: 'Product 02',
-        category: 'Placeholder Category B',
-        status: 'Concepted',
-        summary: 'Temporary product summary for the second catalogue entry.',
-        description: 'Placeholder long-form product copy. Describe the real capability, the problem it removes and who it is for. Replace together with the accompanying visual.',
-        features: ['Placeholder feature one', 'Placeholder feature two'],
-        link: '#',
-        visual: { palette: ['#5eead4', '#6459e8', '#2f122e'], pattern: 'contour', glyph: 'P—02' }
+        label: 'Frontier Reasoning Core',
+        badge: 'Cognitive Engine',
+        category: 'Synthetic Intelligence & Reasoning Engines',
+        status: 'Active Programme',
+        summary: 'Deep logical synthesis engine engineered for complex operational decisions.',
+        description: 'Bypasses standard pattern prediction in favor of continuous step-by-step cognitive deduction. Solves domain-specific analytical problems where off-the-shelf LLMs hallucinate or fail.',
+        features: [
+          'Formal symbolic verification & proof loops',
+          'Multi-hop causal reasoning trees',
+          'Zero-hallucination domain guardrails',
+          'Deterministic structured execution'
+        ],
+        link: '#contact',
+        image: './assets/explore/neural.jpg',
+        theme: 'rose',
+        bg: '#e25c80',
+        contrast: 'dark',
+        visual: { palette: ['#5eead4', '#6459e8', '#2f122e'], pattern: 'contour', glyph: 'REASONING' }
       },
       {
         id: 'product-03',
-        label: 'Product 03',
-        category: 'Placeholder Category C',
-        status: 'Concepted',
-        summary: 'Temporary product summary for the third catalogue entry.',
-        description: 'Placeholder long-form product copy. Describe the real capability, the problem it removes and who it is for. Replace together with the accompanying visual.',
-        features: ['Placeholder feature one', 'Placeholder feature two', 'Placeholder feature three', 'Placeholder feature four'],
-        link: '#',
-        visual: { palette: ['#e25c80', '#a855f7', '#020016'], pattern: 'aurora', glyph: 'P—03' }
+        label: 'Autonomous Swarm Fabric',
+        badge: 'Distributed Systems',
+        category: 'Decentralized Multi-Agent Systems',
+        status: 'In Deployment',
+        summary: 'Cooperative multi-agent mesh delivering coordinated task execution at scale.',
+        description: 'Enables hundreds of specialized agents to negotiate, distribute tasks, and solve complex business operations concurrently with consensus-driven output.',
+        features: [
+          'Decentralized peer-to-peer agent consensus',
+          'Dynamic load-balancing & role handoffs',
+          'Fault-tolerant state checkpoints',
+          'Sub-second inter-agent messaging'
+        ],
+        link: '#contact',
+        image: './assets/explore/server.jpg',
+        theme: 'violet',
+        bg: '#6459e8',
+        contrast: 'dark',
+        visual: { palette: ['#e25c80', '#a855f7', '#020016'], pattern: 'aurora', glyph: 'SWARMS' }
       },
       {
         id: 'product-04',
-        label: 'Product 04',
-        category: 'Placeholder Category D',
-        status: 'Exploration',
-        summary: 'Temporary product summary for the fourth catalogue entry.',
-        description: 'Placeholder long-form product copy. Describe the real capability, the problem it removes and who it is for. Replace together with the accompanying visual.',
-        features: ['Placeholder feature one', 'Placeholder feature two'],
-        link: '#',
-        visual: { palette: ['#7c72ff', '#5eead4', '#05021a'], pattern: 'grid', glyph: 'P—04' }
+        label: 'Synthetic Intelligence Matrix',
+        badge: 'Enterprise Platform',
+        category: 'Enterprise Cognitive Deployment',
+        status: 'In Design',
+        summary: 'On-premise secure cognitive layer directly mapped to your private operational data.',
+        description: 'Integrates natively into your private infrastructure to analyze, model, and automate proprietary workflows without sending internal data to public multi-tenant clouds.',
+        features: [
+          'Zero-leak air-gapped deployment architecture',
+          'Native integration with legacy data stores',
+          'Custom specialized fine-tuned adapter weights',
+          'Audit-grade compliance & telemetry'
+        ],
+        link: '#contact',
+        image: './assets/explore/technology.jpg',
+        theme: 'cognition',
+        bg: '#fcf7f8',
+        contrast: 'light',
+        visual: { palette: ['#7c72ff', '#5eead4', '#05021a'], pattern: 'grid', glyph: 'MATRIX' }
       },
       {
         id: 'product-05',
-        label: 'Product 05',
-        category: 'Placeholder Category E',
+        label: 'Quantum-Edge Protocol',
+        badge: 'Low-Latency Compute',
+        category: 'Edge & Accelerated Infrastructure',
         status: 'Exploration',
-        summary: 'Temporary product summary for the fifth catalogue entry.',
-        description: 'Placeholder long-form product copy. Describe the real capability, the problem it removes and who it is for. Replace together with the accompanying visual.',
-        features: ['Placeholder feature one', 'Placeholder feature two', 'Placeholder feature three'],
-        link: '#',
-        visual: { palette: ['#f8b4c4', '#e25c80', '#6459e8'], pattern: 'pulse', glyph: 'P—05' }
+        summary: 'Ultra-low latency micro-models engineered for sub-millisecond edge execution.',
+        description: 'Stripped-down, quantized neural runtimes designed for edge devices, embedded controllers, and instant sub-millisecond response loops.',
+        features: [
+          '4-bit & 2-bit quantized neural weights',
+          'Direct hardware accelerator kernel compilation',
+          'Sub-5ms inference turnaround',
+          'Offline-first sovereign edge autonomy'
+        ],
+        link: '#contact',
+        image: './assets/explore/abstract.jpg',
+        theme: 'midnight',
+        bg: '#020016',
+        contrast: 'dark',
+        visual: { palette: ['#f8b4c4', '#e25c80', '#6459e8'], pattern: 'pulse', glyph: 'EDGE-AI' }
       }
     ],
 
