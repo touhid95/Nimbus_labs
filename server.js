@@ -391,7 +391,83 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // 3. GET /api/v1/products — CMS Specification Section 4 Mode B contract
+  // 3. GET /api/v1/content/draft — the editor's working copy (may be null)
+  if (req.method === 'GET' && reqPath === '/api/v1/content/draft') {
+    const draft = contentStore.readDraft();
+    return sendJson(res, 200, {
+      status: 'success',
+      data: { draft: draft, hasDraft: !!draft }
+    });
+  }
+
+  // 4. POST /api/v1/content/draft — autosave the working copy
+  if (req.method === 'POST' && reqPath === '/api/v1/content/draft') {
+    try {
+      const payload = await parseJsonBody(req);
+      if (!payload || !payload.products) {
+        return sendJson(res, 400, { status: 'error', message: 'Invalid payload structure: products required' });
+      }
+      const draft = contentStore.writeDraft(payload);
+      return sendJson(res, 200, {
+        status: 'success',
+        message: 'Draft saved',
+        timestamp: new Date().toISOString(),
+        schemaVersion: draft.schemaVersion
+      });
+    } catch (err) {
+      console.error('Error saving draft:', err);
+      return sendJson(res, 500, { status: 'error', message: err.message || 'Server error saving draft' });
+    }
+  }
+
+  // 5. DELETE /api/v1/content/draft — throw the working copy away
+  if (req.method === 'DELETE' && reqPath === '/api/v1/content/draft') {
+    contentStore.discardDraft();
+    return sendJson(res, 200, { status: 'success', message: 'Draft discarded' });
+  }
+
+  // 6. POST /api/v1/content/publish — promote the draft to the live site
+  if (req.method === 'POST' && reqPath === '/api/v1/content/publish') {
+    try {
+      const result = contentStore.publish();
+      const snapshot = result.snapshot
+        ? { filename: result.snapshot.name, sizeBytes: result.snapshot.size, created: new Date(result.snapshot.created).toISOString() }
+        : null;
+      return sendJson(res, 200, {
+        status: 'success',
+        message: 'Content published. A snapshot was saved for rollback.',
+        timestamp: new Date().toISOString(),
+        snapshot: snapshot,
+        schemaVersion: result.content.schemaVersion
+      });
+    } catch (err) {
+      console.error('Error publishing content:', err);
+      return sendJson(res, 500, { status: 'error', message: err.message || 'Server error publishing content' });
+    }
+  }
+
+  // 7. POST /api/v1/preview — render a page with the unsaved draft
+  if (req.method === 'POST' && reqPath === '/api/v1/preview') {
+    try {
+      const payload = await parseJsonBody(req);
+      const page = String((payload && payload.page) || 'index.html');
+      if (!PAGE_TEMPLATES.has(page)) {
+        return sendJson(res, 400, { status: 'error', message: 'Unknown preview page: ' + page });
+      }
+      const draft = payload.content || contentStore.readDraft();
+      if (!draft) {
+        return sendJson(res, 400, { status: 'error', message: 'Nothing to preview' });
+      }
+      const templatePath = path.join(__dirname, page);
+      const html = renderFile(templatePath, contentStore.migrate(draft));
+      return sendJson(res, 200, { status: 'success', data: { html: html, page: page } });
+    } catch (err) {
+      console.error('Error rendering preview:', err);
+      return sendJson(res, 500, { status: 'error', message: err.message || 'Server error rendering preview' });
+    }
+  }
+
+  // 8. GET /api/v1/products — CMS Specification Section 4 Mode B contract
   if (req.method === 'GET' && reqPath === '/api/v1/products') {
     const content = readSiteContent();
     const products = (content && content.products) ? content.products : [];
@@ -629,6 +705,30 @@ const server = http.createServer(async (req, res) => {
       }));
 
       return sendJson(res, 200, { status: 'success', data: files });
+    } catch (err) {
+      return sendJson(res, 500, { status: 'error', message: err.message });
+    }
+  }
+
+  // 6b. GET /api/v1/backups/diff?filename=... — what changed since a snapshot
+  if (req.method === 'GET' && reqPath === '/api/v1/backups/diff') {
+    try {
+      const filename = queryParams.get('filename');
+      if (!filename) {
+        return sendJson(res, 400, { status: 'error', message: 'filename query parameter required' });
+      }
+      let snapshot;
+      try {
+        snapshot = contentStore.readSnapshot(filename);
+      } catch (snapshotErr) {
+        const code = snapshotErr.message === 'Backup file not found' ? 404 : 400;
+        return sendJson(res, code, { status: 'error', message: snapshotErr.message });
+      }
+      const changes = contentStore.diff(snapshot, contentStore.read());
+      return sendJson(res, 200, {
+        status: 'success',
+        data: { filename: path.basename(String(filename)), changes: changes, count: changes.length }
+      });
     } catch (err) {
       return sendJson(res, 500, { status: 'error', message: err.message });
     }
