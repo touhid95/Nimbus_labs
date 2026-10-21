@@ -7,6 +7,18 @@
 (function () {
   'use strict';
 
+  // Auth-aware fetch. A 401 from the API means the admin session expired or was
+  // never valid — bounce to the login screen instead of failing silently.
+  async function apiFetch(url, options) {
+    const res = await fetch(url, Object.assign({ credentials: 'same-origin' }, options || {}));
+    if (res.status === 401 && url.indexOf('/api/v1/auth/') === -1) {
+      const next = encodeURIComponent(window.location.pathname);
+      window.location.assign('/login?next=' + next);
+      throw new Error('Session expired');
+    }
+    return res;
+  }
+
   // State Store
   const state = {
     content: null,
@@ -140,7 +152,7 @@
      ========================================================================== */
   async function loadSiteContent() {
     try {
-      const res = await fetch('/api/v1/content');
+      const res = await apiFetch('/api/v1/content');
       if (res.ok) {
         const json = await res.json();
         if (json.status === 'success' && json.data) {
@@ -726,7 +738,7 @@
      ========================================================================== */
   async function loadMediaLibrary() {
     try {
-      const res = await fetch('/api/v1/media');
+      const res = await apiFetch('/api/v1/media');
       if (res.ok) {
         const json = await res.json();
         if (json.status === 'success' && json.data) {
@@ -859,7 +871,7 @@
     reader.onload = async (e) => {
       const base64Data = e.target.result;
       try {
-        const res = await fetch('/api/v1/media/upload', {
+        const res = await apiFetch('/api/v1/media/upload', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -942,7 +954,7 @@
   async function loadBackupsList() {
     if (!els.snapshotsList) return;
     try {
-      const res = await fetch('/api/v1/backups');
+      const res = await apiFetch('/api/v1/backups');
       if (res.ok) {
         const json = await res.json();
         if (json.status === 'success' && json.data) {
@@ -989,7 +1001,7 @@
 
   async function restoreSnapshot(filename) {
     try {
-      const res = await fetch('/api/v1/backups/restore', {
+      const res = await apiFetch('/api/v1/backups/restore', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ filename })
@@ -1089,7 +1101,7 @@
     showToast('Saving and compiling static field catalogue...', 'info');
 
     try {
-      const res = await fetch('/api/v1/content', {
+      const res = await apiFetch('/api/v1/content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(state.content)

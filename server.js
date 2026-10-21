@@ -2,11 +2,70 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
+const { loadEnv } = require('./lib/env');
+const { createAuth } = require('./lib/auth');
+const { createCors, sendJson: sendJsonRaw, sendText, redirect } = require('./lib/http');
+const { createRateLimiter, clientIp } = require('./lib/rate-limit');
+const cloudinary = require('./lib/cloudinary');
+
+// Load .env BEFORE reading any process.env value. Real env vars always win.
+loadEnv();
+
 const PORT = process.env.PORT || 3000;
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const IS_PRODUCTION = NODE_ENV === 'production';
+const SITE_ORIGIN = process.env.SITE_ORIGIN || 'http://localhost:' + PORT;
+
 const DATA_FILE = path.join(__dirname, 'data', 'site-content.json');
 const EXPLORE_DATA_FILE = path.join(__dirname, 'assets', 'explore', 'explore-data.js');
 const BACKUPS_DIR = path.join(__dirname, 'data', 'backups');
 const UPLOADS_DIR = path.join(__dirname, 'assets', 'uploads');
+
+const auth = createAuth({
+  adminPassword: process.env.ADMIN_PASSWORD || '',
+  secret: process.env.SESSION_SECRET || 'nimbus::' + (process.env.ADMIN_PASSWORD || 'unset'),
+  secure: IS_PRODUCTION
+});
+
+const cors = createCors({
+  allowedOrigins: [SITE_ORIGIN],
+  dev: !IS_PRODUCTION
+});
+
+const loginLimiter = createRateLimiter({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  keyPrefix: 'login',
+  message: 'Too many login attempts. Try again in a few minutes.'
+});
+
+const inquiryLimiter = createRateLimiter({
+  windowMs: 60 * 60 * 1000,
+  max: 5,
+  keyPrefix: 'inquiry',
+  message: 'Too many requests submitted. Please try again later.'
+});
+
+// Endpoints the public site is allowed to reach without a session.
+const PUBLIC_API = new Set([
+  'GET /api/v1/content',
+  'GET /api/v1/products',
+  'GET /api/v1/media',
+  'POST /api/v1/audit/inquire',
+  'GET /api/v1/auth/session'
+]);
+
+// Pages that require an authenticated admin session.
+const PROTECTED_PAGES = new Set(['/cms.html', '/admin.html']);
+
+// Cloudinary media config. The API secret never leaves the server.
+const cloudinaryConfig = {
+  cloudName: process.env.CLOUDINARY_CLOUD_NAME || '',
+  apiKey: process.env.CLOUDINARY_API_KEY || '',
+  apiSecret: process.env.CLOUDINARY_API_SECRET || '',
+  folder: process.env.CLOUDINARY_FOLDER || 'nimbus'
+};
+const cloudinaryPreset = process.env.CLOUDINARY_UPLOAD_PRESET || 'Nimbus_Cms';
 
 // Ensure necessary directories exist
 [path.join(__dirname, 'data'), BACKUPS_DIR, UPLOADS_DIR].forEach(dir => {
@@ -85,16 +144,51 @@ function parseJsonBody(req) {
   });
 }
 
-// Helper to send JSON responses
-function sendJson(res, statusCode, payload) {
-  res.writeHead(statusCode, {
-    'Content-Type': 'application/json; charset=utf-8',
-    'Cache-Control': 'no-store, no-cache, must-revalidate',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
-  });
-  res.end(JSON.stringify(payload));
+// Helper to send JSON responses (CORS restricted to the site origin)
+function sendJson(res, statusCode, payload, extraHeaders) {
+  const headers = Object.assign(cors.headers(res.req || {}), extraHeaders || {});
+  sendJsonRaw(res, statusCode, payload, headers);
+}
+
+// Public static allowlist. Only these root files and the assets/ tree are
+// reachable over HTTP. Everything else in the project (server.js, lib/, data/,
+// .ai/, .git/, *.md, *.py, package.json, .env*) is not served.
+const PUBLIC_ROOT_FILES = new Set([
+  'index.html', 'explore.html', 'audit.html', 'cms.html', 'login.html',
+  'style.css', 'dapper.css', 'explore.css', 'audit.css', 'cms.css',
+  'script.js', 'explore.js', 'audit.js', 'cms.js', 'login.js',
+  'sw.js', 'manifest.webmanifest'
+]);
+const PUBLIC_DIRS = ['assets'];
+
+/**
+ * Resolve a request path to a readable file inside the project root.
+ * Returns null when the path escapes the root, is not on the public
+ * allowlist, or has an extension the server does not serve.
+ */
+function resolveStaticPath(reqPath) {
+  if (!reqPath || reqPath.indexOf('\u0000') !== -1) return null;
+
+  const root = path.resolve(__dirname);
+  const relative = reqPath.replace(/^[/\\]+/, '');
+  const target = path.resolve(root, relative);
+
+  // Containment check: blocks "../" traversal and encoded separators such as
+  // %2e%2e (dots) and %5c (backslash) that decodeURI turns into real path
+  // characters on Windows.
+  if (target !== root && target.indexOf(root + path.sep) !== 0) return null;
+
+  const normalized = target.slice(root.length).replace(/\\/g, '/');
+  const segments = normalized.split('/').filter(Boolean);
+  if (!segments.length) return null;
+
+  const inPublicDir = PUBLIC_DIRS.indexOf(segments[0]) !== -1;
+  const isPublicRootFile = segments.length === 1 && PUBLIC_ROOT_FILES.has(segments[0]);
+  if (!inPublicDir && !isPublicRootFile) return null;
+
+  if (!MIME_TYPES[path.extname(target).toLowerCase()]) return null;
+
+  return target;
 }
 
 // Helper to collect media files
@@ -141,18 +235,19 @@ function getMediaFiles() {
 }
 
 const server = http.createServer(async (req, res) => {
-  // Handle CORS preflight
+  res.req = req;
+
+  // Handle CORS preflight (restricted to the configured site origin)
   if (req.method === 'OPTIONS') {
-    res.writeHead(204, {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
-    });
+    res.writeHead(204, cors.headers(req));
     return res.end();
   }
 
-  // Legacy video upload hook
+  // Legacy video upload hook (admin only — it writes straight into assets/)
   if (req.method === 'POST' && req.url === '/save-video') {
+    if (!auth.isAuthenticated(req)) {
+      return sendJson(res, 401, { status: 'error', message: 'Authentication required' });
+    }
     const chunks = [];
     req.on('data', chunk => chunks.push(chunk));
     req.on('end', () => {
@@ -163,7 +258,19 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  let reqPath = decodeURI(req.url.split('?')[0]);
+  const rawPath = req.url.split('?')[0];
+
+  // decodeURI throws on malformed sequences such as "/%zz" — answer 400
+  // instead of letting the request hang.
+  let reqPath;
+  try {
+    reqPath = decodeURI(rawPath);
+  } catch (err) {
+    return sendText(res, 400, '400 Bad Request: malformed URL');
+  }
+
+  const queryIndex = req.url.indexOf('?');
+  const queryParams = new URLSearchParams(queryIndex === -1 ? '' : req.url.slice(queryIndex + 1));
 
   // Clean-URL routes (static site, no framework router)
   const ROUTES = {
@@ -179,11 +286,87 @@ const server = http.createServer(async (req, res) => {
     '/cms': '/cms.html',
     '/cms/': '/cms.html',
     '/admin': '/cms.html',
-    '/admin/': '/cms.html'
+    '/admin/': '/cms.html',
+    '/login': '/login.html',
+    '/login/': '/login.html'
   };
 
   if (Object.prototype.hasOwnProperty.call(ROUTES, reqPath)) {
     reqPath = ROUTES[reqPath];
+  }
+
+  /* ------------------------------------------------------------------
+     AUTH ENDPOINTS
+     ------------------------------------------------------------------ */
+
+  // GET /api/v1/auth/session — is the current visitor an admin?
+  if (req.method === 'GET' && reqPath === '/api/v1/auth/session') {
+    return sendJson(res, 200, {
+      status: 'success',
+      data: {
+        authenticated: auth.isAuthenticated(req),
+        authConfigured: auth.isConfigured()
+      }
+    });
+  }
+
+  // POST /api/v1/auth/login — exchange password for a signed session cookie
+  if (req.method === 'POST' && reqPath === '/api/v1/auth/login') {
+    if (!auth.isConfigured()) {
+      return sendJson(res, 503, {
+        status: 'error',
+        message: 'Admin access is not configured. Set ADMIN_PASSWORD in .env and restart the server.'
+      });
+    }
+
+    const ip = clientIp(req);
+    const limit = loginLimiter.check(ip);
+    if (!limit.allowed) {
+      return sendJson(res, 429, { status: 'error', message: limit.message }, { 'Retry-After': String(limit.retryAfter) });
+    }
+
+    let payload = {};
+    try {
+      payload = await parseJsonBody(req);
+    } catch (err) {
+      return sendJson(res, 400, { status: 'error', message: 'Invalid request body' });
+    }
+
+    if (!auth.verifyPassword(payload.password)) {
+      return sendJson(res, 401, { status: 'error', message: 'Incorrect password' });
+    }
+
+    loginLimiter.reset(ip);
+    const token = auth.issueToken();
+    return sendJson(res, 200, { status: 'success', message: 'Authenticated' }, {
+      'Set-Cookie': auth.cookieHeader(token, req)
+    });
+  }
+
+  // POST /api/v1/auth/logout — clear the session cookie
+  if (req.method === 'POST' && reqPath === '/api/v1/auth/logout') {
+    return sendJson(res, 200, { status: 'success', message: 'Signed out' }, {
+      'Set-Cookie': auth.clearCookieHeader(req)
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     API AUTH GUARD
+     ------------------------------------------------------------------ */
+
+  const apiMatch = reqPath.match(/^\/api\/v1\//);
+  if (apiMatch) {
+    const signature = req.method + ' ' + reqPath;
+    const isPublic = PUBLIC_API.has(signature);
+    if (!isPublic && !auth.isAuthenticated(req)) {
+      return sendJson(res, 401, { status: 'error', message: 'Authentication required' });
+    }
+  }
+
+  // Protected admin pages bounce to the login screen.
+  if (PROTECTED_PAGES.has(reqPath) && !auth.isAuthenticated(req)) {
+    const next = encodeURIComponent(reqPath);
+    return redirect(res, '/login?next=' + next);
   }
 
   /* ------------------------------------------------------------------
@@ -289,6 +472,182 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+  /* ------------------------------------------------------------------
+     CLOUDINARY MEDIA (admin only — the API secret never leaves the server)
+     ------------------------------------------------------------------ */
+
+  if (!cloudinary.isCloudinaryConfigured(cloudinaryConfig)) {
+    const cloudinaryOffline = (res) => sendJson(res, 503, {
+      status: 'error',
+      message: 'Cloudinary is not configured. Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET in .env, then restart the server.'
+    });
+
+    if (reqPath.indexOf('/api/v1/media/cloudinary') === 0) {
+      if (req.method === 'GET' && reqPath === '/api/v1/media/cloudinary/config') {
+        return sendJson(res, 200, { status: 'success', data: { configured: false, preset: cloudinaryPreset } });
+      }
+      return cloudinaryOffline(res);
+    }
+  }
+
+  // GET /api/v1/media/cloudinary/config — public-safe browser config
+  if (req.method === 'GET' && reqPath === '/api/v1/media/cloudinary/config') {
+    return sendJson(res, 200, {
+      status: 'success',
+      data: {
+        configured: true,
+        cloudName: cloudinaryConfig.cloudName,
+        apiKey: cloudinaryConfig.apiKey,
+        folder: cloudinaryConfig.folder,
+        preset: cloudinaryPreset
+      }
+    });
+  }
+
+  // POST /api/v1/media/cloudinary/sign — signed upload parameters
+  if (req.method === 'POST' && reqPath === '/api/v1/media/cloudinary/sign') {
+    let payload = {};
+    try {
+      payload = await parseJsonBody(req);
+    } catch (err) {
+      return sendJson(res, 400, { status: 'error', message: 'Invalid request body' });
+    }
+
+    const resourceType = cloudinary.normalizeResourceType(payload.resourceType);
+    const timestamp = Math.floor(Date.now() / 1000);
+
+    const signed = { timestamp: timestamp, folder: cloudinaryConfig.folder };
+    if (payload.publicId) signed.public_id = payload.publicId;
+    if (payload.tags) signed.tags = payload.tags;
+
+    return sendJson(res, 200, {
+      status: 'success',
+      data: {
+        signature: cloudinary.buildSignature(signed, cloudinaryConfig.apiSecret),
+        timestamp: timestamp,
+        apiKey: cloudinaryConfig.apiKey,
+        cloudName: cloudinaryConfig.cloudName,
+        folder: cloudinaryConfig.folder,
+        resourceType: resourceType,
+        uploadUrl: cloudinary.uploadUrl(cloudinaryConfig.cloudName, resourceType)
+      }
+    });
+  }
+
+  // GET /api/v1/media/cloudinary/list — browse the Cloudinary library
+  if (req.method === 'GET' && reqPath === '/api/v1/media/cloudinary/list') {
+    try {
+      const result = await cloudinary.searchResources(cloudinaryConfig, {
+        maxResults: Number(queryParams.get('maxResults')) || 40,
+        term: queryParams.get('q') || undefined,
+        resourceType: queryParams.get('type') || 'all',
+        folder: queryParams.get('folder') || undefined,
+        cursor: queryParams.get('cursor') || undefined
+      });
+
+      const resources = ((result.data && result.data.resources) || []).map((item) => ({
+        publicId: item.public_id,
+        resourceType: item.resource_type,
+        format: item.format,
+        width: item.width || null,
+        height: item.height || null,
+        bytes: item.bytes || 0,
+        url: cloudinary.deliveryUrl(cloudinaryConfig.cloudName, item.public_id, item.resource_type),
+        secureUrl: item.secure_url || null,
+        createdAt: item.created_at || null
+      }));
+
+      return sendJson(res, 200, {
+        status: 'success',
+        data: {
+          resources: resources,
+          totalCount: (result.data && result.data.total_count) || resources.length,
+          nextCursor: (result.data && result.data.next_cursor) || null
+        }
+      });
+    } catch (err) {
+      console.error('Cloudinary list error:', err.message);
+      return sendJson(res, err.status || 502, { status: 'error', message: err.message });
+    }
+  }
+
+  // DELETE /api/v1/media/cloudinary[/<public_id>] — remove a Cloudinary asset
+  if (req.method === 'DELETE' && (reqPath === '/api/v1/media/cloudinary' || reqPath.indexOf('/api/v1/media/cloudinary/') === 0)) {
+    let publicId = queryParams.get('publicId') || '';
+    let resourceType = queryParams.get('resourceType') || '';
+
+    // The public id may also be the path suffix, folder prefix included:
+    // /api/v1/media/cloudinary/nimbus/abc123  or  .../nimbus%2Fabc123
+    if (!publicId && reqPath.indexOf('/api/v1/media/cloudinary/') === 0) {
+      const rawId = reqPath.slice('/api/v1/media/cloudinary/'.length).split('?')[0];
+      try {
+        publicId = decodeURIComponent(rawId);
+      } catch (err) {
+        publicId = rawId;
+      }
+    }
+
+    // Some clients drop the body on DELETE, so treat it as a fallback only.
+    if (!publicId) {
+      let payload = {};
+      try {
+        payload = await parseJsonBody(req);
+      } catch (err) {
+        payload = {};
+      }
+      publicId = payload.publicId || '';
+      resourceType = resourceType || payload.resourceType || '';
+    }
+
+    if (!publicId) {
+      return sendJson(res, 400, { status: 'error', message: 'publicId is required' });
+    }
+
+    try {
+      const result = await cloudinary.deleteResource(cloudinaryConfig, publicId, resourceType);
+      const outcome = result.data && result.data.result;
+      if (outcome === 'not found') {
+        return sendJson(res, 404, { status: 'error', message: 'Asset not found', data: { publicId: publicId } });
+      }
+      return sendJson(res, 200, { status: 'success', message: 'Asset deleted', data: { publicId: publicId } });
+    } catch (err) {
+      console.error('Cloudinary delete error:', err.message);
+      return sendJson(res, err.status || 502, { status: 'error', message: err.message });
+    }
+  }
+
+  // POST /api/v1/media/cloudinary/preset — create (or refresh) the upload preset
+  if (req.method === 'POST' && reqPath === '/api/v1/media/cloudinary/preset') {
+    let payload = {};
+    try {
+      payload = await parseJsonBody(req);
+    } catch (err) {
+      return sendJson(res, 400, { status: 'error', message: 'Invalid request body' });
+    }
+
+    const presetName = payload.name || cloudinaryPreset;
+
+    try {
+      const result = await cloudinary.createUploadPreset(cloudinaryConfig, presetName, {
+        folder: cloudinaryConfig.folder
+      });
+      return sendJson(res, 200, { status: 'success', message: 'Upload preset ready', data: result.data });
+    } catch (err) {
+      // A preset that already exists is not a failure for the caller.
+      const message = err.message || '';
+      const alreadyExists = (err.status === 400 || err.status === 409) && /already exists|already been taken/i.test(message);
+      if (alreadyExists) {
+        return sendJson(res, 200, {
+          status: 'success',
+          message: 'Upload preset already exists',
+          data: { name: presetName, existing: true }
+        });
+      }
+      console.error('Cloudinary preset error:', message);
+      return sendJson(res, err.status || 502, { status: 'error', message: message });
+    }
+  }
+
   // 6. GET /api/v1/backups — List backups
   if (req.method === 'GET' && reqPath === '/api/v1/backups') {
     try {
@@ -343,21 +702,44 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // 8. POST /api/v1/audit/inquire — Receive and store business audit intake
+  // 8. POST /api/v1/audit/inquire — Public intake form (rate limited + honeypot)
   if (req.method === 'POST' && reqPath === '/api/v1/audit/inquire') {
+    const ip = clientIp(req);
+    const limit = inquiryLimiter.check(ip);
+    if (!limit.allowed) {
+      return sendJson(res, 429, { status: 'error', message: limit.message }, { 'Retry-After': String(limit.retryAfter) });
+    }
+
     try {
       const payload = await parseJsonBody(req);
+      const clean = Object.assign({}, payload);
+      delete clean.honeypot;
+
+      // Honeypot: bots fill the hidden field. Answer as if it worked, store nothing.
+      if (typeof payload.honeypot === 'string' && payload.honeypot.trim() !== '') {
+        return sendJson(res, 200, {
+          status: 'success',
+          message: 'Business audit diagnostic request registered. A principal research fellow will review your telemetry.',
+          inquiryId: 'audit-' + Date.now()
+        });
+      }
+
       const auditLogPath = path.join(__dirname, 'data', 'audit-inquiries.json');
       let inquiries = [];
       if (fs.existsSync(auditLogPath)) {
         try { inquiries = JSON.parse(fs.readFileSync(auditLogPath, 'utf8')); } catch (e) {}
       }
-      const record = {
+      if (!Array.isArray(inquiries)) inquiries = [];
+
+      const record = Object.assign({}, clean, {
         id: 'audit-' + Date.now(),
-        receivedAt: new Date().toISOString(),
-        ...payload
-      };
+        receivedAt: new Date().toISOString()
+      });
       inquiries.unshift(record);
+
+      // Retention cap: keep the newest 500 inquiries only.
+      if (inquiries.length > 500) inquiries = inquiries.slice(0, 500);
+
       fs.writeFileSync(auditLogPath, JSON.stringify(inquiries, null, 2), 'utf8');
 
       return sendJson(res, 200, {
@@ -366,6 +748,7 @@ const server = http.createServer(async (req, res) => {
         inquiryId: record.id
       });
     } catch (err) {
+      console.error('Error saving inquiry:', err);
       return sendJson(res, 500, { status: 'error', message: err.message });
     }
   }
@@ -374,23 +757,27 @@ const server = http.createServer(async (req, res) => {
      STATIC FILE SERVING
      ------------------------------------------------------------------ */
 
-  const fullPath = path.join(__dirname, reqPath);
+  const fullPath = resolveStaticPath(reqPath);
+  if (!fullPath) {
+    return sendText(res, 404, '404 Not Found: ' + reqPath);
+  }
 
   fs.stat(fullPath, (err, stats) => {
     if (err || !stats.isFile()) {
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
-      res.end('404 Not Found: ' + reqPath);
-      return;
+      return sendText(res, 404, '404 Not Found: ' + reqPath);
     }
 
     const ext = path.extname(fullPath).toLowerCase();
-    const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+    const contentType = MIME_TYPES[ext];
+    if (!contentType) {
+      return sendText(res, 404, '404 Not Found: ' + reqPath);
+    }
 
-    res.writeHead(200, {
-      'Content-Type': contentType,
-      'Cache-Control': 'no-cache',
-      'Access-Control-Allow-Origin': '*'
-    });
+    const headers = cors.headers(req);
+    headers['Content-Type'] = contentType;
+    headers['Cache-Control'] = 'no-cache';
+
+    res.writeHead(200, headers);
 
     const stream = fs.createReadStream(fullPath);
     stream.pipe(res);
