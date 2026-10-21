@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-  <title>Services &amp; Business Audit // AI Labs by Nimbus</title>
-  <meta name="description" content="AI Labs by Nimbus delivers full-spectrum AI product strategy, operational business audits, autonomous multi-agent systems, sovereign intelligence, and accelerated systems engineering.">
+  <title>{{pages.audit.meta.title}}</title>
+  <meta name="description" content="{{pages.audit.meta.description}}">
   <meta name="theme-color" content="#ffffff">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/png" href="./assets/logo_tight.png">
@@ -78,19 +78,19 @@
       <div class="clay-container">
 
         <h1 class="clay-hero-title">
-          <span class="hero-line">Autonomous AI</span>
-          <span class="hero-line">engineering partner</span>
+          {{#pages.audit.hero.titleLines}}
+          <span class="hero-line">{{this}}</span>
+          {{/pages.audit.hero.titleLines}}
         </h1>
-        
+
         <p class="clay-hero-desc">
-          Skip bloated SaaS and per-seat taxes. We audit your workflows, isolate your costliest bottleneck, and engineer dedicated autonomous systems to eliminate it&mdash;with 100% sovereign code ownership.
+          {{pages.audit.hero.lead}}
         </p>
 
         <div class="clay-hero-proof">
-          <span class="proof-item"><span class="proof-dot"></span> 14-Day Diagnostic Audit</span>
-          <span class="proof-item"><span class="proof-dot"></span> 100% Sovereign Air-Gap Feasibility</span>
-          <span class="proof-item"><span class="proof-dot"></span> Bare-Metal Silicon Compilation</span>
-          <span class="proof-item"><span class="proof-dot"></span> Zero Vendor Lock-In</span>
+          {{#pages.audit.hero.proof}}
+          <span class="proof-item"><span class="proof-dot"></span> {{this}}</span>
+          {{/pages.audit.hero.proof}}
         </div>
 
       </div>
@@ -102,60 +102,20 @@
         <h2 class="clay-visually-hidden">Services and Audit Spectrum</h2>
 
         <ul class="clay-services-cards">
-
-          <!-- 1. AI BUSINESS AUDIT (Odd: Visual Left, Content Right) -->
-          <li class="clay-service-card clay-service-card--odd" style="--index: 5">
+          {{#services}}
+          <li class="clay-service-card">
             <div class="clay-service-card__wrapper">
-              
+
               <!-- Visual Column with Canvas Stage + Parallax Media -->
               <div class="clay-card-visual">
                 <div class="clay-card-stage">
-                  <canvas class="clay-stage-canvas" data-figure="orbs" width="800" height="800"></canvas>
+                  <canvas class="clay-stage-canvas" data-figure="{{this.figure}}" width="800" height="800"></canvas>
                 </div>
                 <div class="clay-card-media-box">
                   <div class="clay-card-media-inner">
-                    <img src="./assets/explore/supercomputer.jpg" 
-                         alt="AI Business Audit & Strategy" 
-                         class="clay-card-image" 
-                         loading="eager">
-                  </div>
-                </div>
-              </div>
-
-              <!-- Content Column -->
-              <div class="clay-card-content">
-                <span class="clay-card-kicker">01 / OPERATIONAL DIAGNOSTICS</span>
-                <h2 class="clay-card-title">AI Business &amp; Algorithmic Audit</h2>
-                <p class="clay-card-text">
-                  Enterprise ROI and computational architecture are inseparable. Instead of locking into multi-million-dollar annual software subscriptions for generic feature bloat, our systems researchers embed across your operations to conduct an exhaustive 14-day computational audit. We deconstruct workflow telemetry, isolate the single costliest bottleneck, and engineer a dedicated autonomous blueprint targeted exclusively at eliminating it.
-                </p>
-                <ul class="clay-card-sublist">
-                  <li class="clay-sublist-item">Workflow Latency Profiling</li>
-                  <li class="clay-sublist-item">Bottleneck Decomposition &amp; Trees</li>
-                  <li class="clay-sublist-item">Token Economics vs. Dedicated Compute</li>
-                  <li class="clay-sublist-item">Sovereign Air-Gap Feasibility</li>
-                  <li class="clay-sublist-item">Algorithmic Proof-of-Concept</li>
-                  <li class="clay-sublist-item">Executive Blueprint &amp; Fixed Roadmap</li>
-                </ul>
-              </div>
-
-            </div>
-          </li>
-
-          <!-- 2. AUTONOMOUS MULTI-AGENT SYSTEMS (Even: Content Left, Visual Right) -->
-          <li class="clay-service-card clay-service-card--even" style="--index: 4">
-            <div class="clay-service-card__wrapper">
-
-              <!-- Visual Column -->
-              <div class="clay-card-visual">
-                <div class="clay-card-stage">
-                  <canvas class="clay-stage-canvas" data-figure="flatCircles" width="800" height="800"></canvas>
-                </div>
-                <div class="clay-card-media-box">
-                  <div class="clay-card-media-inner">
-                    <img src="./assets/explore/neural.jpg" 
-                         alt="Autonomous Multi-Agent Systems" 
-                         class="clay-card-image" 
+                    <img src="{{this.image}}"
+                         alt="{{this.title}}"
+                         class="clay-card-image"
                          loading="lazy">
                   </div>
                 </div>
@@ -163,141 +123,21 @@
 
               <!-- Content Column -->
               <div class="clay-card-content">
-                <span class="clay-card-kicker">02 / DISTRIBUTED REASONING</span>
-                <h2 class="clay-card-title">Autonomous Multi-Agent Swarms</h2>
+                <span class="clay-card-kicker">{{this.kicker}}</span>
+                <h2 class="clay-card-title">{{this.title}}</h2>
                 <p class="clay-card-text">
-                  We engineer self-governing multi-agent meshes that independently negotiate, decompose complex multi-stage objectives, and execute concurrent operations with sub-second finality. Bypassing the probabilistic drift and hallucinations of generic LLMs, our agent swarms operate on continuous causal verification loops backed by formal symbolic proofs.
+                  {{this.text}}
                 </p>
                 <ul class="clay-card-sublist">
-                  <li class="clay-sublist-item">Decentralized Peer Consensus</li>
-                  <li class="clay-sublist-item">Autonomous Task Decomposition</li>
-                  <li class="clay-sublist-item">Microsecond Inter-Agent Event Bus</li>
-                  <li class="clay-sublist-item">Temporal Memory Graphs &amp; Vectors</li>
-                  <li class="clay-sublist-item">Deterministic Guardrails &amp; Proofs</li>
-                  <li class="clay-sublist-item">Self-Healing Orchestration</li>
+                  {{#this.capabilities}}
+                  <li class="clay-sublist-item">{{this}}</li>
+                  {{/this.capabilities}}
                 </ul>
               </div>
 
             </div>
           </li>
-
-          <!-- 3. SOVEREIGN AI PLATFORMS (Odd: Visual Left, Content Right) -->
-          <li class="clay-service-card clay-service-card--odd" style="--index: 3">
-            <div class="clay-service-card__wrapper">
-
-              <!-- Visual Column -->
-              <div class="clay-card-visual">
-                <div class="clay-card-stage">
-                  <canvas class="clay-stage-canvas" data-figure="squares" width="800" height="800"></canvas>
-                </div>
-                <div class="clay-card-media-box">
-                  <div class="clay-card-media-inner">
-                    <img src="./assets/explore/technology.jpg" 
-                         alt="Sovereign AI Platforms" 
-                         class="clay-card-image" 
-                         loading="lazy">
-                  </div>
-                </div>
-              </div>
-
-              <!-- Content Column -->
-              <div class="clay-card-content">
-                <span class="clay-card-kicker">03 / PRIVATE INFRASTRUCTURE</span>
-                <h2 class="clay-card-title">Sovereign AI Platforms</h2>
-                <p class="clay-card-text">
-                  Mission-critical institutions cannot risk proprietary trade secrets, customer records, or classified telemetry on public multi-tenant cloud APIs. We deploy turnkey, air-gapped cognitive intelligence layers operating strictly inside your private hardware perimeters—delivering frontier model capabilities with zero external data egress and audit-grade compliance.
-                </p>
-                <ul class="clay-card-sublist">
-                  <li class="clay-sublist-item">Air-Gapped Bare-Metal Clusters</li>
-                  <li class="clay-sublist-item">Zero-Egress Network Architecture</li>
-                  <li class="clay-sublist-item">Bespoke Domain Weight Adaptation</li>
-                  <li class="clay-sublist-item">On-Premise GPU Acceleration</li>
-                  <li class="clay-sublist-item">SOC2, HIPAA &amp; Defense Compliance</li>
-                  <li class="clay-sublist-item">Native Legacy Database Bridges</li>
-                </ul>
-              </div>
-
-            </div>
-          </li>
-
-          <!-- 4. SYNTHETIC PERCEPTION & VISION (Even: Content Left, Visual Right) -->
-          <li class="clay-service-card clay-service-card--even" style="--index: 2">
-            <div class="clay-service-card__wrapper">
-
-              <!-- Visual Column -->
-              <div class="clay-card-visual">
-                <div class="clay-card-stage">
-                  <canvas class="clay-stage-canvas" data-figure="doubleCone" width="800" height="800"></canvas>
-                </div>
-                <div class="clay-card-media-box">
-                  <div class="clay-card-media-inner">
-                    <img src="./assets/explore/abstract.jpg" 
-                         alt="Synthetic Perception & Vision" 
-                         class="clay-card-image" 
-                         loading="lazy">
-                  </div>
-                </div>
-              </div>
-
-              <!-- Content Column -->
-              <div class="clay-card-content">
-                <span class="clay-card-kicker">04 / SPATIAL INTELLIGENCE</span>
-                <h2 class="clay-card-title">Synthetic Perception &amp; Vision</h2>
-                <p class="clay-card-text">
-                  Bridging computational neuroscience with spatial latent representations. We build real-time visual inspection pipelines, physical robotics sensor fusion, and generative synthetic dataset generators engineered for mission-critical automation across industrial robotics, sovereign defense systems, and high-frequency digital workflows.
-                </p>
-                <ul class="clay-card-sublist">
-                  <li class="clay-sublist-item">Spatial Latent Modeling</li>
-                  <li class="clay-sublist-item">Sub-5ms Visual Inference</li>
-                  <li class="clay-sublist-item">Generative Synthetic Training Data</li>
-                  <li class="clay-sublist-item">Heterogeneous Multimodal Fusion</li>
-                  <li class="clay-sublist-item">Real-Time Edge Anomaly Swarms</li>
-                  <li class="clay-sublist-item">Hardened Robotics Edge Runtimes</li>
-                </ul>
-              </div>
-
-            </div>
-          </li>
-
-          <!-- 5. ACCELERATED SYSTEMS ENGINEERING (Odd: Visual Left, Content Right) -->
-          <li class="clay-service-card clay-service-card--odd" style="--index: 1">
-            <div class="clay-service-card__wrapper">
-
-              <!-- Visual Column -->
-              <div class="clay-card-visual">
-                <div class="clay-card-stage">
-                  <canvas class="clay-stage-canvas" data-figure="corners" width="800" height="800"></canvas>
-                </div>
-                <div class="clay-card-media-box">
-                  <div class="clay-card-media-inner">
-                    <img src="./assets/explore/server.jpg" 
-                         alt="Accelerated Systems Engineering" 
-                         class="clay-card-image" 
-                         loading="lazy">
-                  </div>
-                </div>
-              </div>
-
-              <!-- Content Column -->
-              <div class="clay-card-content">
-                <span class="clay-card-kicker">05 / BARE-METAL COMPUTE</span>
-                <h2 class="clay-card-title">Accelerated Systems Engineering</h2>
-                <p class="clay-card-text">
-                  Deploying neural runtimes directly on bare silicon. We fuse custom CUDA and Triton kernels with stripped-down 4-bit and 2-bit quantized neural weights—eliminating bloated runtime frameworks, reducing inference compute costs by up to 80%, and providing guaranteed deterministic throughput under peak institutional workloads.
-                </p>
-                <ul class="clay-card-sublist">
-                  <li class="clay-sublist-item">4-Bit &amp; 2-Bit Quantized Weights</li>
-                  <li class="clay-sublist-item">Custom CUDA &amp; Triton Kernel Fusion</li>
-                  <li class="clay-sublist-item">Bare-Metal GPU VRAM Optimization</li>
-                  <li class="clay-sublist-item">Sub-Millisecond Execution Latency</li>
-                  <li class="clay-sublist-item">Zero-Dependency Static Binaries</li>
-                  <li class="clay-sublist-item">Audit-Grade Failover Checkpoints</li>
-                </ul>
-              </div>
-
-            </div>
-          </li>
-
+          {{/services}}
         </ul>
       </div>
     </section>
@@ -307,37 +147,23 @@
       <div class="clay-container">
         
         <div class="clay-framework-header">
-          <div class="clay-framework-kicker">OUR ENGAGEMENT FRAMEWORK</div>
-          <h2 class="clay-framework-title">From diagnosis to sovereign deployment.</h2>
+          <div class="clay-framework-kicker">{{pages.audit.framework.kicker}}</div>
+          <h2 class="clay-framework-title">{{pages.audit.framework.title}}</h2>
           <p class="clay-framework-desc">
-            We reject 12-month software consulting retainers. We operate on a fixed-scope, high-velocity 3-stage delivery lifecycle designed to produce working systems, not slides.
+            {{pages.audit.framework.lead}}
           </p>
         </div>
 
         <ul class="clay-framework-grid">
+          {{#pages.audit.framework.stages}}
           <li class="clay-framework-col">
-            <span class="framework-step-num">STAGE 01</span>
-            <h3 class="framework-step-title">The 14-Day Audit</h3>
+            <span class="framework-step-num">{{this.step}}</span>
+            <h3 class="framework-step-title">{{this.title}}</h3>
             <p class="framework-step-text">
-              We embed with your engineering leadership, deconstruct workflow telemetry, benchmark latency sinkholes, and calculate dedicated compute vs. token ROI before writing production code.
+              {{this.text}}
             </p>
           </li>
-
-          <li class="clay-framework-col">
-            <span class="framework-step-num">STAGE 02</span>
-            <h3 class="framework-step-title">The 30-Day Sandbox</h3>
-            <p class="framework-step-text">
-              We deploy an air-gapped prototype targeted directly at the isolated bottleneck in your private staging environment. Real operational stress tests with zero synthetic fluff.
-            </p>
-          </li>
-
-          <li class="clay-framework-col">
-            <span class="framework-step-num">STAGE 03</span>
-            <h3 class="framework-step-title">Sovereign Production Handoff</h3>
-            <p class="framework-step-text">
-              Turnkey bare-metal deployment inside your private perimeter. 100% source code, model weights, and architectural documentation handoff with zero recurring vendor lock-in.
-            </p>
-          </li>
+          {{/pages.audit.framework.stages}}
         </ul>
 
       </div>
@@ -351,10 +177,10 @@
         <div class="clay-industries-heading-pinned">
           <div class="clay-container">
             <div class="clay-industries-heading">
-              <span class="industries-kicker">// IMPACT DOMAINS &middot; FIELD TELEMETRY</span>
-              <h2 class="clay-industries-title">Mission-Critical Sectors</h2>
+              <span class="industries-kicker">{{pages.audit.industries.kicker}}</span>
+              <h2 class="clay-industries-title">{{pages.audit.industries.title}}</h2>
               <p class="clay-industries-sub">
-                We partner with forward-thinking enterprises, sovereign institutions, and quantitative funds facing complex computational bottlenecks.
+                {{pages.audit.industries.lead}}
               </p>
             </div>
           </div>
@@ -363,113 +189,21 @@
         <!-- 6 Dapper Curtain Layers (Rolling/Wiping up 100% -> 0% per sector scroll progress) -->
         <div class="clay-industries-layers" id="industries-dapper-layers">
 
-          <!-- Layer 1: Plum (#2f122e) - Fintech & Quantitative Finance -->
-          <article class="clay-industry-slide is--1" data-bg="#2f122e" data-color="#ffffff">
+          {{#pages.audit.industries.sectors}}
+          <article class="clay-industry-slide is--{{this.index}}" data-bg="{{this.bg}}" data-color="{{this.color}}">
             <div class="clay-container industry-slide-container">
               <div class="industry-slide-content">
-                <span class="industry-chapter">// SECTOR 01 / 06 &mdash; CAPITAL MARKETS</span>
-                <h3 class="industry-name">Fintech &amp; Quantitative Finance</h3>
+                <span class="industry-chapter">{{this.chapter}}</span>
+                <h3 class="industry-name">{{this.name}}</h3>
                 <div class="industry-members">
-                  <span>High-Frequency Execution Kernels</span>
-                  <span>Autonomous Risk Modeling</span>
-                  <span>Deterministic Compliance Proofs</span>
-                  <span>Real-Time Fraud Swarms</span>
-                  <span>Algorithmic Portfolio Synthesis</span>
-                  <span>Sub-Millisecond Settlement Telemetry</span>
+                  {{#this.members}}
+                  <span>{{this}}</span>
+                  {{/this.members}}
                 </div>
               </div>
             </div>
           </article>
-
-          <!-- Layer 2: Sunset Rose (#e25c80) - B2B & Enterprise Infrastructure -->
-          <article class="clay-industry-slide is--2" data-bg="#e25c80" data-color="#ffffff">
-            <div class="clay-container industry-slide-container">
-              <div class="industry-slide-content">
-                <span class="industry-chapter">// SECTOR 02 / 06 &mdash; ENTERPRISE SYSTEMS</span>
-                <h3 class="industry-name">B2B &amp; Enterprise Infrastructure</h3>
-                <div class="industry-members">
-                  <span>Autonomous Workflow Mesh</span>
-                  <span>Proprietary Knowledge Bridges</span>
-                  <span>Air-Gapped Operational Copilots</span>
-                  <span>Automated ERP Synthesis</span>
-                  <span>Deterministic Document Verification</span>
-                  <span>Zero-Cloud API Migrations</span>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- Layer 3: Electric Violet (#6459e8) - Sovereign & Critical Infrastructure -->
-          <article class="clay-industry-slide is--3" data-bg="#6459e8" data-color="#ffffff">
-            <div class="clay-container industry-slide-container">
-              <div class="industry-slide-content">
-                <span class="industry-chapter">// SECTOR 03 / 06 &mdash; DEFENSE &amp; SECURITY</span>
-                <h3 class="industry-name">Sovereign &amp; Critical Infrastructure</h3>
-                <div class="industry-members">
-                  <span>Air-Gapped SCADA Telemetry</span>
-                  <span>Offline-First Edge Controllers</span>
-                  <span>Hardware-Isolated Runtimes</span>
-                  <span>Formal Mathematical Proofs</span>
-                  <span>Zero-Leak Threat Elimination</span>
-                  <span>Grid Load Balancing</span>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- Layer 4: Cyber Teal (#0f3d3e) - Technology & Compute Platforms -->
-          <article class="clay-industry-slide is--4" data-bg="#0f3d3e" data-color="#ffffff">
-            <div class="clay-container industry-slide-container">
-              <div class="industry-slide-content">
-                <span class="industry-chapter">// SECTOR 04 / 06 &mdash; HARDWARE ACCELERATION</span>
-                <h3 class="industry-name">Technology &amp; Compute Platforms</h3>
-                <div class="industry-members">
-                  <span>Distributed GPU Orchestration</span>
-                  <span>Sub-5ms Inference Compilation</span>
-                  <span>Decentralized Consensus Buses</span>
-                  <span>Quantized Neural Kernels</span>
-                  <span>Zero-Dependency Static Architectures</span>
-                  <span>Bare-Metal Optimization</span>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- Layer 5: Deep Berry (#3a102a) - Healthcare & Life Sciences -->
-          <article class="clay-industry-slide is--5" data-bg="#3a102a" data-color="#ffffff">
-            <div class="clay-container industry-slide-container">
-              <div class="industry-slide-content">
-                <span class="industry-chapter">// SECTOR 05 / 06 &mdash; BIOMEDICAL COGNITION</span>
-                <h3 class="industry-name">Healthcare &amp; Life Sciences</h3>
-                <div class="industry-members">
-                  <span>Computational Neuroscience</span>
-                  <span>Air-Gapped Clinical Trial Telemetry</span>
-                  <span>Protein Latent Modeling</span>
-                  <span>HIPAA Sovereign Perimeters</span>
-                  <span>Diagnostic Review Acceleration</span>
-                  <span>Zero-Data-Retention Pipelines</span>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- Layer 6: Midnight Obsidian (#020016) - Autonomous Logistics & Mobility -->
-          <article class="clay-industry-slide is--6" data-bg="#020016" data-color="#ffffff">
-            <div class="clay-container industry-slide-container">
-              <div class="industry-slide-content">
-                <span class="industry-chapter">// SECTOR 06 / 06 &mdash; ROBOTICS &amp; MOBILITY</span>
-                <h3 class="industry-name">Autonomous Logistics &amp; Mobility</h3>
-                <div class="industry-members">
-                  <span>Swarm Routing Consensus</span>
-                  <span>Real-Time Fleet Balancing</span>
-                  <span>Decentralized Warehouse Depots</span>
-                  <span>Predictive Latency Resolution</span>
-                  <span>Sub-Second Dispatch Loops</span>
-                  <span>Fault-Tolerant Checkpoints</span>
-                </div>
-              </div>
-            </div>
-          </article>
+          {{/pages.audit.industries.sectors}}
 
         </div>
 
@@ -480,7 +214,7 @@
               <div class="industries-progress-fill" id="industries-progress-fill"></div>
             </div>
             <div class="industries-counter" id="industries-counter">
-              <span id="active-sector-num">01</span> / 06
+              <span id="active-sector-num">01</span> / <span id="active-sector-total">{{pages.audit.industries.sectorCount}}</span>
             </div>
           </div>
         </div>
@@ -494,23 +228,20 @@
         
         <div class="clay-footer-top">
           <div class="clay-talk-wrap">
-            <h2 class="clay-talk-heading">Let’s build what you actually need.</h2>
+            <h2 class="clay-talk-heading">{{site.footer.talkHeading}}</h2>
             <div class="clay-talk-contacts">
-              <a href="mailto:contact@ailabsnimbus.com" class="clay-talk-email">contact@ailabsnimbus.com</a>
-              <a href="tel:+14158902452" class="clay-talk-tel">+1 (415) 890-AI-LABS &middot; Sovereign Consultations</a>
-              <span style="font-family: var(--clay-font-mono); font-size: 13px; color: var(--clay-grey-400); margin-top: 6px;">Direct access to Principal Systems Engineers &middot; Under 24h response time</span>
+              <a href="{{site.footer.emailHref}}" class="clay-talk-email">{{site.footer.email}}</a>
+              <a href="{{site.footer.telHref}}" class="clay-talk-tel">{{site.footer.tel}}</a>
+              <span class="clay-talk-note">{{site.footer.note}}</span>
             </div>
           </div>
 
           <!-- Footer Navigation Columns -->
           <nav class="clay-footer-nav" aria-label="Footer Nav">
             <ul class="clay-footer-nav-list">
-              <li><a href="./explore" class="f-link">Solutions</a></li>
-              <li><a href="./services" class="f-link is-active">Services &amp; Audit</a></li>
-              <li><a href="#methodology" class="f-link">Methodology</a></li>
-              <li><a href="#services-industries" class="f-link">Industries</a></li>
-              <li><a href="./#dapper" class="f-link">Chapters</a></li>
-              <li><a href="./cms" class="f-link">CMS Matrix</a></li>
+              {{#site.footer.nav}}
+              <li><a href="{{this.href}}" class="f-link">{{this.label}}</a></li>
+              {{/site.footer.nav}}
             </ul>
           </nav>
         </div>
@@ -518,11 +249,11 @@
         <!-- Sovereign Research Location (Bangladesh) -->
         <ul class="clay-locations-list">
           <li class="location-item">
-            <span class="location-country-badge">Sovereign AI Engineering Hub</span>
-            <span class="location-city">Dhaka, Bangladesh</span>
+            <span class="location-country-badge">{{site.footer.locationBadge}}</span>
+            <span class="location-city">{{site.footer.locationCity}}</span>
             <address class="location-address">
-              Gulshan 2, Dhaka 1212<br>
-              Bangladesh &middot; Frontier Artificial Intelligence &amp; Autonomous Systems
+              {{site.footer.locationAddressLine1}}<br>
+              {{site.footer.locationAddressLine2}}
             </address>
           </li>
         </ul>
@@ -530,12 +261,12 @@
         <!-- Bottom Copyright Bar -->
         <div class="clay-footer-bottom">
           <div class="copyright-line">
-            &copy; 2026 AI Labs by Nimbus. All rights reserved. &middot; Frontier Artificial Intelligence &amp; Autonomous Systems.
+            {{site.footer.copyrightText}} {{site.footer.copyrightSuffix}}
           </div>
           <div class="legal-links">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Security Proofs</a>
+            {{#site.footer.legal}}
+            <a href="{{this.href}}">{{this.label}}</a>
+            {{/site.footer.legal}}
           </div>
         </div>
 

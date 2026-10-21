@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-  <title>AI Labs by Nimbus | Frontier Artificial Intelligence & Autonomous Systems</title>
-  <meta name="description" content="AI Labs by Nimbus researches next-generation generative models, collaborative multi-agent architectures, and hyper-scalable deep learning systems.">
+  <title>{{pages.home.meta.title}}</title>
+  <meta name="description" content="{{pages.home.meta.description}}">
   <meta name="theme-color" content="#020016">
   <link rel="manifest" href="./manifest.webmanifest">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +35,7 @@
       <div class="preloader__logo-container">
         <img src="./assets/logo_tight.png" alt="AI Labs by Nimbus" class="preloader__logo">
       </div>
-      <div class="preloader__status-text">INITIALIZING NIMBUS NEURAL CLUSTER...</div>
+      <div class="preloader__status-text">{{pages.home.hero.preloaderStatus}}</div>
       <div class="preloader__loading-bar">
         <div id="preloader-progress" class="preloader__progressbar"></div>
       </div>
@@ -99,21 +99,21 @@
       <div class="hero-overlay-content" id="hero-text-overlay">
 
         <h1 class="hero-title">
-          <span>AI LABS</span>
-          <span class="hero-title-highlight">BY NIMBUS</span>
+          <span>{{pages.home.hero.title}}</span>
+          <span class="hero-title-highlight">{{pages.home.hero.titleHighlight}}</span>
         </h1>
 
         <p class="hero-tagline">
-          We study how you work, then build only what you need.
+          {{pages.home.hero.tagline}}
         </p>
 
         <div class="hero-buttons">
-          <a href="./explore" class="btn btn-glow" id="hero-btn-primary" aria-label="Explore Nimbus Labs products and services">
-            <span>Explore Product</span>
+          <a href="{{pages.home.hero.primaryBtnLink}}" class="btn btn-glow" id="hero-btn-primary" aria-label="Explore Nimbus Labs products and services">
+            <span>{{pages.home.hero.primaryBtnText}}</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <a href="./audit" class="btn btn-glass" id="hero-btn-secondary">
-            <span>Book Audit</span>
+          <a href="{{pages.home.hero.secondaryBtnLink}}" class="btn btn-glass" id="hero-btn-secondary">
+            <span>{{pages.home.hero.secondaryBtnText}}</span>
           </a>
         </div>
 
@@ -191,20 +191,18 @@
           <!-- Centered Kinetic Typography Rail (Exclusion blend in front) -->
           <div class="dapper-header-wrapper">
             <div class="dapper-header-rail" id="dapper-header-rail">
-              <h2 class="dapper-hero-text" data-slide="1">FRONTIER</h2>
-              <h2 class="dapper-hero-text" data-slide="2">NEURAL</h2>
-              <h2 class="dapper-hero-text" data-slide="3">AGENTIC</h2>
-              <h2 class="dapper-hero-text" data-slide="4">COGNITION</h2>
-              <h2 class="dapper-hero-text" data-slide="5">NIMBUS</h2>
+              {{#homepage.dapper.chapters}}
+              <h2 class="dapper-hero-text" data-slide="{{this.index}}">{{this.name}}</h2>
+              {{/homepage.dapper.chapters}}
             </div>
           </div>
 
           <!-- Rotated Side Subheaders -->
           <div class="dapper-subheader-wrapper left">
-            <div class="dapper-subheader">AI LABS BY NIMBUS</div>
+            <div class="dapper-subheader">{{pages.home.dapper.subheader}}</div>
           </div>
           <div class="dapper-subheader-wrapper right">
-            <div class="dapper-subheader" id="dapper-chapter-indicator">CHAPTER 01 / 05</div>
+            <div class="dapper-subheader" id="dapper-chapter-indicator">CHAPTER 01 / {{pages.home.dapper.chapterCount}}</div>
           </div>
 
           <!-- Horizontal Sub-Pixel Separator Line -->
@@ -213,7 +211,7 @@
           <!-- Bottom-Left Cinematic HUD Description Caption -->
           <div class="dapper-caption-wrapper" id="dapper-caption-wrapper" aria-live="polite">
             <span class="dapper-caption-prefix">//</span>
-            <span class="dapper-caption-text" id="dapper-caption-text">DECENTRALIZED MULTI-AGENT SWARMS & MULTIMODAL REASONING ENGINES</span>
+            <span class="dapper-caption-text" id="dapper-caption-text">{{homepage.dapper.chapters.0.caption}}</span>
           </div>
 
           <!-- Bottom Progress Bar -->
@@ -258,23 +256,20 @@
         
         <div class="clay-footer-top">
           <div class="clay-talk-wrap">
-            <h2 class="clay-talk-heading">Let’s build what you actually need.</h2>
+            <h2 class="clay-talk-heading">{{site.footer.talkHeading}}</h2>
             <div class="clay-talk-contacts">
-              <a href="mailto:contact@ailabsnimbus.com" class="clay-talk-email">contact@ailabsnimbus.com</a>
-              <a href="tel:+14158902452" class="clay-talk-tel">+1 (415) 890-AI-LABS &middot; Sovereign Consultations</a>
-              <span class="clay-talk-note">Direct access to Principal Systems Engineers &middot; Under 24h response time</span>
+              <a href="{{site.footer.emailHref}}" class="clay-talk-email">{{site.footer.email}}</a>
+              <a href="{{site.footer.telHref}}" class="clay-talk-tel">{{site.footer.tel}}</a>
+              <span class="clay-talk-note">{{site.footer.note}}</span>
             </div>
           </div>
 
           <!-- Footer Navigation Columns -->
           <nav class="clay-footer-nav" aria-label="Footer Nav">
             <ul class="clay-footer-nav-list">
-              <li><a href="./explore" class="f-link">Solutions</a></li>
-              <li><a href="./services" class="f-link">Services &amp; Audit</a></li>
-              <li><a href="#dapper" class="f-link">Chapters</a></li>
-              <li><a href="#simulator" class="f-link">Inference Kernels</a></li>
-              <li><a href="./services#contact" class="f-link">Book Audit</a></li>
-              <li><a href="./cms" class="f-link">CMS Matrix</a></li>
+              {{#site.footer.nav}}
+              <li><a href="{{this.href}}" class="f-link">{{this.label}}</a></li>
+              {{/site.footer.nav}}
             </ul>
           </nav>
         </div>
@@ -282,11 +277,11 @@
         <!-- Sovereign Research Location (Bangladesh) -->
         <ul class="clay-locations-list">
           <li class="location-item">
-            <span class="location-country-badge">Sovereign AI Engineering Hub</span>
-            <span class="location-city">Dhaka, Bangladesh</span>
+            <span class="location-country-badge">{{site.footer.locationBadge}}</span>
+            <span class="location-city">{{site.footer.locationCity}}</span>
             <address class="location-address">
-              Gulshan 2, Dhaka 1212<br>
-              Bangladesh &middot; Frontier Artificial Intelligence &amp; Autonomous Systems
+              {{site.footer.locationAddressLine1}}<br>
+              {{site.footer.locationAddressLine2}}
             </address>
           </li>
         </ul>
@@ -294,12 +289,12 @@
         <!-- Bottom Copyright Bar -->
         <div class="clay-footer-bottom">
           <div class="copyright-line">
-            &copy; 2026 AI Labs by Nimbus. All rights reserved. &middot; Frontier Artificial Intelligence &amp; Autonomous Systems.
+            {{site.footer.copyrightText}} {{site.footer.copyrightSuffix}}
           </div>
           <div class="legal-links">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Security Proofs</a>
+            {{#site.footer.legal}}
+            <a href="{{this.href}}">{{this.label}}</a>
+            {{/site.footer.legal}}
           </div>
         </div>
 
@@ -308,6 +303,7 @@
 
   </main>
 
+  <script type="application/json" id="dapper-chapters">{{homepage.dapper.chapters|json}}</script>
   <script src="./script.js?v=2"></script>
 </body>
 </html>

@@ -142,22 +142,31 @@
   const dapperHeaderRail = document.getElementById('dapper-header-rail');
   const dapperProgBar = document.getElementById('dapper-progress-bar');
   const dapperChapInd = document.getElementById('dapper-chapter-indicator');
-  const dapperLayer2 = document.getElementById('dapper-layer-2');
-  const dapperLayer3 = document.getElementById('dapper-layer-3');
   const dapperLayer4 = document.getElementById('dapper-layer-4');
-  const dapperLayer5 = document.getElementById('dapper-layer-5');
   const brandStatusTag = document.getElementById('brand-status-tag');
   const dapperHeaderWrapper = document.querySelector('.dapper-header-wrapper');
   const dapperControls = document.getElementById('cognition-controls');
   const dapperCaptionText = document.getElementById('dapper-caption-text');
   let currentCaptionIdx = -1;
-  const chapterCaptions = [
-    'DECENTRALIZED MULTI-AGENT SWARMS & MULTIMODAL REASONING ENGINES',
-    'SUB-MILLISECOND INFERENCE ON HIGH-PERFORMANCE DISTRIBUTED GPU CLUSTERS',
-    'AUTONOMOUS TASK DECOMPOSITION, TOOL SYNTHESIS & DYNAMIC MEMORY GRAPHS',
-    'HIGH-DIMENSIONAL SPATIAL LATENTS, REASONING TRACES & SYNTHETIC PERCEPTION',
-    'HYPER-SCALABLE FOUNDATIONAL INFRASTRUCTURE FOR ARTIFICIAL SUPERINTELLIGENCE'
-  ];
+
+  // Chapter names and captions come from the CMS content rendered into the
+  // page, so the kinetic section stays editable without touching this file.
+  const dapperChapters = (function () {
+    const node = document.getElementById('dapper-chapters');
+    if (!node) return [];
+    try {
+      const parsed = JSON.parse(node.textContent);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (err) {
+      console.warn('Unable to read dapper chapters:', err);
+      return [];
+    }
+  })();
+
+  const chapterNames = dapperChapters.map(function (chapter) { return chapter.name || ''; });
+  const chapterCaptions = dapperChapters.map(function (chapter) { return chapter.caption || ''; });
+  const chapterCount = Math.max(1, dapperChapters.length);
+  const VIDEO_CHAPTER_INDEX = 3;
 
   function updateDapperSticky() {
     if (!dapperSection) return;
@@ -169,8 +178,8 @@
     const scrolled = -rect.top;
     const overallProgress = Math.max(0, Math.min(1.0, scrolled / totalScroll));
 
-    // Progress across 5 slides (0.0 to 4.0)
-    const chapterProgress = overallProgress * 4;
+    // Progress across the chapter rail (0.0 to chapterCount - 1)
+    const chapterProgress = overallProgress * (chapterCount - 1);
 
     // 1. Kinetic typography rail translation
     const slideHeight = dapperHeaderWrapper ? dapperHeaderWrapper.offsetHeight : (winHeight < 768 ? 80 : 160);
@@ -179,29 +188,13 @@
       dapperHeaderRail.style.transform = `translate3d(0px, ${railY.toFixed(2)}px, 0px)`;
     }
 
-    // 2. 5 difference color layers:
-    // Chapter 2 (Rose) slides up (100% to 0%) between chapter 0 and 1
-    const p2 = Math.max(0, Math.min(1, chapterProgress));
-    if (dapperLayer2) {
-      dapperLayer2.style.transform = `translate3d(0px, ${((1 - p2) * 100).toFixed(2)}%, 0px)`;
-    }
-
-    // Chapter 3 (Violet) slides up (100% to 0%) between chapter 1 and 2
-    const p3 = Math.max(0, Math.min(1, chapterProgress - 1));
-    if (dapperLayer3) {
-      dapperLayer3.style.transform = `translate3d(0px, ${((1 - p3) * 100).toFixed(2)}%, 0px)`;
-    }
-
-    // Chapter 4 (White Difference + Video) slides up (100% to 0%) between chapter 2 and 3
-    const p4 = Math.max(0, Math.min(1, chapterProgress - 2));
-    if (dapperLayer4) {
-      dapperLayer4.style.transform = `translate3d(0px, ${((1 - p4) * 100).toFixed(2)}%, 0px)`;
-    }
-
-    // Chapter 5 (Midnight NIMBUS) slides up (100% to 0%) between chapter 3 and 4
-    const p5 = Math.max(0, Math.min(1, chapterProgress - 3));
-    if (dapperLayer5) {
-      dapperLayer5.style.transform = `translate3d(0px, ${((1 - p5) * 100).toFixed(2)}%, 0px)`;
+    // 2. Difference colour layers: layer N+1 wipes up between chapter N-1
+    // and chapter N.
+    for (let k = 1; k < chapterCount; k++) {
+      const layer = document.getElementById('dapper-layer-' + (k + 1));
+      if (!layer) continue;
+      const p = Math.max(0, Math.min(1, chapterProgress - (k - 1)));
+      layer.style.transform = `translate3d(0px, ${((1 - p) * 100).toFixed(2)}%, 0px)`;
     }
 
     // 3. Bottom progress bar: 20% to 100%
@@ -211,11 +204,10 @@
     }
 
     // 4. Chapter indicator, brand tag, and HUD caption updates
-    const activeIdx = Math.min(4, Math.floor(chapterProgress + 0.5));
-    const chapterNames = ['FRONTIER', 'NEURAL', 'AGENTIC', 'COGNITION', 'NIMBUS'];
+    const activeIdx = Math.min(chapterCount - 1, Math.floor(chapterProgress + 0.5));
 
     if (dapperChapInd) {
-      dapperChapInd.textContent = `CHAPTER 0${activeIdx + 1} / 05`;
+      dapperChapInd.textContent = `CHAPTER ${String(activeIdx + 1).padStart(2, '0')} / ${String(chapterCount).padStart(2, '0')}`;
     }
 
     if (dapperCaptionText && currentCaptionIdx !== activeIdx) {
@@ -242,7 +234,7 @@
     }
 
     // 5. Chapter 4 Video Activation & Controls Visibility
-    if (chapterProgress >= 2.3 && chapterProgress < 3.7) {
+    if (chapterProgress >= VIDEO_CHAPTER_INDEX - 0.7 && chapterProgress < VIDEO_CHAPTER_INDEX + 0.7) {
       if (dapperControls) dapperControls.classList.add('is-visible');
       if (typeof window.__dapperTriggerVideoPlay === 'function') {
         window.__dapperTriggerVideoPlay();

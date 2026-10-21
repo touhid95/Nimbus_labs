@@ -285,7 +285,7 @@
             visualMediaHtml +
             '<div class="xp-dapper-content">' +
               '<div class="xp-dapper-meta">' +
-                '<span class="xp-dapper-chapter">// CHAPTER 0' + (i + 1) + ' / 05 &mdash; ' + (p.category ? p.category.toUpperCase() : 'SYSTEMS') + '</span>' +
+                '<span class="xp-dapper-chapter">// CHAPTER 0' + (i + 1) + ' / ' + pad(products.length) + ' &mdash; ' + (p.category ? p.category.toUpperCase() : 'SYSTEMS') + '</span>' +
                 badgeHtml +
               '</div>' +
               '<h2 class="xp-dapper-title">' + (p.label || ('Product ' + pad(i + 1))) + '</h2>' +
@@ -293,7 +293,7 @@
               '<p class="xp-dapper-desc">' + (p.description || '') + '</p>' +
               featuresHtml +
               '<div class="xp-dapper-actions">' +
-                '<a href="#contact" class="xp-dapper-btn" aria-label="Deploy ' + (p.label || 'product') + '">' +
+                '<a href="' + (p.link || '#contact') + '" class="xp-dapper-btn" aria-label="Deploy ' + (p.label || 'product') + '">' +
                   '<span>Deploy ' + (p.label || 'Product') + '</span>' +
                   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
                 '</a>' +

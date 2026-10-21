@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-  <title>Explore Products &amp; Services | AI Labs by Nimbus</title>
-  <meta name="description" content="Explore the Nimbus Labs product and services catalogue — a temporary field catalogue of upcoming frontier intelligence products and engagement models.">
+  <title>{{pages.explore.meta.title}}</title>
+  <meta name="description" content="{{pages.explore.meta.description}}">
   <meta name="theme-color" content="#020016">
   <link rel="manifest" href="./manifest.webmanifest">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -107,46 +107,46 @@
       <img class="xp-hero__ridge" src="./assets/explore/horizon-ridge.svg" alt="" aria-hidden="true">
 
       <div class="xp-hero__rail" aria-hidden="true">
-        <span class="is-active">SOLUTIONS</span>
-        <span>PRODUCTS</span>
-        <span>CONTACT</span>
+        {{#pages.explore.hero.rail}}
+        <span>{{this}}</span>
+        {{/pages.explore.hero.rail}}
       </div>
 
       <div class="xp-shell xp-hero__inner">
         <div class="xp-hero__content">
-          <span class="xp-eyebrow">Fast, Precise, Reliable, to the Point</span>
+          <span class="xp-eyebrow">{{pages.explore.hero.eyebrow}}</span>
 
           <h1 class="xp-hero__title" id="xp-hero-title">
-            <span class="xp-hero__title-line1">SOLUTIONS</span>
-            <span class="xp-hero__title-line2">Tailored for Problem Solving</span>
+            <span class="xp-hero__title-line1">{{pages.explore.hero.titleLineOne}}</span>
+            <span class="xp-hero__title-line2">{{pages.explore.hero.titleLineTwo}}</span>
           </h1>
 
           <p class="xp-hero__lead">
-            Do not pay for the whole software, pay for your problem.
+            {{pages.explore.hero.lead}}
           </p>
 
           <div class="xp-hero__cta">
-            <a href="#products" class="btn btn-glow" id="hero-cta-products">
-              <span>Browse Solutions</span>
+            <a href="{{pages.explore.hero.primaryBtnLink}}" class="btn btn-glow" id="hero-cta-products">
+              <span>{{pages.explore.hero.primaryBtnText}}</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
-            <a href="./audit" class="btn btn-glass" id="hero-cta-contact">
-              <span>Book Audit</span>
+            <a href="{{pages.explore.hero.secondaryBtnLink}}" class="btn btn-glass" id="hero-cta-contact">
+              <span>{{pages.explore.hero.secondaryBtnText}}</span>
             </a>
           </div>
 
           <div class="xp-hero__meta">
             <span><span class="dot" aria-hidden="true"></span></span>
-            <span>Tailored Solutions</span>
-            <span><b id="meta-products">—</b> Flagship Deployments</span>
-            <span>Active Programme</span>
+            <span>{{pages.explore.hero.metaLabels.0}}</span>
+            <span><b id="meta-products">{{meta.productsCount}}</b> {{pages.explore.hero.metaLabels.1}}</span>
+            <span>{{pages.explore.hero.metaLabels.2}}</span>
           </div>
         </div>
       </div>
 
       <div class="xp-hero__cue" aria-hidden="true">
         <span class="bar"></span>
-        <span>Scroll to explore</span>
+        <span>{{pages.explore.hero.scrollHint}}</span>
       </div>
     </section>
 
@@ -171,18 +171,17 @@
     <section id="closing" class="xp-closing" aria-labelledby="xp-closing-title">
       <div class="xp-closing__glow" aria-hidden="true"></div>
       <div class="xp-shell xp-closing__inner">
-        <span class="xp-eyebrow xp-reveal">Ready when you are</span>
-        <h2 class="xp-closing__title xp-reveal" id="xp-closing-title">See further. Build with <em>Nimbus</em>.</h2>
+        <span class="xp-eyebrow xp-reveal">{{pages.explore.closing.eyebrow}}</span>
+        <h2 class="xp-closing__title xp-reveal" id="xp-closing-title">{{pages.explore.closing.title|safe}}</h2>
         <p class="xp-closing__sub xp-reveal">
-          The catalogue is still forming. Partner with the lab early to shape what
-          comes next — or head back and keep exploring.
+          {{pages.explore.closing.sub}}
         </p>
         <div class="xp-closing__actions xp-reveal">
-          <a href="mailto:contact@ailabsnimbus.com" class="btn btn-glow" id="closing-contact">
-            <span>Partner With Our Lab</span>
+          <a href="{{pages.explore.closing.primaryBtnLink}}" class="btn btn-glow" id="closing-contact">
+            <span>{{pages.explore.closing.primaryBtnText}}</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
           </a>
-          <a href="./" class="btn btn-glass" id="closing-home">Back to Home</a>
+          <a href="{{pages.explore.closing.secondaryBtnLink}}" class="btn btn-glass" id="closing-home">{{pages.explore.closing.secondaryBtnText}}</a>
         </div>
       </div>
     </section>
@@ -192,44 +191,31 @@
       <div class="container-footer">
         <div class="footer-bottom-row">
           <div class="footer-col-brand">
-            <div class="footer-brand-title">AI LABS BY NIMBUS</div>
-            <div class="footer-brand-desc">Advancing humanity's intelligence horizon through computational neuroscience and synthetic reasoning.</div>
+            <div class="footer-brand-title">{{site.footer.brandTitle}}</div>
+            <div class="footer-brand-desc">{{site.footer.brandDesc}}</div>
           </div>
 
           <div class="footer-col-links">
+            {{#site.footerGroups}}
             <div class="link-group">
-              <span class="group-title">EXPLORE</span>
-              <a href="#products" class="f-link">Solutions</a>
-              <a href="#closing" class="f-link">Partner</a>
-              <a href="./" class="f-link">Home</a>
+              <span class="group-title">{{this.title}}</span>
+              {{#this.links}}
+              {{#this.external}}<a href="{{this.href}}" target="_blank" rel="noopener" class="f-link">{{this.label}}</a>{{/this.external}}
+              {{^this.external}}<a href="{{this.href}}" class="f-link">{{this.label}}</a>{{/this.external}}
+              {{/this.links}}
             </div>
-
-            <div class="link-group">
-              <span class="group-title">RESOURCES</span>
-              <a href="./#dapper" class="f-link">Chapters</a>
-              <a href="./#hero" class="f-link">Documentation</a>
-              <a href="./#contact" class="f-link">Compute Grants</a>
-              <a href="mailto:contact@ailabsnimbus.com" class="f-link">Contact</a>
-            </div>
-
-            <div class="link-group">
-              <span class="group-title">CONNECT</span>
-              <a href="https://github.com" target="_blank" rel="noopener" class="f-link">GitHub</a>
-              <a href="https://huggingface.co" target="_blank" rel="noopener" class="f-link">HuggingFace</a>
-              <a href="https://twitter.com" target="_blank" rel="noopener" class="f-link">X / Twitter</a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener" class="f-link">LinkedIn</a>
-            </div>
+            {{/site.footerGroups}}
           </div>
         </div>
 
         <div class="footer-copyright-bar">
           <div class="copyright-text">
-            &copy; <span id="xp-year">2026</span> AI Labs by Nimbus. All rights reserved.
-            <span class="xp-footer-note">· Explore page — placeholder content.</span>
+            {{site.footer.copyrightText}}
+            <span class="xp-footer-note">{{pages.explore.footerNote}}</span>
           </div>
           <div class="status-indicator">
             <span class="cluster-dot"></span>
-            <span>All Global Nimbus Clusters Operational</span>
+            <span>{{site.footer.statusText}}</span>
           </div>
         </div>
       </div>
