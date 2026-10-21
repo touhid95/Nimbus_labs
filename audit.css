@@ -895,6 +895,38 @@ body.clay-body {
   color: var(--clay-black);
 }
 
+.clay-talk-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--clay-font);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--clay-black);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.clay-talk-link:hover {
+  color: var(--clay-primary);
+  transform: translateX(4px);
+}
+
+.clay-talk-link svg {
+  transition: transform 0.2s ease;
+}
+
+.clay-talk-link:hover svg {
+  transform: translateX(3px);
+}
+
+.clay-talk-note {
+  font-family: var(--clay-font-mono);
+  font-size: 13px;
+  color: var(--clay-grey-400);
+  margin-top: 4px;
+}
+
 /* Footer Nav */
 .clay-footer-nav-list {
   list-style: none;

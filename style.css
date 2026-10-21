@@ -1639,22 +1639,7 @@ button {
   color: var(--text-dim);
 }
 
-.status-indicator {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: #34d399;
-}
 
-.cluster-dot {
-  width: 6px;
-  height: 6px;
-  background: #34d399;
-  border-radius: 50%;
-  box-shadow: 0 0 6px #34d399;
-}
 
 /* ---------------- SCROLL REVEAL UTILITY ---------------- */
 .reveal-on-scroll {
@@ -2261,6 +2246,31 @@ button {
 
 .clay-talk-tel:hover {
   color: #000000;
+}
+
+.clay-talk-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-size: 19px;
+  font-weight: 600;
+  color: #000000;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.clay-talk-link:hover {
+  color: var(--primary, #6459e8);
+  transform: translateX(4px);
+}
+
+.clay-talk-link svg {
+  transition: transform 0.2s ease;
+}
+
+.clay-talk-link:hover svg {
+  transform: translateX(3px);
 }
 
 .clay-talk-note {

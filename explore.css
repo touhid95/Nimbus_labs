@@ -1112,11 +1112,167 @@
   .xp-hero__cue { display: none; }
 }
 
-/* ---------------- EXPLORE FOOTER POLISH ---------------- */
-.section-footer .container-footer {
+/* ---------------- EXPLORE FOOTER POLISH (MONOCHROMATIC PURE BLACK) ---------------- */
+.xp-page .section-footer {
+  margin-top: 0;
+  background-color: #000000 !important;
+  color: #ffffff;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.xp-page .section-footer .container-footer {
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+  gap: 3rem;
+}
+
+.xp-page .footer-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 3.5rem;
+  padding-top: 0;
+  border-top: none;
+  flex-wrap: wrap;
+}
+
+.xp-page .footer-col-brand {
+  max-width: 380px;
+}
+
+.xp-page .footer-brand-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin-bottom: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.xp-page .footer-brand-title img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.xp-page .footer-brand-desc {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: #888888;
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+
+.xp-page .footer-brand-address {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #666666;
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+}
+
+.xp-page .f-link-mono {
+  color: #888888;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+
+.xp-page .f-link-mono:hover {
+  color: #ffffff;
+}
+
+.xp-page .footer-col-links {
+  display: flex;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  flex-wrap: wrap;
+}
+
+.xp-page .link-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 140px;
+}
+
+.xp-page .group-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #71717a;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.xp-page .f-link {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: #a1a1aa;
+  text-decoration: none;
+  transition: color 0.15s ease, transform 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.xp-page .f-link:hover {
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+.xp-page .footer-copyright-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding-top: 2rem;
-  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
-  gap: clamp(1.5rem, 3vw, 2.5rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.8rem;
+  color: #52525b;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.xp-page .copyright-text {
+  font-family: var(--font-body);
+  color: #71717a;
+}
+
+.xp-page .footer-legal-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: #52525b;
+}
+
+.xp-page .footer-legal-links a {
+  color: #71717a;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.xp-page .footer-legal-links a:hover {
+  color: #ffffff;
+}
+
+.xp-page .footer-legal-links .sep {
+  color: #3f3f46;
+}
+
+.xp-page .footer-legal-links .location-tag {
+  color: #a1a1aa;
+}
+
+#products,
+#closing,
+#hero {
+  scroll-margin-top: 85px;
 }
 
 /* ---------------- REDUCED MOTION ---------------- */
