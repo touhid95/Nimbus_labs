@@ -23,84 +23,86 @@
     ],
     "footerGroups": [
       {
-        "title": "SOLUTIONS",
+        "title": "EXPLORE",
         "links": [
           {
-            "label": "Home",
-            "href": "./"
-          },
-          {
-            "label": "Browse Products",
+            "label": "Solutions",
             "href": "#products"
           },
           {
-            "label": "Audits & Services",
-            "href": "./services"
+            "label": "Partner",
+            "href": "#closing"
           },
           {
-            "label": "OEM Direct Procurement",
-            "href": "#closing"
+            "label": "Home",
+            "href": "./"
           }
         ]
       },
       {
-        "title": "ADVISORY",
+        "title": "RESOURCES",
         "links": [
           {
-            "label": "Chapters Architecture",
+            "label": "Chapters",
             "href": "./#dapper"
           },
           {
-            "label": "Book Diagnostic Audit",
-            "href": "./services#contact"
+            "label": "Documentation",
+            "href": "./#hero"
           },
           {
-            "label": "Engineering Methodology",
-            "href": "./services#methodology"
+            "label": "Compute Grants",
+            "href": "./#contact"
           },
           {
-            "label": "Direct Line",
-            "href": "mailto:contact@ailabsnimbus.com"
+            "label": "Contact",
+            "href": "mailto:contact@ailabsnimbus.com",
+            "external": true
           }
         ]
       },
       {
-        "title": "SOURCE & API",
+        "title": "CONNECT",
         "links": [
           {
-            "label": "GitHub Repository",
-            "href": "https://github.com/touhid95/Nimbus_labs",
+            "label": "GitHub",
+            "href": "https://github.com",
             "external": true
           },
           {
-            "label": "Products API",
-            "href": "./api/v1/products",
+            "label": "HuggingFace",
+            "href": "https://huggingface.co",
             "external": true
           },
           {
-            "label": "Telemetry Feed",
-            "href": "./api/v1/content",
+            "label": "X / Twitter",
+            "href": "https://twitter.com",
+            "external": true
+          },
+          {
+            "label": "LinkedIn",
+            "href": "https://linkedin.com",
             "external": true
           }
         ]
       }
     ],
     "footer": {
-      "brandTitle": "AI LABS BY NIMBUS",
-      "brandDesc": "Sovereign AI engineering hub & autonomous systems research. We build decentralized multi-agent architectures and negotiate direct enterprise OEM compute access.",
+      "brandTitle": "AI Labs by Nimbus",
+      "brandDesc": "Advancing humanity's intelligence horizon through computational neuroscience and synthetic reasoning.",
       "brandLogo": "./assets/logo_tight.png",
       "copyrightYear": 2026,
-      "copyrightText": "AI Labs by Nimbus. All rights reserved.",
-      "copyrightSuffix": "· Sovereign AI Engineering Hub & Autonomous Systems.",
+      "copyrightText": "© 2026 AI Labs by Nimbus. All rights reserved.",
+      "copyrightSuffix": "· Frontier Artificial Intelligence & Autonomous Systems.",
       "talkHeading": "Let’s build what you actually need.",
       "ctaText": "Book Diagnostic Audit",
       "email": "contact@ailabsnimbus.com",
       "emailHref": "mailto:contact@ailabsnimbus.com",
       "note": "Direct access to Principal Systems Engineers · Under 24h response time",
-      "locationBadge": "AI Labs by Nimbus",
+      "locationBadge": "Sovereign AI Engineering Hub",
       "locationCity": "Dhaka, Bangladesh",
       "locationAddressLine1": "Gulshan 2, Dhaka 1212",
-      "locationAddressLine2": "Bangladesh · Sovereign AI Engineering Hub & Autonomous Systems",
+      "locationAddressLine2": "Bangladesh · Frontier Artificial Intelligence & Autonomous Systems",
       "legal": [
         {
           "label": "Privacy",
@@ -114,7 +116,37 @@
           "label": "Security Proofs",
           "href": "#"
         }
-      ]
+      ],
+      "statusText": "All Global Nimbus Clusters Operational",
+      "tel": "+1 (415) 890-AI-LABS · Sovereign Consultations",
+      "telHref": "tel:+14158902452",
+      "nav": [
+        {
+          "label": "Solutions",
+          "href": "./explore"
+        },
+        {
+          "label": "Services & Audit",
+          "href": "./services"
+        },
+        {
+          "label": "Methodology",
+          "href": "#methodology"
+        },
+        {
+          "label": "Industries",
+          "href": "#services-industries"
+        },
+        {
+          "label": "Chapters",
+          "href": "./#dapper"
+        },
+        {
+          "label": "CMS Matrix",
+          "href": "./cms"
+        }
+      ],
+      "locationAddress": "Gulshan 2, Dhaka 1212\nBangladesh · Frontier Artificial Intelligence & Autonomous Systems"
     }
   },
   "products": [
@@ -431,21 +463,21 @@
       ]
     },
     "footer": {
-      "brandTitle": "AI LABS BY NIMBUS",
-      "brandDesc": "Sovereign AI engineering hub & autonomous systems research. We build decentralized multi-agent architectures and negotiate direct enterprise OEM compute access.",
+      "brandTitle": "AI Labs by Nimbus",
+      "brandDesc": "Advancing humanity's intelligence horizon through computational neuroscience and synthetic reasoning.",
       "brandLogo": "./assets/logo_tight.png",
       "copyrightYear": 2026,
-      "copyrightText": "AI Labs by Nimbus. All rights reserved.",
-      "copyrightSuffix": "· Sovereign AI Engineering Hub & Autonomous Systems.",
+      "copyrightText": "© 2026 AI Labs by Nimbus. All rights reserved.",
+      "copyrightSuffix": "· Frontier Artificial Intelligence & Autonomous Systems.",
       "talkHeading": "Let’s build what you actually need.",
       "ctaText": "Book Diagnostic Audit",
       "email": "contact@ailabsnimbus.com",
       "emailHref": "mailto:contact@ailabsnimbus.com",
       "note": "Direct access to Principal Systems Engineers · Under 24h response time",
-      "locationBadge": "AI Labs by Nimbus",
+      "locationBadge": "Sovereign AI Engineering Hub",
       "locationCity": "Dhaka, Bangladesh",
       "locationAddressLine1": "Gulshan 2, Dhaka 1212",
-      "locationAddressLine2": "Bangladesh · Sovereign AI Engineering Hub & Autonomous Systems",
+      "locationAddressLine2": "Bangladesh · Frontier Artificial Intelligence & Autonomous Systems",
       "legal": [
         {
           "label": "Privacy",
@@ -459,7 +491,37 @@
           "label": "Security Proofs",
           "href": "#"
         }
-      ]
+      ],
+      "statusText": "All Global Nimbus Clusters Operational",
+      "tel": "+1 (415) 890-AI-LABS · Sovereign Consultations",
+      "telHref": "tel:+14158902452",
+      "nav": [
+        {
+          "label": "Solutions",
+          "href": "./explore"
+        },
+        {
+          "label": "Services & Audit",
+          "href": "./services"
+        },
+        {
+          "label": "Methodology",
+          "href": "#methodology"
+        },
+        {
+          "label": "Industries",
+          "href": "#services-industries"
+        },
+        {
+          "label": "Chapters",
+          "href": "./#dapper"
+        },
+        {
+          "label": "CMS Matrix",
+          "href": "./cms"
+        }
+      ],
+      "locationAddress": "Gulshan 2, Dhaka 1212\nBangladesh · Frontier Artificial Intelligence & Autonomous Systems"
     }
   },
   "pages": {
@@ -533,16 +595,17 @@
         "scrollHint": "Scroll to explore"
       },
       "closing": {
-        "eyebrow": "// OEM ENTERPRISE PROCUREMENT · ZERO RETAIL SEAT TAX",
+        "eyebrow": "Ready when you are",
         "titleLineOne": "BUY AT OEM.",
         "titleLineTwo": "Consult us before procuring enterprise AI.",
-        "sub": "Most organizations overpay by 30% to 65% across bloated SaaS suites and mismatched cloud tiers. We audit your workflows, benchmark model utility against your actual operational bottlenecks, and negotiate direct sovereign OEM agreements tailored to your exact compute scale.",
-        "primaryBtnText": "Consult Before Buying",
-        "primaryBtnLink": "mailto:contact@ailabsnimbus.com?subject=Enterprise%20AI%20OEM%20Procurement%20Advisory",
-        "secondaryBtnText": "Book Diagnostic Audit",
-        "secondaryBtnLink": "./services#contact",
+        "sub": "The catalogue is still forming. Partner with the lab early to shape what comes next — or head back and keep exploring.",
+        "primaryBtnText": "Partner With Our Lab",
+        "primaryBtnLink": "mailto:contact@ailabsnimbus.com",
+        "secondaryBtnText": "Back to Home",
+        "secondaryBtnLink": "./",
         "tertiaryBtnText": "Back to Home",
-        "tertiaryBtnLink": "./"
+        "tertiaryBtnLink": "./",
+        "title": "See further. Build with <em>Nimbus</em>."
       },
       "legal": [
         {
@@ -553,7 +616,8 @@
           "label": "Advisory Terms",
           "href": "mailto:contact@ailabsnimbus.com"
         }
-      ]
+      ],
+      "footerNote": "· Explore page — placeholder content."
     },
     "audit": {
       "meta": {
