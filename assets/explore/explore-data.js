@@ -1,7 +1,11 @@
 /**
  * NIMBUS LABS — EXPLORE PAGE CONTENT CONFIGURATION
- * Generated automatically by Nimbus CMS Matrix
- * Timestamp: 2026-10-20T13:48:48.732Z
+ *
+ * GENERATED — DO NOT EDIT.
+ * This file is written by lib/content-store.js on boot and on every save.
+ * Edit the content in the CMS Matrix (/cms) instead.
+ *
+ * Generated at: 2026-10-21T19:15:18.762Z
  */
 (function (global) {
   'use strict';
@@ -167,66 +171,126 @@
     {
       "id": "service-01",
       "label": "Service 01",
+      "kicker": "01 / OPERATIONAL DIAGNOSTICS",
       "title": "AI Business & Algorithmic Audit",
       "summary": "14-day computational audit isolating precision bottlenecks and drafting an autonomous deployment blueprint.",
       "detail": "Enterprise ROI and computational architecture are inseparable. We deconstruct workflow telemetry, isolate your single costliest operational bottleneck, and benchmark dedicated compute vs. token ROI before writing production code.",
+      "text": "Enterprise ROI and computational architecture are inseparable. Instead of locking into multi-million-dollar annual software subscriptions for generic feature bloat, our systems researchers embed across your operations to conduct an exhaustive 14-day computational audit. We deconstruct workflow telemetry, isolate the single costliest bottleneck, and engineer a dedicated autonomous blueprint targeted exclusively at eliminating it.",
       "features": [
         "Workflow latency profiling",
         "Bottleneck decomposition & dependency trees",
         "Token economics vs. dedicated compute ROI"
       ],
+      "capabilities": [
+        "Workflow Latency Profiling",
+        "Bottleneck Decomposition & Trees",
+        "Token Economics vs. Dedicated Compute",
+        "Sovereign Air-Gap Feasibility",
+        "Algorithmic Proof-of-Concept",
+        "Executive Blueprint & Fixed Roadmap"
+      ],
+      "image": "./assets/explore/supercomputer.jpg",
+      "figure": "orbs",
       "accent": "#6459e8"
     },
     {
       "id": "service-02",
       "label": "Service 02",
+      "kicker": "02 / DISTRIBUTED REASONING",
       "title": "Autonomous Multi-Agent Swarms",
       "summary": "Decentralized self-governing agent meshes executing concurrent operations with sub-second finality.",
       "detail": "Specialized multi-agent swarms operating on continuous causal verification loops and symbolic proofs to eliminate probabilistic hallucination and drift.",
+      "text": "We engineer self-governing multi-agent meshes that independently negotiate, decompose complex multi-stage objectives, and execute concurrent operations with sub-second finality. Bypassing the probabilistic drift and hallucinations of generic LLMs, our agent swarms operate on continuous causal verification loops backed by formal symbolic proofs.",
       "features": [
         "Decentralized peer-to-peer consensus",
         "Dynamic autonomous task decomposition",
         "Microsecond inter-agent event bus"
       ],
+      "capabilities": [
+        "Decentralized Peer Consensus",
+        "Autonomous Task Decomposition",
+        "Microsecond Inter-Agent Event Bus",
+        "Temporal Memory Graphs & Vectors",
+        "Deterministic Guardrails & Proofs",
+        "Self-Healing Orchestration"
+      ],
+      "image": "./assets/explore/neural.jpg",
+      "figure": "flatCircles",
       "accent": "#5eead4"
     },
     {
       "id": "service-03",
       "label": "Service 03",
+      "kicker": "03 / PRIVATE INFRASTRUCTURE",
       "title": "Sovereign AI Platforms",
       "summary": "Turnkey air-gapped cognitive intelligence layers operating strictly inside private hardware perimeters.",
       "detail": "Mission-critical inference clusters deployed on bare-metal hardware with zero external API leakage, bespoke weight fine-tuning, and audit-grade compliance.",
+      "text": "Mission-critical institutions cannot risk proprietary trade secrets, customer records, or classified telemetry on public multi-tenant cloud APIs. We deploy turnkey, air-gapped cognitive intelligence layers operating strictly inside your private hardware perimeters — delivering frontier model capabilities with zero external data egress and audit-grade compliance.",
       "features": [
         "Air-gapped bare-metal cluster topology",
         "Zero-egress network architecture",
         "Bespoke domain weight adaptation"
       ],
+      "capabilities": [
+        "Air-Gapped Bare-Metal Clusters",
+        "Zero-Egress Network Architecture",
+        "Bespoke Domain Weight Adaptation",
+        "On-Premise GPU Acceleration",
+        "SOC2, HIPAA & Defense Compliance",
+        "Native Legacy Database Bridges"
+      ],
+      "image": "./assets/explore/technology.jpg",
+      "figure": "squares",
       "accent": "#e25c80"
     },
     {
       "id": "service-04",
       "label": "Service 04",
+      "kicker": "04 / SPATIAL INTELLIGENCE",
       "title": "Synthetic Perception & Vision",
       "summary": "High-dimensional spatial latent models and real-time edge visual inspection pipelines.",
       "detail": "Bridging computational neuroscience with spatial intelligence to automate physical robotics, defense telemetry, and high-frequency visual inspection.",
+      "text": "Bridging computational neuroscience with spatial latent representations. We build real-time visual inspection pipelines, physical robotics sensor fusion, and generative synthetic dataset generators engineered for mission-critical automation across industrial robotics, sovereign defense systems, and high-frequency digital workflows.",
       "features": [
         "Spatial latent world modeling",
         "Sub-5ms edge visual inference",
         "Generative synthetic training datasets"
       ],
+      "capabilities": [
+        "Spatial Latent Modeling",
+        "Sub-5ms Visual Inference",
+        "Generative Synthetic Training Data",
+        "Heterogeneous Multimodal Fusion",
+        "Real-Time Edge Anomaly Swarms",
+        "Hardened Robotics Edge Runtimes"
+      ],
+      "image": "./assets/explore/abstract.jpg",
+      "figure": "doubleCone",
       "accent": "#a855f7"
     },
     {
       "id": "service-05",
       "label": "Service 05",
+      "kicker": "05 / BARE-METAL COMPUTE",
       "title": "Accelerated Systems Engineering",
       "summary": "Custom CUDA & Triton kernel compilation for 4-bit and 2-bit quantized neural runtimes.",
       "detail": "Compiling neural intelligence directly onto silicon. Eliminates runtime frameworks, slashes inference power consumption by 80%, and yields sub-millisecond throughput.",
+      "text": "Deploying neural runtimes directly on bare silicon. We fuse custom CUDA and Triton kernels with stripped-down 4-bit and 2-bit quantized neural weights — eliminating bloated runtime frameworks, reducing inference compute costs by up to 80%, and providing guaranteed deterministic throughput under peak institutional workloads.",
       "features": [
         "4-bit & 2-bit quantized weight compilation",
         "Custom CUDA, Triton & Metal kernel fusion",
         "Bare-metal GPU VRAM optimization"
       ],
+      "capabilities": [
+        "4-Bit & 2-Bit Quantized Weights",
+        "Custom CUDA & Triton Kernel Fusion",
+        "Bare-Metal GPU VRAM Optimization",
+        "Sub-Millisecond Execution Latency",
+        "Zero-Dependency Static Binaries",
+        "Audit-Grade Failover Checkpoints"
+      ],
+      "image": "./assets/explore/server.jpg",
+      "figure": "corners",
       "accent": "#f43f5e"
     }
   ]

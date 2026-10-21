@@ -6,6 +6,8 @@ const { loadEnv } = require('./lib/env');
 const { createAuth } = require('./lib/auth');
 const { createCors, sendJson: sendJsonRaw, sendText, redirect } = require('./lib/http');
 const { createRateLimiter, clientIp } = require('./lib/rate-limit');
+const { createContentStore } = require('./lib/content-store');
+const { renderFile } = require('./lib/render');
 const cloudinary = require('./lib/cloudinary');
 
 // Load .env BEFORE reading any process.env value. Real env vars always win.
@@ -74,6 +76,15 @@ const cloudinaryPreset = process.env.CLOUDINARY_UPLOAD_PRESET || 'Nimbus_Cms';
   }
 });
 
+const contentStore = createContentStore({
+  dataFile: DATA_FILE,
+  exploreDataFile: EXPLORE_DATA_FILE,
+  backupsDir: BACKUPS_DIR
+});
+
+// Pages rendered on the server with the CMS content before they are sent.
+const PAGE_TEMPLATES = new Set(['index.html', 'explore.html', 'audit.html']);
+
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
@@ -93,36 +104,9 @@ const MIME_TYPES = {
   '.mp4': 'video/mp4'
 };
 
-// Helper to generate assets/explore/explore-data.js
-function generateExploreDataJs(content) {
-  const exportData = {
-    meta: content.meta || {},
-    products: content.products || [],
-    services: content.services || []
-  };
-  return `/**
- * NIMBUS LABS — EXPLORE PAGE CONTENT CONFIGURATION
- * Generated automatically by Nimbus CMS Matrix
- * Timestamp: ${new Date().toISOString()}
- */
-(function (global) {
-  'use strict';
-
-  global.NIMBUS_EXPLORE_DATA = ${JSON.stringify(exportData, null, 2)};
-})(typeof window !== 'undefined' ? window : this);
-`;
-}
-
 // Helper to read content JSON
 function readSiteContent() {
-  try {
-    if (fs.existsSync(DATA_FILE)) {
-      return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-    }
-  } catch (err) {
-    console.error('Error reading site-content.json:', err);
-  }
-  return null;
+  return contentStore.read();
 }
 
 // Helper to parse JSON body from request
@@ -390,29 +374,16 @@ const server = http.createServer(async (req, res) => {
         return sendJson(res, 400, { status: 'error', message: 'Invalid payload structure: products required' });
       }
 
-      // Update meta counts automatically
-      if (!payload.meta) payload.meta = {};
-      payload.meta.productsCount = payload.products.length;
-      if (Array.isArray(payload.services)) {
-        payload.meta.servicesCount = payload.services.length;
-      }
-
-      // 1. Save main content JSON
-      fs.writeFileSync(DATA_FILE, JSON.stringify(payload, null, 2), 'utf8');
-
-      // 2. Generate and export assets/explore/explore-data.js for static site contract
-      const jsExport = generateExploreDataJs(payload);
-      fs.writeFileSync(EXPLORE_DATA_FILE, jsExport, 'utf8');
-
-      // 3. Create timestamped snapshot in data/backups
-      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-      const backupPath = path.join(BACKUPS_DIR, `backup-${timestamp}.json`);
-      fs.writeFileSync(backupPath, JSON.stringify(payload, null, 2), 'utf8');
+      // Migrate to the current schema, sanitize authored HTML, write the
+      // content file atomically, snapshot it and regenerate the static
+      // explore-data.js contract.
+      const stored = contentStore.write(payload);
 
       return sendJson(res, 200, {
         status: 'success',
         message: 'Content updated and exported to static catalogue successfully',
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        schemaVersion: stored.schemaVersion
       });
     } catch (err) {
       console.error('Error saving content:', err);
@@ -651,17 +622,11 @@ const server = http.createServer(async (req, res) => {
   // 6. GET /api/v1/backups — List backups
   if (req.method === 'GET' && reqPath === '/api/v1/backups') {
     try {
-      const files = fs.readdirSync(BACKUPS_DIR)
-        .filter(f => f.endsWith('.json'))
-        .map(f => {
-          const stats = fs.statSync(path.join(BACKUPS_DIR, f));
-          return {
-            filename: f,
-            sizeBytes: stats.size,
-            created: stats.birthtime.toISOString()
-          };
-        })
-        .sort((a, b) => new Date(b.created) - new Date(a.created));
+      const files = contentStore.listBackups().map((entry) => ({
+        filename: entry.name,
+        sizeBytes: entry.size,
+        created: new Date(entry.created).toISOString()
+      }));
 
       return sendJson(res, 200, { status: 'success', data: files });
     } catch (err) {
@@ -676,26 +641,19 @@ const server = http.createServer(async (req, res) => {
       if (!payload.filename) {
         return sendJson(res, 400, { status: 'error', message: 'Backup filename required' });
       }
-      const safeFilename = path.basename(payload.filename);
-      const snapshotPath = path.join(BACKUPS_DIR, safeFilename);
 
-      if (!fs.existsSync(snapshotPath)) {
-        return sendJson(res, 404, { status: 'error', message: 'Backup file not found' });
+      let restored;
+      try {
+        restored = contentStore.restore(payload.filename);
+      } catch (restoreErr) {
+        const code = restoreErr.message === 'Backup file not found' ? 404 : 400;
+        return sendJson(res, code, { status: 'error', message: restoreErr.message });
       }
-
-      const backupContent = JSON.parse(fs.readFileSync(snapshotPath, 'utf8'));
-
-      // Save to main data file
-      fs.writeFileSync(DATA_FILE, JSON.stringify(backupContent, null, 2), 'utf8');
-
-      // Sync explore-data.js
-      const jsExport = generateExploreDataJs(backupContent);
-      fs.writeFileSync(EXPLORE_DATA_FILE, jsExport, 'utf8');
 
       return sendJson(res, 200, {
         status: 'success',
-        message: `Restored snapshot ${safeFilename} successfully`,
-        data: backupContent
+        message: `Restored snapshot ${path.basename(String(payload.filename))} successfully`,
+        data: restored
       });
     } catch (err) {
       return sendJson(res, 500, { status: 'error', message: err.message });
@@ -777,6 +735,19 @@ const server = http.createServer(async (req, res) => {
     headers['Content-Type'] = contentType;
     headers['Cache-Control'] = 'no-cache';
 
+    // Page templates are rendered server-side with the CMS content before
+    // they are sent, so every visitor sees the current catalogue.
+    if (PAGE_TEMPLATES.has(path.basename(fullPath))) {
+      try {
+        const html = renderFile(fullPath, contentStore.read());
+        res.writeHead(200, headers);
+        return res.end(html);
+      } catch (renderErr) {
+        console.error('Error rendering ' + path.basename(fullPath) + ':', renderErr.message);
+        return sendText(res, 500, '500 Internal Server Error');
+      }
+    }
+
     res.writeHead(200, headers);
 
     const stream = fs.createReadStream(fullPath);
@@ -785,6 +756,8 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
+  // Keep the static explore-data.js contract in sync with the CMS content.
+  contentStore.sync();
   console.log(`Nimbus Labs server running at http://localhost:${PORT}/`);
   console.log(`CMS Matrix control panel at http://localhost:${PORT}/cms`);
 });
