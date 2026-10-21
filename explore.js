@@ -44,14 +44,30 @@
      2. HEADER + MOBILE DRAWER
      ------------------------------------------------------ */
   (function header() {
-    var siteHeader = document.getElementById('site-header');
-    var btn = document.getElementById('mobile-menu-btn');
-    var menu = document.getElementById('mobile-menu');
+    var siteHeader = document.getElementById('clay-header') || document.getElementById('site-header');
+    var btn = document.getElementById('clay-menu-btn') || document.getElementById('mobile-menu-btn');
+    var menu = document.getElementById('clay-mobile-drawer') || document.getElementById('mobile-menu');
+
+    var lastY = window.pageYOffset || document.documentElement.scrollTop;
+    var threshold = 80;
 
     function onScroll() {
       if (!siteHeader) return;
       var y = window.pageYOffset || document.documentElement.scrollTop;
-      siteHeader.classList.toggle('scrolled', y > 40);
+      siteHeader.classList.toggle('scrolled', y > 20);
+
+      var menuOpen = menu && menu.classList.contains('active');
+      if (y > threshold && !menuOpen) {
+        if (y > lastY + 5) {
+          siteHeader.classList.add('is-hidden');
+        } else if (y < lastY - 5) {
+          siteHeader.classList.remove('is-hidden');
+        }
+      } else {
+        siteHeader.classList.remove('is-hidden');
+      }
+
+      lastY = Math.max(0, y);
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
@@ -61,6 +77,7 @@
         e.stopPropagation();
         var open = menu.classList.toggle('active');
         btn.setAttribute('aria-expanded', String(open));
+        if (open) siteHeader.classList.remove('is-hidden');
       });
       menu.querySelectorAll('a').forEach(function (a) {
         a.addEventListener('click', function () {

@@ -25,6 +25,10 @@ Thumbs.db
 # System logs
 *.log
 
+# Runtime data & dynamic logs
+data/audit-inquiries.json
+data/backups/backup-*
+
 # Graphify temporary cache
 graphify-out/cache/
 

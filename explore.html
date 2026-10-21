@@ -49,41 +49,50 @@
   <!-- FILM GRAIN -->
   <div class="xp-grain" aria-hidden="true"></div>
 
-  <!-- NAVIGATION BAR -->
-  <header id="site-header" class="site-header">
-    <div class="nav-container">
-      <div class="nav-brand-section">
-        <a href="./" class="brand-logo-link" id="brand-logo-link" aria-label="AI Labs by Nimbus — Home">
-          <img src="./assets/logo_tight.png" alt="AI Labs Logo" class="brand-logo-img">
-        </a>
-        <div class="brand-meta" id="brand-meta-wrapper">
-          <span class="brand-divider">/</span>
-          <span class="brand-status-tag" id="brand-status-tag">SOLUTIONS</span>
-        </div>
-      </div>
+  <!-- NAVIGATION BAR (Clay Inverting Header) -->
+  <header class="clay-header clay-header--inverting" id="clay-header">
+    <div class="clay-header__container">
+      
+      <!-- Brand Logo (Minimal icon + Clay typography) -->
+      <a href="./" class="clay-logo" aria-label="AI Labs by Nimbus — Home">
+        <img src="./assets/logo_tight.png" alt="AI Labs by Nimbus" class="clay-logo__img">
+        <span class="clay-logo__text">NIMBUS</span>
+        <span class="clay-logo__sub">/ AI LABS</span>
+      </a>
 
-      <nav id="desktop-nav" class="nav-links" aria-label="Primary">
-        <a href="./" class="nav-link">Home</a>
-        <a href="#products" class="nav-link">Solutions</a>
-        <a href="#contact" class="nav-link">Contact</a>
+      <!-- Center Nav Links -->
+      <nav class="clay-nav" aria-label="Main Navigation">
+        <ul class="clay-nav__list">
+          <li class="clay-nav__item is-active" aria-current="page">
+            <a href="./explore" class="clay-nav__link">
+              <span>Products</span>
+              <span class="clay-nav__active-line"></span>
+            </a>
+          </li>
+          <li class="clay-nav__item">
+            <a href="./services" class="clay-nav__link">Audits and services</a>
+          </li>
+        </ul>
       </nav>
 
-      <div class="nav-actions">
-        <a href="#contact" class="btn btn-primary" id="btn-contact-top">Contact Us</a>
-        <button id="mobile-menu-btn" class="mobile-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
-          <span></span>
-          <span></span>
-          <span></span>
+      <!-- Right Contact Action -->
+      <div class="clay-header__action">
+        <a href="./services#contact" class="clay-contact-btn">Book Audit</a>
+        <button id="clay-menu-btn" class="clay-burger-btn" aria-label="Open mobile menu" aria-expanded="false">
+          <span class="burger-bar"></span>
+          <span class="burger-bar"></span>
         </button>
       </div>
+
     </div>
 
     <!-- Mobile Drawer -->
-    <div id="mobile-menu" class="mobile-menu">
-      <a href="./" class="mobile-nav-link">Home</a>
-      <a href="#products" class="mobile-nav-link">Solutions</a>
-      <a href="#contact" class="mobile-nav-link">Contact</a>
-      <a href="#contact" class="btn btn-primary mobile-cta">Contact Us</a>
+    <div id="clay-mobile-drawer" class="clay-mobile-drawer">
+      <div class="clay-mobile-links">
+        <a href="./explore" class="mobile-link is-active">Products</a>
+        <a href="./services" class="mobile-link">Audits and services</a>
+        <a href="./services#contact" class="clay-contact-btn mobile-cta">Book Audit</a>
+      </div>
     </div>
   </header>
 
@@ -121,8 +130,8 @@
               <span>Browse Solutions</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
-            <a href="#contact" class="btn btn-glass" id="hero-cta-contact">
-              <span>Contact Lab</span>
+            <a href="./audit" class="btn btn-glass" id="hero-cta-contact">
+              <span>Book Audit</span>
             </a>
           </div>
 

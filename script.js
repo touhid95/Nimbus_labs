@@ -41,7 +41,7 @@
   const heroWrapper = document.getElementById('hero-wrapper');
   const heroSection = document.getElementById('hero');
   const heroTextOverlay = document.getElementById('hero-text-overlay');
-  const siteHeader = document.getElementById('site-header');
+  const siteHeader = document.getElementById('clay-header') || document.getElementById('site-header');
 
   // Parallax layers and their exact Webflow translateY multipliers (0% to 100% of hero scroll)
   // hero-10 -> 10%, hero-09 -> 15%, hero-08 -> 20%, ..., hero-02 (SUN) -> 50%
@@ -84,19 +84,55 @@
   }
   window.addEventListener('resize', updateDimensions, { passive: true });
 
-  // Scroll listener
+  // Scroll listener with directional auto-hide
+  let lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollHideThreshold = 80;
+
   window.addEventListener('scroll', () => {
     targetScrollY = window.pageYOffset || document.documentElement.scrollTop;
 
-    // Header blur state
+    // Header elevation
     if (siteHeader) {
-      if (targetScrollY > 40) {
+      if (targetScrollY > 20) {
         siteHeader.classList.add('scrolled');
       } else {
         siteHeader.classList.remove('scrolled');
       }
+
+      // Hide on scroll down, show on scroll up
+      const mobileDrawer = document.getElementById('clay-mobile-drawer');
+      const drawerOpen = mobileDrawer && mobileDrawer.classList.contains('active');
+      if (targetScrollY > scrollHideThreshold && !drawerOpen) {
+        if (targetScrollY > lastScrollY + 5) {
+          siteHeader.classList.add('is-hidden');
+        } else if (targetScrollY < lastScrollY - 5) {
+          siteHeader.classList.remove('is-hidden');
+        }
+      } else {
+        siteHeader.classList.remove('is-hidden');
+      }
+
+      lastScrollY = Math.max(0, targetScrollY);
     }
   }, { passive: true });
+
+  // Mobile Drawer Toggle
+  const menuBtn = document.getElementById('clay-menu-btn');
+  const mobileDrawer = document.getElementById('clay-mobile-drawer');
+  if (menuBtn && mobileDrawer) {
+    menuBtn.addEventListener('click', () => {
+      const open = mobileDrawer.classList.toggle('active');
+      menuBtn.setAttribute('aria-expanded', String(open));
+      if (open && siteHeader) siteHeader.classList.remove('is-hidden');
+    });
+
+    mobileDrawer.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobileDrawer.classList.remove('active');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 
   // ----------------------------------------------------
   // 3. MASTER RENDER LOOP & DAPPER STICKY CONTROLLER
@@ -282,19 +318,21 @@
   // ----------------------------------------------------
   // 4. MOBILE NAVIGATION TOGGLE
   // ----------------------------------------------------
-  const mobileBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileBtn = document.getElementById('clay-menu-btn') || document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('clay-mobile-drawer') || document.getElementById('mobile-menu');
 
   if (mobileBtn && mobileMenu) {
     mobileBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      mobileMenu.classList.toggle('active');
+      const open = mobileMenu.classList.toggle('active');
+      mobileBtn.setAttribute('aria-expanded', String(open));
     });
 
     // Close when clicking nav links
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         mobileMenu.classList.remove('active');
+        mobileBtn.setAttribute('aria-expanded', 'false');
       });
     });
 
@@ -302,6 +340,7 @@
     document.addEventListener('click', (e) => {
       if (!mobileMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
         mobileMenu.classList.remove('active');
+        mobileBtn.setAttribute('aria-expanded', 'false');
       }
     });
   }

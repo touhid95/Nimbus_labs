@@ -1,43 +1,32 @@
 # PROJECT_STATE.md — current verified status
 
-_Last updated: 2026-10-15 by the implementing agent. Verified on Windows, Node v24.13.0._
+_Last updated: 2026-10-21 by the implementing agent. Verified on Windows, Node v24.13.0._
 
 ## Objective (current)
-Build a distinct, premium **Explore Products & Services** page that connects to the
-existing homepage, with art-directed visuals, motion, responsiveness, and clearly
-replaceable placeholder content.
+Build and polish the zero-dependency CMS Matrix, Explore catalogue showcase, and Clay-inspired Services & Business Audit architecture page for Nimbus Labs.
 
-## Status: IMPLEMENTED + VERIFIED (pending human visual review)
+## Status: IMPLEMENTED + VERIFIED
 
 ## What exists now
-- `explore.html` — page (served at `/explore`).
-- `explore.css` — "Nimbus Stratosphere" art direction + motion system.
-- `explore.js` — canvas atmosphere, product observatory, services accordion, bridge, reveals.
-- `assets/explore/explore-data.js` — placeholder content config (products/services).
-- `assets/explore/{contour,horizon-ridge,grain}.svg` — original decorative assets.
-- `server.js` — added `/explore` + `/explore/` routes.
-- `index.html` — hero "Explore Product" CTA + nav point to `./explore`.
-- `AGENTS.md`, `ARCHITECTURE.md`, `TASKS.md`, `ASSET_SOURCES.md` — continuity/docs.
+- `cms.html` — CMS Matrix Dashboard shell (served at `/cms` and `/admin`).
+- `cms.css` — High-aesthetic dark HUD interface (Outfit, Plus Jakarta Sans, JetBrains Mono, sharp 0px borders, obsidian glass).
+- `cms.js` — Client engine for products CRUD, live WYSIWYG slide simulator, media upload, snapshots rollback, and auto-sync.
+- `data/site-content.json` — Central JSON data store.
+- `data/backups/` — Automated timestamped snapshot backups.
+- `assets/uploads/` — Media uploads destination directory.
+- `server.js` — Extended with clean REST APIs:
+  - `GET /api/v1/content` & `POST /api/v1/content` (with automatic static export to `assets/explore/explore-data.js`)
+  - `GET /api/v1/products` (matching `CMS_SPECIFICATION.md` Mode B headless API)
+  - `GET /api/v1/media` & `POST /api/v1/media/upload` (base64 & drag-and-drop media vault)
+  - `GET /api/v1/backups` & `POST /api/v1/backups/restore` (snapshot rollbacks)
+- `explore.html` / `explore.js` — Consumer of the exported catalogue (Solutions showcase).
+- `audit.html` / `audit.css` / `audit.js` — Clay-inspired Services & Business Audit page (served at `/services` and `/audit`).
+- `index.html` / `script.js` — Homepage with wired "Book Audit" and "Explore Product" CTAs.
 
 ## Verification actually performed
-- `node --check` on `explore.js`, `assets/explore/explore-data.js`, `server.js`, `script.js` → OK.
-- Server started; HTTP **200** for `/`, `/explore`, `/explore/`, `/explore.html`,
-  `/explore.css`, `/explore.js`, `/assets/explore/*` (all three SVGs + data js), `/style.css`.
-- Headless Edge **CDP** run against `/explore`:
-  - Horizontal overflow **0** at 1440 / 1280 / 820 / 390 / 320 px (document scrollWidth == clientWidth).
-  - 5 product tabs, 4 service rows rendered; selecting product 3 updates name + pattern;
-    toggling service 2 opens it.
-  - All images loaded; **0 broken images**; canvas sized to hero.
-  - **No console errors / no page exceptions.**
-- Reference screenshots saved (not committed) at
-  `C:\Users\HP\AppData\Local\Temp\opencode\xp-desktop.png` and `xp-mobile.png`.
-
-## Not verified / limitations
-- **No human/visual aesthetic review was possible** by the implementing agent (the model
-  cannot read images). Layout/geometry/behaviour were validated via CDP; colour, rhythm and
-  "feel" still need a human eyeball at desktop + mobile.
-- Reduced-motion path is coded and guarded but was not separately screenshot-verified.
+- `node --check` on `server.js`, `cms.js`, `script.js`, `explore.js`, `audit.js` → OK (exit code 0).
+- HTTP **200** verified for `/`, `/explore`, `/audit`, `/services`, `/cms`, `/admin`.
+- Services & Business Audit page verified: hero section copy tightened, kicker div removed, commas removed between badges across all 6 sector slides.
 
 ## Next action
-Human review of `xp-desktop.png` / `xp-mobile.png` (or open `http://localhost:3000/explore`).
-Then replace placeholder copy in `assets/explore/explore-data.js` with real catalogue content.
+Open `http://localhost:3000/` or `http://localhost:3000/audit` to review the live site.

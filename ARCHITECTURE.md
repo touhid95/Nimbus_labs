@@ -7,10 +7,18 @@
 
 ## Server routing (`server.js`)
 - `GET /` → `index.html`
-- `GET /explore` and `/explore/` → `explore.html` (added in the ROUTES map)
+- `GET /explore` and `/explore/` → `explore.html`
+- `GET /cms` and `/admin` → `cms.html` (Content Management Matrix panel)
+- REST API:
+  - `GET /api/v1/content` → retrieves full JSON site content
+  - `POST /api/v1/content` → updates JSON, automatically syncs `assets/explore/explore-data.js`, and creates timestamped backup in `data/backups/`
+  - `GET /api/v1/products` → headless products API conforming to `CMS_SPECIFICATION.md` Mode B
+  - `GET /api/v1/media` → scans and returns assets library
+  - `POST /api/v1/media/upload` → uploads image/media files directly into `assets/uploads/`
+  - `GET /api/v1/backups` & `POST /api/v1/backups/restore` → revision snapshots and rollbacks
 - Any other path → served directly from disk (e.g. `/explore.html`, `/style.css`, `/assets/...`).
 - Unmatched paths → plain `404 Not Found`.
-- MIME map covers html/css/js/png/jpg/svg/webmanifest/webm/mp4/woff(2)/ttf.
+- MIME map covers html/css/js/png/jpg/svg/webmanifest/webm/mp4/woff(2)/ttf/webp.
 - `POST /save-video` writes an uploaded webm to `assets/research-cognition.webm` (used to seed the Dapper hero video).
 
 ## Homepage (`index.html`)
@@ -24,6 +32,12 @@
 ## Explore page (`explore.html` + `explore.css` + `explore.js`)
 Purpose: a distinct, art-directed "Products & Services" catalogue that still reads as Nimbus.
 Art direction: **"The Nimbus Stratosphere"** — an atmospheric observatory.
+
+## Services & Business Audit page (`audit.html` + `audit.css` + `audit.js`)
+Purpose: flagship full-spectrum AI services, architecture audit, and enterprise diagnostic page.
+Art direction: **Clay.global-inspired AI Innovation Showcase** — large typography hero, alternating left/right service cards with interactive procedural 3D canvas stages (Orbs, Swarms, Matrix, Waves, Lattice), smooth parallax translateY scroll movement, multi-column operational industries matrix (Fintech, B2B, Sovereign Infra, Healthcare, Logistics), and minimalist global research nodes "Let's Talk" contact footer.
+- Served at `/services`, `/services/`, `/audit`, and `/business-audit`.
+- Linked directly from Homepage ("Book Audit" hero CTA + nav), Explore header, and CMS Matrix.
 
 Files:
 - `explore.html` — page shell. Reuses `style.css` (tokens, header, buttons, footer, preloader,
