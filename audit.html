@@ -231,7 +231,10 @@
             <h2 class="clay-talk-heading">{{site.footer.talkHeading}}</h2>
             <div class="clay-talk-contacts">
               <a href="{{site.footer.emailHref}}" class="clay-talk-email">{{site.footer.email}}</a>
-              <a href="{{site.footer.telHref}}" class="clay-talk-tel">{{site.footer.tel}}</a>
+              <a href="{{pages.audit.footerCtaLink}}" class="clay-talk-link">
+                <span>{{site.footer.ctaText}}</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
               <span class="clay-talk-note">{{site.footer.note}}</span>
             </div>
           </div>
@@ -239,9 +242,9 @@
           <!-- Footer Navigation Columns -->
           <nav class="clay-footer-nav" aria-label="Footer Nav">
             <ul class="clay-footer-nav-list">
-              {{#site.footer.nav}}
-              <li><a href="{{this.href}}" class="f-link">{{this.label}}</a></li>
-              {{/site.footer.nav}}
+              {{#pages.audit.footerNav}}
+              <li><a href="{{this.href}}" class="{{this.linkClass}}">{{this.label}}</a></li>
+              {{/pages.audit.footerNav}}
             </ul>
           </nav>
         </div>

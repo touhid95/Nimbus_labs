@@ -5,7 +5,7 @@
  * This file is written by lib/content-store.js on boot and on every save.
  * Edit the content in the CMS Matrix (/cms) instead.
  *
- * Generated at: 2026-10-21T19:32:58.110Z
+ * Generated at: 2026-10-21T19:53:46.384Z
  */
 (function (global) {
   'use strict';

@@ -77,18 +77,23 @@
         e.stopPropagation();
         var open = menu.classList.toggle('active');
         btn.setAttribute('aria-expanded', String(open));
-        if (open) siteHeader.classList.remove('is-hidden');
+        if (siteHeader) {
+          siteHeader.classList.toggle('drawer-open', open);
+          if (open) siteHeader.classList.remove('is-hidden');
+        }
       });
       menu.querySelectorAll('a').forEach(function (a) {
         a.addEventListener('click', function () {
           menu.classList.remove('active');
           btn.setAttribute('aria-expanded', 'false');
+          if (siteHeader) siteHeader.classList.remove('drawer-open');
         });
       });
       document.addEventListener('click', function (e) {
         if (!menu.contains(e.target) && !btn.contains(e.target)) {
           menu.classList.remove('active');
           btn.setAttribute('aria-expanded', 'false');
+          if (siteHeader) siteHeader.classList.remove('drawer-open');
         }
       });
     }
@@ -536,6 +541,27 @@
     var yr = document.getElementById('xp-year');
     if (yr) yr.textContent = String(new Date().getFullYear());
 
+    // In-page smooth scroll for footer and navigation anchors
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        var hash = anchor.getAttribute('href');
+        if (!hash || hash === '#' || anchor.classList.contains('xp-bridge__link')) return;
+        var target = document.querySelector(hash);
+        if (target) {
+          e.preventDefault();
+          var headerH = 80;
+          var top = target.getBoundingClientRect().top + window.pageYOffset - headerH;
+          window.scrollTo({
+            top: Math.max(0, top),
+            behavior: reduceMotion ? 'auto' : 'smooth'
+          });
+          if (window.history && window.history.pushState) {
+            window.history.pushState(null, '', hash);
+          }
+        }
+      });
+    });
+
     // PWA service worker (shared)
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
@@ -543,4 +569,5 @@
       });
     }
   })();
+
 })();

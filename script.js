@@ -123,13 +123,17 @@
     menuBtn.addEventListener('click', () => {
       const open = mobileDrawer.classList.toggle('active');
       menuBtn.setAttribute('aria-expanded', String(open));
-      if (open && siteHeader) siteHeader.classList.remove('is-hidden');
+      if (siteHeader) {
+        siteHeader.classList.toggle('drawer-open', open);
+        if (open) siteHeader.classList.remove('is-hidden');
+      }
     });
 
     mobileDrawer.querySelectorAll('a').forEach(a => {
       a.addEventListener('click', () => {
         mobileDrawer.classList.remove('active');
         menuBtn.setAttribute('aria-expanded', 'false');
+        if (siteHeader) siteHeader.classList.remove('drawer-open');
       });
     });
   }
