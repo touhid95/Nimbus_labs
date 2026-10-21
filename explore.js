@@ -77,18 +77,23 @@
         e.stopPropagation();
         var open = menu.classList.toggle('active');
         btn.setAttribute('aria-expanded', String(open));
-        if (open) siteHeader.classList.remove('is-hidden');
+        if (siteHeader) {
+          siteHeader.classList.toggle('drawer-open', open);
+          if (open) siteHeader.classList.remove('is-hidden');
+        }
       });
       menu.querySelectorAll('a').forEach(function (a) {
         a.addEventListener('click', function () {
           menu.classList.remove('active');
           btn.setAttribute('aria-expanded', 'false');
+          if (siteHeader) siteHeader.classList.remove('drawer-open');
         });
       });
       document.addEventListener('click', function (e) {
         if (!menu.contains(e.target) && !btn.contains(e.target)) {
           menu.classList.remove('active');
           btn.setAttribute('aria-expanded', 'false');
+          if (siteHeader) siteHeader.classList.remove('drawer-open');
         }
       });
     }
@@ -543,4 +548,5 @@
       });
     }
   })();
+
 })();

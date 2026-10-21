@@ -844,64 +844,222 @@
 }
 
 
-/* ---------------- CLOSING (MONOCHROMATIC FINALE) ---------------- */
+/* ---------------- CLOSING (MONOCHROMATIC FINALE & OEM PROCUREMENT) ---------------- */
 .xp-closing {
   position: relative;
   z-index: 4;
-  padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(2rem, 3.5vw, 2.8rem);
+  padding: clamp(4rem, 7vw, 6rem) 0 clamp(4rem, 7vw, 6.5rem);
   text-align: center;
   overflow: hidden;
   background: #000000;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.xp-closing__glow {
-  position: absolute;
-  left: 50%;
-  top: 20%;
-  transform: translateX(-50%);
-  width: min(900px, 90vw);
-  height: 420px;
-  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.12), transparent 70%);
-  filter: blur(40px);
-  pointer-events: none;
-  z-index: 0;
+/* Minimalist Horizontal Ticker Tape (Subscheap-inspired OEM Chip Ribbon) */
+.ai-strip-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: clamp(22px, 3.8vw, 30px) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: #000000;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
 }
 
-.xp-closing__inner { position: relative; z-index: 1; }
+.ai-strip-track {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: max-content;
+  animation: aiStripScroll 56s linear infinite;
+  will-change: transform;
+}
 
-.xp-closing__title {
+.ai-strip-wrapper:hover .ai-strip-track {
+  animation-play-state: paused;
+}
+
+@keyframes aiStripScroll {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* OEM Chip styling (Dapper-aligned strictly 0px sharp rectangular edges) */
+.ai-strip-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px 12px 14px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0 !important;
+  color: #ffffff;
+  white-space: nowrap;
+  user-select: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  cursor: default;
+}
+
+.ai-strip-item:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65);
+}
+
+.ai-strip-icon-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 0 !important;
+  background: #101010;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #ffffff;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.ai-strip-item:hover .ai-strip-icon-box {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: #1a1a1a;
+}
+
+.ai-strip-icon {
+  width: 26px;
+  height: 26px;
+  display: block;
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
+.ai-strip-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: left;
+}
+
+.ai-strip-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-strip-name {
   font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 6vw, 5rem);
-  font-weight: 900;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+}
+
+.ai-strip-badge {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 0 !important;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.88);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   line-height: 1;
-  letter-spacing: -0.03em;
-  color: #fff;
-  margin: 0.85rem auto 0.95rem;
-  max-width: 16ch;
 }
 
-.xp-closing__title em {
-  font-style: normal;
-  background: linear-gradient(100deg, var(--xp-violet-bright), var(--xp-mint) 60%, var(--xp-rose));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+.ai-strip-cat {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.52);
+  letter-spacing: 0.03em;
+  line-height: 1.15;
 }
 
-.xp-closing__sub {
-  color: var(--text-muted);
-  font-size: 1.08rem;
-  max-width: 56ch;
-  margin: 0 auto 1.6rem;
-  line-height: 1.7;
+/* Clean Editorial Typographic OEM Block */
+.xp-closing__oem-editorial {
+  margin-top: clamp(3.5rem, 6vw, 5rem);
+  text-align: center;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.xp-closing__actions {
+.oem-kicker {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 1.2rem;
+}
+
+.oem-editorial-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  color: #ffffff;
+  margin: 0 auto 1.4rem;
+  max-width: 18ch;
+}
+
+.oem-editorial-desc {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 1.35vw, 17px);
+  line-height: 1.68;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 62ch;
+  margin: 0 auto 2.6rem;
+}
+
+/* Closing Actions (Strictly matched with .xp-dapper-btn aesthetic: 0px sharp edges, 56px height) */
+.oem-editorial-actions {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 16px;
   flex-wrap: wrap;
-  gap: 0.9rem;
+}
+
+.xp-closing-btn--primary {
+  background: #ffffff !important;
+  color: #020016 !important;
+  border: 1px solid #ffffff !important;
+  border-radius: 0 !important;
+  min-height: 56px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.xp-closing-btn--primary:hover {
+  background: transparent !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 14px 40px rgba(255, 255, 255, 0.2);
+}
+
+.xp-closing-btn--ghost {
+  background: transparent !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.32) !important;
+  border-radius: 0 !important;
+  min-height: 56px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.xp-closing-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 14px 40px rgba(255, 255, 255, 0.15);
 }
 
 /* ---------------- FOOTER EXTRAS ---------------- */

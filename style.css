@@ -404,7 +404,13 @@ button {
 
 /* ================= CLAY INVERTING NAVBAR (Home & Explore) ================= */
 .clay-header--inverting {
-  background-color: #020016;
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
+  box-shadow: none;
+}
+
+.clay-header--inverting.drawer-open {
+  background-color: rgba(2, 0, 22, 0.98);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
