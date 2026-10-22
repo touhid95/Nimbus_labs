@@ -86,3 +86,10 @@ python -m graphify --update
 ## 📄 License
 
 MIT © AI Labs by Nimbus
+
+## Environment variables
+
+- `ADMIN_PASSWORD` — required for CMS login. Use a long random string.
+- `SESSION_SECRET` — required to sign session cookies. Generate with: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
+- `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `CLOUDINARY_UPLOAD_PRESET` — required for direct Cloudinary uploads in the CMS Media tab.
+- `PORT`, `NODE_ENV`, `SITE_ORIGIN` — optional (see `.env.example`).

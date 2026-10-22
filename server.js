@@ -29,12 +29,11 @@ const auth = createAuth({
   secure: IS_PRODUCTION
 });
 
-if (!process.env.ADMIN_PASSWORD || !String(process.env.ADMIN_PASSWORD).trim()) {
-  console.error('FATAL: ADMIN_PASSWORD is not configured. Set ADMIN_PASSWORD in .env and restart the server.');
-  process.exit(1);
-}
-if (!process.env.SESSION_SECRET || !String(process.env.SESSION_SECRET).trim()) {
-  console.error('FATAL: SESSION_SECRET is not configured. Set SESSION_SECRET in .env and restart the server.');
+const missing = [];
+if (!process.env.ADMIN_PASSWORD || !String(process.env.ADMIN_PASSWORD).trim()) missing.push('ADMIN_PASSWORD');
+if (!process.env.SESSION_SECRET || !String(process.env.SESSION_SECRET).trim()) missing.push('SESSION_SECRET');
+if (missing.length) {
+  console.error('FATAL: Missing required environment variables: ' + missing.join(', ') + '. Set them in .env and restart the server. See .env.example for placeholders.');
   process.exit(1);
 }
 
