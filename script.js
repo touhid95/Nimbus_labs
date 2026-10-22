@@ -7,6 +7,25 @@
   'use strict';
 
   // ----------------------------------------------------
+  // 0. CMS CONTENT ISLAND
+  // Runtime labels (chapter indicator, brand tags, control captions) come
+  // from the CMS-rendered JSON island so they stay editable from the panel.
+  // ----------------------------------------------------
+  const dapperUI = (function () {
+    const node = document.getElementById('dapper-ui');
+    if (!node) return {};
+    try {
+      const parsed = JSON.parse(node.textContent);
+      return parsed && typeof parsed === 'object' ? parsed : {};
+    } catch (err) {
+      console.warn('Unable to read dapper UI content:', err);
+      return {};
+    }
+  })();
+
+  const dapperLabels = dapperUI.controls || {};
+
+  // ----------------------------------------------------
   // 1. PRELOADER (Split-Curtain Reveal matching Webflow)
   // ----------------------------------------------------
   const preloader = document.getElementById('preloader');
@@ -211,7 +230,8 @@
     const activeIdx = Math.min(chapterCount - 1, Math.floor(chapterProgress + 0.5));
 
     if (dapperChapInd) {
-      dapperChapInd.textContent = `CHAPTER ${String(activeIdx + 1).padStart(2, '0')} / ${String(chapterCount).padStart(2, '0')}`;
+      const pad = String(dapperUI.chapterStart || '01').length;
+      dapperChapInd.textContent = `${dapperUI.chapterPrefix || 'CHAPTER'} ${String(activeIdx + 1).padStart(pad, '0')} ${dapperUI.chapterSeparator || '/'} ${String(chapterCount).padStart(pad, '0')}`;
     }
 
     if (dapperCaptionText && currentCaptionIdx !== activeIdx) {
@@ -224,13 +244,13 @@
     }
 
     if (brandStatusTag) {
-      let targetTag = 'FRONTIER COGNITION';
+      let targetTag = dapperUI.tagTop || 'FRONTIER COGNITION';
       if (rect.top > 80) {
-        targetTag = 'FRONTIER COGNITION';
+        targetTag = dapperUI.tagTop || 'FRONTIER COGNITION';
       } else if (rect.bottom < 80) {
-        targetTag = 'RESEARCH DOMAINS';
+        targetTag = dapperUI.tagBottom || 'RESEARCH DOMAINS';
       } else {
-        targetTag = `CHAPTER 0${activeIdx + 1} // ${chapterNames[activeIdx]}`;
+        targetTag = `${dapperUI.tagPrefix || 'CHAPTER 0'}${activeIdx + 1} ${dapperUI.tagSeparator || '//'} ${chapterNames[activeIdx]}`;
       }
       if (brandStatusTag.textContent !== targetTag) {
         brandStatusTag.textContent = targetTag;
@@ -460,7 +480,7 @@
         iconPlay.style.display = isPlaying ? 'none' : 'block';
       }
       if (pauseBtnText) {
-        pauseBtnText.textContent = isPlaying ? 'Pause' : 'Resume';
+        pauseBtnText.textContent = isPlaying ? (dapperLabels.pauseLabel || 'Pause') : (dapperLabels.resumeLabel || 'Resume');
       }
     }
 
@@ -473,7 +493,7 @@
         iconSoundOff.style.display = isSoundOn ? 'none' : 'block';
       }
       if (soundBtnText) {
-        soundBtnText.textContent = isSoundOn ? 'Sound' : 'Muted';
+        soundBtnText.textContent = isSoundOn ? (dapperLabels.soundLabel || 'Sound') : (dapperLabels.mutedLabel || 'Muted');
       }
     }
 

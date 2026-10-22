@@ -17,6 +17,23 @@
   var DATA = window.NIMBUS_EXPLORE_DATA || { products: [], services: [], meta: {} };
 
   /* ------------------------------------------------------
+     0. CMS CONTENT ISLAND
+     Runtime labels (chapter markers, CTA verbs, fallbacks) come from the
+     CMS-rendered JSON island so they stay editable from the panel.
+     ------------------------------------------------------ */
+  var UI = (function () {
+    var node = document.getElementById('explore-ui');
+    if (!node) return {};
+    try {
+      var parsed = JSON.parse(node.textContent);
+      return parsed && typeof parsed === 'object' ? parsed : {};
+    } catch (err) {
+      console.warn('Unable to read explore UI content:', err);
+      return {};
+    }
+  })();
+
+  /* ------------------------------------------------------
      1. PRELOADER
      ------------------------------------------------------ */
   (function preloader() {
@@ -245,6 +262,14 @@
 
     function pad(n) { return (n < 10 ? '0' : '') + n; }
 
+    var chapterPrefix = UI.chapterPrefix || '// CHAPTER 0';
+    var chapterSeparator = UI.chapterSeparator || ' / ';
+    var chapterDash = UI.chapterDash || '—';
+    var deployLabel = UI.deployLabel || 'Deploy';
+    var productFallback = UI.productFallback || 'Product';
+    var categoryFallback = UI.categoryFallback || 'SYSTEMS';
+    var productTotal = pad(products.length);
+
     var layerEls = [];
 
     products.forEach(function (p, i) {
@@ -274,11 +299,11 @@
       if (p.image) {
         visualMediaHtml = '<div class="xp-dapper-media">' +
           '<div class="xp-dapper-media__frame">' +
-            '<img src="' + p.image + '" alt="' + (p.label || 'Product') + '" class="xp-dapper-img" loading="lazy">' +
+            '<img src="' + p.image + '" alt="' + (p.label || productFallback) + '" class="xp-dapper-img" loading="lazy">' +
             '<div class="xp-dapper-media__overlay"></div>' +
             '<div class="xp-dapper-media-hud">' +
               '<span>// ' + (p.visual && p.visual.glyph ? p.visual.glyph : ('PRD-' + pad(i + 1))) + '</span>' +
-              '<span>' + pad(i + 1) + ' / 05</span>' +
+              '<span>' + pad(i + 1) + ' / ' + productTotal + '</span>' +
             '</div>' +
           '</div>' +
         '</div>';
@@ -290,16 +315,16 @@
             visualMediaHtml +
             '<div class="xp-dapper-content">' +
               '<div class="xp-dapper-meta">' +
-                '<span class="xp-dapper-chapter">// CHAPTER 0' + (i + 1) + ' / ' + pad(products.length) + ' &mdash; ' + (p.category ? p.category.toUpperCase() : 'SYSTEMS') + '</span>' +
+                '<span class="xp-dapper-chapter">' + chapterPrefix + (i + 1) + chapterSeparator + pad(products.length) + ' ' + chapterDash + ' ' + (p.category ? p.category.toUpperCase() : categoryFallback) + '</span>' +
                 badgeHtml +
               '</div>' +
-              '<h2 class="xp-dapper-title">' + (p.label || ('Product ' + pad(i + 1))) + '</h2>' +
+                '<h2 class="xp-dapper-title">' + (p.label || (productFallback + ' ' + pad(i + 1))) + '</h2>' +
               '<p class="xp-dapper-summary">' + (p.summary || '') + '</p>' +
               '<p class="xp-dapper-desc">' + (p.description || '') + '</p>' +
               featuresHtml +
               '<div class="xp-dapper-actions">' +
-                '<a href="' + (p.link || '#contact') + '" class="xp-dapper-btn" aria-label="Deploy ' + (p.label || 'product') + '">' +
-                  '<span>Deploy ' + (p.label || 'Product') + '</span>' +
+                '<a href="' + (p.link || '#contact') + '" class="xp-dapper-btn" aria-label="' + deployLabel + ' ' + (p.label || 'product') + '">' +
+                  '<span>' + deployLabel + ' ' + (p.label || productFallback) + '</span>' +
                   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
                 '</a>' +
               '</div>' +
@@ -319,7 +344,7 @@
     // ----------------------------------------------------
     var isTicking = false;
     var brandTag = document.getElementById('brand-status-tag');
-    var currentTagText = 'SOLUTIONS';
+    var currentTagText = UI.defaultBrandTag || 'SOLUTIONS';
     var isUpdatingTag = false;
 
     function setBrandTag(text) {
@@ -372,10 +397,10 @@
       // Dynamic Navbar Brand Tag:
       // Show 'SOLUTIONS' in hero/bridge and closing/footer
       // Show active product title (uppercase) during Dapper slides
-      var targetTag = 'SOLUTIONS';
+      var targetTag = UI.defaultBrandTag || 'SOLUTIONS';
       if (rect.top <= 80 && rect.bottom > winH) {
         var activeIdx = Math.max(0, Math.min(products.length - 1, Math.floor(chapterProgress + 0.5)));
-        targetTag = (products[activeIdx].label || ('Product ' + (activeIdx + 1))).toUpperCase();
+        targetTag = (products[activeIdx].label || ((UI.productFallback || 'Product') + ' ' + (activeIdx + 1))).toUpperCase();
       }
       setBrandTag(targetTag);
     }
@@ -405,13 +430,15 @@
 
     // Render product links alternating between solid white fill and stroke outline
     var html = '';
+    var exploreLabel = UI.exploreLabel || 'Explore';
+    var productFallback = UI.productFallback || 'Product';
     products.forEach(function (p, i) {
       var isFill = (i % 2 === 0);
-      var wordsWithDiamonds = (p.label || ('Product ' + (i + 1)))
+      var wordsWithDiamonds = (p.label || (productFallback + ' ' + (i + 1)))
         .split(' ')
         .join(' <i>◆</i> ') + ' <i>◆</i>';
 
-      html += '<a href="#' + p.id + '" class="xp-bridge__word ' + (isFill ? 'is-fill ' : '') + 'xp-bridge__link" data-slide-index="' + i + '" aria-label="Explore ' + (p.label || 'product') + '">' +
+      html += '<a href="#' + p.id + '" class="xp-bridge__word ' + (isFill ? 'is-fill ' : '') + 'xp-bridge__link" data-slide-index="' + i + '" aria-label="' + exploreLabel + ' ' + (p.label || 'product') + '">' +
         wordsWithDiamonds +
       '</a>';
     });

@@ -83,7 +83,7 @@ const contentStore = createContentStore({
 });
 
 // Pages rendered on the server with the CMS content before they are sent.
-const PAGE_TEMPLATES = new Set(['index.html', 'explore.html', 'audit.html']);
+const PAGE_TEMPLATES = new Set(['index.html', 'explore.html', 'audit.html', 'login.html']);
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -94,14 +94,20 @@ const MIME_TYPES = {
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
-  '.webp': 'image/webp',
+  '.gif': 'image/gif',
   '.svg': 'image/svg+xml',
+  '.webp': 'image/webp',
   '.ico': 'image/x-icon',
-  '.woff': 'font/woff',
-  '.woff2': 'font/woff2',
-  '.ttf': 'font/ttf',
+  '.mp4': 'video/mp4',
   '.webm': 'video/webm',
-  '.mp4': 'video/mp4'
+  '.mov': 'video/quicktime',
+  '.m4v': 'video/x-m4v',
+  '.mp3': 'audio/mpeg',
+  '.ogg': 'audio/ogg',
+  '.woff2': 'font/woff2',
+  '.woff': 'font/woff',
+  '.ttf': 'font/ttf',
+  '.pdf': 'application/pdf'
 };
 
 // Helper to read content JSON
@@ -490,17 +496,29 @@ const server = http.createServer(async (req, res) => {
   if (req.method === 'POST' && reqPath === '/api/v1/media/upload') {
     try {
       const payload = await parseJsonBody(req);
-      if (!payload || !payload.filename || !payload.base64Data) {
+      const filename = payload && (payload.filename || payload.name);
+      const base64Data = payload && (payload.base64Data || payload.data);
+      if (!filename || !base64Data) {
         return sendJson(res, 400, { status: 'error', message: 'Missing filename or base64Data' });
       }
 
+      const ext = path.extname(String(filename)).toLowerCase();
+      const allowed = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.svg', '.mp4', '.webm', '.mov', '.m4v'];
+      if (allowed.indexOf(ext) === -1) {
+        return sendJson(res, 400, { status: 'error', message: 'Unsupported file type' });
+      }
+
       // Sanitize filename
-      const cleanName = payload.filename.replace(/[^a-zA-Z0-9._-]/g, '_').toLowerCase();
+      const cleanName = String(filename).replace(/[^a-zA-Z0-9._-]/g, '_').toLowerCase();
       const targetPath = path.join(UPLOADS_DIR, cleanName);
 
-      // Extract base64 buffer (stripping data:image/...;base64, header if present)
-      const dataStr = payload.base64Data.replace(/^data:[^;]+;base64,/, '');
+      // Extract base64 buffer (stripping data:[mime];base64, header if present)
+      const dataStr = String(base64Data).replace(/^data:[^;]+;base64,/, '');
       const buffer = Buffer.from(dataStr, 'base64');
+      const maxBytes = 200 * 1024 * 1024;
+      if (buffer.length > maxBytes) {
+        return sendJson(res, 413, { status: 'error', message: 'File too large' });
+      }
 
       fs.writeFileSync(targetPath, buffer);
 
@@ -510,7 +528,8 @@ const server = http.createServer(async (req, res) => {
         data: {
           name: cleanName,
           path: './assets/uploads/' + cleanName,
-          sizeBytes: buffer.length
+          sizeBytes: buffer.length,
+          type: payload.type || ''
         }
       });
     } catch (err) {

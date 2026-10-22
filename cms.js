@@ -101,6 +101,9 @@
   function renderGlobal() {
     var f = state.content.site.footer;
     var g = state.content.site.footerGroups || [];
+    var hd = state.content.site.header || {};
+    var assets = state.content.site.assets || {};
+    var lg = state.content.pages.login || {};
     setVal('site-brand-title', f.brandTitle);
     setVal('site-brand-desc', f.brandDesc);
     setVal('site-brand-logo', f.brandLogo);
@@ -114,7 +117,46 @@
     setVal('site-addr2', f.locationAddressLine2);
     setVal('site-copyright', f.copyrightText);
     setVal('site-copyright-suffix', f.copyrightSuffix);
+    setVal('site-header-logo-image', hd.logoImage);
+    setVal('site-header-logo-alt', hd.logoAlt);
+    setVal('site-header-logo-text', hd.logoText);
+    setVal('site-header-logo-sub', hd.logoSub);
+    setVal('site-header-logo-href', hd.logoHref);
+    setVal('site-header-logo-aria', hd.logoAriaLabel);
+    setVal('site-header-nav-aria', hd.navAriaLabel);
+    setVal('site-header-mobile-nav-aria', hd.mobileNavAriaLabel);
+    setVal('site-header-contact-text', hd.contactBtnText);
+    setVal('site-header-menu-label', hd.menuBtnLabel);
+    setVal('site-header-preloader-logo', hd.preloaderLogo);
+    setVal('site-header-preloader-alt', hd.preloaderLogoAlt);
+    setVal('site-footer-nav-aria', f.navAriaLabel);
+    setVal('site-assets-manifest', assets.manifest);
+    setVal('site-assets-favicon', assets.favicon);
+    setVal('site-assets-apple-icon', assets.appleTouchIcon);
+    setVal('site-assets-apple-title', assets.appleAppTitle);
+    setVal('site-assets-og-image', assets.ogImage);
+    setVal('login-meta-title', lg.meta && lg.meta.title);
+    setVal('login-kicker', lg.kicker);
+    setVal('login-title', lg.title);
+    setVal('login-subtitle', lg.subtitle);
+    setVal('login-password-label', lg.passwordLabel);
+    setVal('login-password-placeholder', lg.passwordPlaceholder);
+    setVal('login-reveal-label', lg.revealLabel);
+    setVal('login-hide-label', lg.hideLabel);
+    setVal('login-reveal-aria', lg.revealAriaLabel);
+    setVal('login-hide-aria', lg.hideAriaLabel);
+    setVal('login-submit-label', lg.submitLabel);
+    setVal('login-busy-label', lg.busyLabel);
+    setVal('login-back-text', lg.backLinkText);
+    setVal('login-back-href', lg.backLinkHref);
+    setVal('login-error-empty', lg.errorEmpty);
+    setVal('login-error-invalid', lg.errorInvalid);
+    setVal('login-error-auth', lg.errorAuth);
+    setVal('login-error-network', lg.errorNetwork);
+    setVal('login-error-not-configured', lg.errorNotConfigured);
+    setVal('login-status-success', lg.statusSuccess);
     renderFooterGroups(g);
+    renderHeaderNav(hd.nav || []);
     renderNavList('home-footernav', state.content.pages.home.footerNav || [], markDirty);
     renderNavList('explore-footernav', state.content.pages.explore.footerNav || [], markDirty);
     renderNavList('audit-footernav', state.content.pages.audit.footerNav || [], markDirty);
@@ -123,6 +165,9 @@
   function setVal(id, v) { var el = document.getElementById(id); if (el && v !== undefined) { el.value = v; el.oninput = function () { syncGlobal(); markDirty(); }; el.onchange = function () { syncGlobal(); markDirty(); }; } }
   function syncGlobal() {
     var f = state.content.site.footer;
+    var hd = state.content.site.header;
+    var assets = state.content.site.assets;
+    var lg = state.content.pages.login;
     f.brandTitle = val('site-brand-title');
     f.brandDesc = val('site-brand-desc');
     f.brandLogo = val('site-brand-logo');
@@ -136,6 +181,44 @@
     f.locationAddressLine2 = val('site-addr2');
     f.copyrightText = val('site-copyright');
     f.copyrightSuffix = val('site-copyright-suffix');
+    f.navAriaLabel = val('site-footer-nav-aria');
+    hd.logoImage = val('site-header-logo-image');
+    hd.logoAlt = val('site-header-logo-alt');
+    hd.logoText = val('site-header-logo-text');
+    hd.logoSub = val('site-header-logo-sub');
+    hd.logoHref = val('site-header-logo-href');
+    hd.logoAriaLabel = val('site-header-logo-aria');
+    hd.navAriaLabel = val('site-header-nav-aria');
+    hd.mobileNavAriaLabel = val('site-header-mobile-nav-aria');
+    hd.contactBtnText = val('site-header-contact-text');
+    hd.menuBtnLabel = val('site-header-menu-label');
+    hd.preloaderLogo = val('site-header-preloader-logo');
+    hd.preloaderLogoAlt = val('site-header-preloader-alt');
+    assets.manifest = val('site-assets-manifest');
+    assets.favicon = val('site-assets-favicon');
+    assets.appleTouchIcon = val('site-assets-apple-icon');
+    assets.appleAppTitle = val('site-assets-apple-title');
+    assets.ogImage = val('site-assets-og-image');
+    if (lg.meta) lg.meta.title = val('login-meta-title');
+    lg.kicker = val('login-kicker');
+    lg.title = val('login-title');
+    lg.subtitle = val('login-subtitle');
+    lg.passwordLabel = val('login-password-label');
+    lg.passwordPlaceholder = val('login-password-placeholder');
+    lg.revealLabel = val('login-reveal-label');
+    lg.hideLabel = val('login-hide-label');
+    lg.revealAriaLabel = val('login-reveal-aria');
+    lg.hideAriaLabel = val('login-hide-aria');
+    lg.submitLabel = val('login-submit-label');
+    lg.busyLabel = val('login-busy-label');
+    lg.backLinkText = val('login-back-text');
+    lg.backLinkHref = val('login-back-href');
+    lg.errorEmpty = val('login-error-empty');
+    lg.errorInvalid = val('login-error-invalid');
+    lg.errorAuth = val('login-error-auth');
+    lg.errorNetwork = val('login-error-network');
+    lg.errorNotConfigured = val('login-error-not-configured');
+    lg.statusSuccess = val('login-status-success');
   }
   function val(id) { var el = document.getElementById(id); return el ? el.value : ''; }
 
@@ -164,6 +247,49 @@
 
   document.getElementById('btn-add-footer-group').onclick = function () { if (!state.content.site.footerGroups) state.content.site.footerGroups = []; state.content.site.footerGroups.push({ title: 'NEW GROUP', links: [{ label: 'Link', href: '#' }] }); renderAll(); markDirty(); };
 
+  document.getElementById('btn-add-header-nav').onclick = function () {
+    if (!state.content.site.header.nav) state.content.site.header.nav = [];
+    state.content.site.header.nav.push({ id: 'new-item', label: 'New Link', href: '#', active: { home: false, explore: false, audit: false } });
+    renderAll(); markDirty();
+  };
+
+  // Shared header nav: one list, with a per-page "active" flag per item.
+  function renderHeaderNav(list) {
+    var box = document.getElementById('header-nav-editor');
+    if (!box) return;
+    box.innerHTML = '';
+    list.forEach(function (n, i) {
+      var active = n.active || {};
+      var row = document.createElement('div'); row.className = 'cms-row cms-row-nav';
+      row.innerHTML =
+        '<input class="cms-input" value="' + esc(n.id) + '" data-i="' + i + '" data-k="id" placeholder="id">' +
+        '<input class="cms-input" value="' + esc(n.label) + '" data-i="' + i + '" data-k="label" placeholder="label">' +
+        '<input class="cms-input" value="' + esc(n.href) + '" data-i="' + i + '" data-k="href" placeholder="href">' +
+        '<label class="cms-check"><input type="checkbox" data-i="' + i + '" data-k="active.home"' + (active.home ? ' checked' : '') + '> home</label>' +
+        '<label class="cms-check"><input type="checkbox" data-i="' + i + '" data-k="active.explore"' + (active.explore ? ' checked' : '') + '> explore</label>' +
+        '<label class="cms-check"><input type="checkbox" data-i="' + i + '" data-k="active.audit"' + (active.audit ? ' checked' : '') + '> audit</label>' +
+        '<button class="cms-btn cms-btn-ghost cms-btn-sm" data-ri="' + i + '">×</button>';
+      box.appendChild(row);
+    });
+    var nav = state.content.site.header.nav;
+    box.querySelectorAll('input[data-k]').forEach(function (inp) {
+      inp.oninput = inp.onchange = function () {
+        var item = nav[inp.getAttribute('data-i')];
+        var key = inp.getAttribute('data-k');
+        if (key.indexOf('active.') === 0) {
+          if (!item.active) item.active = {};
+          item.active[key.slice(7)] = inp.checked;
+        } else {
+          item[key] = inp.value;
+        }
+        markDirty();
+      };
+    });
+    box.querySelectorAll('button[data-ri]').forEach(function (b) {
+      b.onclick = function () { nav.splice(b.getAttribute('data-ri'), 1); renderAll(); markDirty(); };
+    });
+  }
+
   function renderNavList(id, list, onCh) {
     var box = document.getElementById(id); box.innerHTML = '';
     list.forEach(function (n, i) {
@@ -180,33 +306,98 @@
   /* home */
   function renderHome() {
     var h = state.content.pages.home;
+    var d = h.dapper;
+    var c = d.controls;
     bind('home-meta-title', h.meta.title, function (v) { h.meta.title = v; markDirty(); });
     bind('home-meta-desc', h.meta.description, function (v) { h.meta.description = v; markDirty(); });
+    bind('home-meta-ogtitle', h.meta.ogTitle, function (v) { h.meta.ogTitle = v; markDirty(); });
+    bind('home-meta-ogdesc', h.meta.ogDescription, function (v) { h.meta.ogDescription = v; markDirty(); });
+    bind('home-meta-ogtype', h.meta.ogType, function (v) { h.meta.ogType = v; markDirty(); });
+    bind('home-meta-themecolor', h.meta.themeColor, function (v) { h.meta.themeColor = v; markDirty(); });
+    bind('home-header-cta', h.headerCtaHref, function (v) { h.headerCtaHref = v; markDirty(); });
     bind('home-hero-title', h.hero.title, function (v) { h.hero.title = v; markDirty(); });
     bind('home-hero-highlight', h.hero.titleHighlight, function (v) { h.hero.titleHighlight = v; markDirty(); });
     bind('home-hero-tagline', h.hero.tagline, function (v) { h.hero.tagline = v; markDirty(); });
     bind('home-hero-pbtn', h.hero.primaryBtnText, function (v) { h.hero.primaryBtnText = v; markDirty(); });
     bind('home-hero-plink', h.hero.primaryBtnLink, function (v) { h.hero.primaryBtnLink = v; markDirty(); });
+    bind('home-hero-pbtn-aria', h.hero.primaryBtnAriaLabel, function (v) { h.hero.primaryBtnAriaLabel = v; markDirty(); });
     bind('home-hero-sbtn', h.hero.secondaryBtnText, function (v) { h.hero.secondaryBtnText = v; markDirty(); });
     bind('home-hero-slink', h.hero.secondaryBtnLink, function (v) { h.hero.secondaryBtnLink = v; markDirty(); });
     bind('home-preloader', h.hero.preloaderStatus, function (v) { h.hero.preloaderStatus = v; markDirty(); });
+    bind('home-dapper-chapter-prefix', d.chapterPrefix, function (v) { d.chapterPrefix = v; markDirty(); });
+    bind('home-dapper-chapter-start', d.chapterStart, function (v) { d.chapterStart = v; markDirty(); });
+    bind('home-dapper-chapter-sep', d.chapterSeparator, function (v) { d.chapterSeparator = v; markDirty(); });
+    bind('home-dapper-caption-prefix', d.captionPrefix, function (v) { d.captionPrefix = v; markDirty(); });
+    bind('home-dapper-tag-top', d.tagTop, function (v) { d.tagTop = v; markDirty(); });
+    bind('home-dapper-tag-bottom', d.tagBottom, function (v) { d.tagBottom = v; markDirty(); });
+    bind('home-dapper-tag-prefix', d.tagPrefix, function (v) { d.tagPrefix = v; markDirty(); });
+    bind('home-dapper-tag-sep', d.tagSeparator, function (v) { d.tagSeparator = v; markDirty(); });
+    bind('home-dapper-video-src', d.video.src, function (v) { d.video.src = v; markDirty(); });
+    bind('home-dapper-video-type', d.video.type, function (v) { d.video.type = v; markDirty(); });
+    bind('home-ctrl-pause', c.pauseLabel, function (v) { c.pauseLabel = v; markDirty(); });
+    bind('home-ctrl-resume', c.resumeLabel, function (v) { c.resumeLabel = v; markDirty(); });
+    bind('home-ctrl-sound', c.soundLabel, function (v) { c.soundLabel = v; markDirty(); });
+    bind('home-ctrl-muted', c.mutedLabel, function (v) { c.mutedLabel = v; markDirty(); });
+    bind('home-ctrl-pause-aria', c.pauseAriaLabel, function (v) { c.pauseAriaLabel = v; markDirty(); });
+    bind('home-ctrl-pause-title', c.pauseTitle, function (v) { c.pauseTitle = v; markDirty(); });
+    bind('home-ctrl-sound-aria', c.soundAriaLabel, function (v) { c.soundAriaLabel = v; markDirty(); });
+    bind('home-ctrl-sound-title', c.soundTitle, function (v) { c.soundTitle = v; markDirty(); });
+    bind('home-ctrl-group-aria', c.groupAriaLabel, function (v) { c.groupAriaLabel = v; markDirty(); });
     var box = document.getElementById('home-chapters-editor'); box.innerHTML = '';
-    (state.content.homepage.dapper.chapters || []).forEach(function (c, i) {
+    (state.content.homepage.dapper.chapters || []).forEach(function (c2, i) {
       var row = document.createElement('div'); row.className = 'cms-row cms-row-3';
-      row.innerHTML = '<input class="cms-input" value="' + esc(c.name) + '"><input class="cms-input cms-input-long" value="' + esc(c.caption) + '"><button class="cms-btn cms-btn-ghost cms-btn-sm">×</button>';
+      row.innerHTML = '<input class="cms-input" value="' + esc(c2.name) + '"><input class="cms-input cms-input-long" value="' + esc(c2.caption) + '"><button class="cms-btn cms-btn-ghost cms-btn-sm">×</button>';
       var ins = row.querySelectorAll('input');
-      ins[0].oninput = function () { c.name = ins[0].value; markDirty(); };
-      ins[1].oninput = function () { c.caption = ins[1].value; markDirty(); };
+      ins[0].oninput = function () { c2.name = ins[0].value; markDirty(); };
+      ins[1].oninput = function () { c2.caption = ins[1].value; markDirty(); };
       row.querySelector('button').onclick = function () { state.content.homepage.dapper.chapters.splice(i, 1); renderAll(); markDirty(); };
       box.appendChild(row);
     });
+    renderHeroLayers(h.hero.layers || []);
   }
+
+  // The 18-layer parallax stack: id + class drive the CSS, src + alt the asset.
+  function renderHeroLayers(layers) {
+    var box = document.getElementById('home-layers-editor');
+    if (!box) return;
+    box.innerHTML = '';
+    layers.forEach(function (l, i) {
+      var row = document.createElement('div'); row.className = 'cms-row cms-row-4';
+      row.innerHTML =
+        '<input class="cms-input" value="' + esc(l.id) + '" data-i="' + i + '" data-k="id" placeholder="id">' +
+        '<input class="cms-input" value="' + esc(l.className) + '" data-i="' + i + '" data-k="className" placeholder="class">' +
+        '<input class="cms-input cms-input-long" value="' + esc(l.src) + '" data-i="' + i + '" data-k="src" placeholder="src">' +
+        '<input class="cms-input" value="' + esc(l.alt) + '" data-i="' + i + '" data-k="alt" placeholder="alt">' +
+        '<button class="cms-btn cms-btn-ghost cms-btn-sm" data-ri="' + i + '">×</button>';
+      box.appendChild(row);
+    });
+    var arr = state.content.pages.home.hero.layers;
+    box.querySelectorAll('input[data-k]').forEach(function (inp) {
+      inp.oninput = inp.onchange = function () { arr[inp.getAttribute('data-i')][inp.getAttribute('data-k')] = inp.value; markDirty(); };
+    });
+    box.querySelectorAll('button[data-ri]').forEach(function (b) {
+      b.onclick = function () { arr.splice(b.getAttribute('data-ri'), 1); renderAll(); markDirty(); };
+    });
+  }
+
+  document.getElementById('btn-add-hero-layer').onclick = function () {
+    var layers = state.content.pages.home.hero.layers;
+    if (!layers) { layers = state.content.pages.home.hero.layers = []; }
+    layers.push({ id: 'layer-new', className: 'hero-01', src: './assets/hero-01.png', alt: '' });
+    renderAll(); markDirty();
+  };
 
   /* explore */
   function renderExplore() {
     var ex = state.content.pages.explore;
+    var u = ex.ui;
     bind('explore-meta-title', ex.meta.title, function (v) { ex.meta.title = v; markDirty(); });
     bind('explore-meta-desc', ex.meta.description, function (v) { ex.meta.description = v; markDirty(); });
+    bind('explore-meta-ogtitle', ex.meta.ogTitle, function (v) { ex.meta.ogTitle = v; markDirty(); });
+    bind('explore-meta-ogdesc', ex.meta.ogDescription, function (v) { ex.meta.ogDescription = v; markDirty(); });
+    bind('explore-meta-ogtype', ex.meta.ogType, function (v) { ex.meta.ogType = v; markDirty(); });
+    bind('explore-meta-themecolor', ex.meta.themeColor, function (v) { ex.meta.themeColor = v; markDirty(); });
+    bind('explore-header-cta', ex.headerCtaHref, function (v) { ex.headerCtaHref = v; markDirty(); });
     bind('explore-eyebrow', ex.hero.eyebrow, function (v) { ex.hero.eyebrow = v; markDirty(); });
     bind('explore-title1', ex.hero.titleLineOne, function (v) { ex.hero.titleLineOne = v; markDirty(); });
     bind('explore-title2', ex.hero.titleLineTwo, function (v) { ex.hero.titleLineTwo = v; markDirty(); });
@@ -216,6 +407,20 @@
     bind('explore-sbtn', ex.hero.secondaryBtnText, function (v) { ex.hero.secondaryBtnText = v; markDirty(); });
     bind('explore-slink', ex.hero.secondaryBtnLink, function (v) { ex.hero.secondaryBtnLink = v; markDirty(); });
     bind('explore-scroll', ex.hero.scrollHint, function (v) { ex.hero.scrollHint = v; markDirty(); });
+    bind('explore-preloader', ex.hero.preloaderStatus, function (v) { ex.hero.preloaderStatus = v; markDirty(); });
+    bind('explore-decor-contour', ex.hero.decor.contour, function (v) { ex.hero.decor.contour = v; markDirty(); });
+    bind('explore-decor-ridge', ex.hero.decor.ridge, function (v) { ex.hero.decor.ridge = v; markDirty(); });
+    bind('explore-ai-strip-aria', ex.aiStripAriaLabel, function (v) { ex.aiStripAriaLabel = v; markDirty(); });
+    bind('explore-ui-chapter-prefix', u.chapterPrefix, function (v) { u.chapterPrefix = v; markDirty(); });
+    bind('explore-ui-chapter-sep', u.chapterSeparator, function (v) { u.chapterSeparator = v; markDirty(); });
+    bind('explore-ui-chapter-dash', u.chapterDash, function (v) { u.chapterDash = v; markDirty(); });
+    bind('explore-ui-deploy', u.deployLabel, function (v) { u.deployLabel = v; markDirty(); });
+    bind('explore-ui-explore', u.exploreLabel, function (v) { u.exploreLabel = v; markDirty(); });
+    bind('explore-ui-product-fallback', u.productFallback, function (v) { u.productFallback = v; markDirty(); });
+    bind('explore-ui-brand-tag', u.defaultBrandTag, function (v) { u.defaultBrandTag = v; markDirty(); });
+    bind('explore-ui-category-fallback', u.categoryFallback, function (v) { u.categoryFallback = v; markDirty(); });
+    bind('explore-noscript-title', ex.noscript.title, function (v) { ex.noscript.title = v; markDirty(); });
+    bind('explore-noscript-body', ex.noscript.body, function (v) { ex.noscript.body = v; markDirty(); });
     listBox('explore-rail', ex.hero.rail || [], function () { markDirty(); renderAll(); }, 'string');
     listBox('explore-metalabels', ex.hero.metaLabels || [], function () { markDirty(); renderAll(); }, 'string');
     bind('explore-close-eyebrow', ex.closing.eyebrow, function (v) { ex.closing.eyebrow = v; markDirty(); });
@@ -229,8 +434,35 @@
     bind('explore-close-tbtn', ex.closing.tertiaryBtnText, function (v) { ex.closing.tertiaryBtnText = v; markDirty(); });
     bind('explore-close-tlink', ex.closing.tertiaryBtnLink, function (v) { ex.closing.tertiaryBtnLink = v; markDirty(); });
     listBox('explore-legal-editor', ex.legal || [], function () { markDirty(); renderAll(); }, 'obj');
+    renderAiStrip(ex.aiStrip || []);
     document.getElementById('btn-add-rail').onclick = function () { (ex.hero.rail || (ex.hero.rail = [])).push('NEW'); renderAll(); markDirty(); };
     document.getElementById('btn-add-explore-legal').onclick = function () { (ex.legal || (ex.legal = [])).push({ label: 'New', href: '#' }); renderAll(); markDirty(); };
+    document.getElementById('btn-add-ai-strip').onclick = function () { (ex.aiStrip || (ex.aiStrip = [])).push({ icon: 'chatgpt', name: 'New', badge: 'OEM DIRECT', category: 'New Category' }); renderAll(); markDirty(); };
+  }
+
+  // Ecosystem marquee items. `icon` selects a template-owned sprite symbol
+  // (ai-icon-<id>), never authored markup.
+  function renderAiStrip(items) {
+    var box = document.getElementById('explore-ai-strip-editor');
+    if (!box) return;
+    box.innerHTML = '';
+    items.forEach(function (it, i) {
+      var row = document.createElement('div'); row.className = 'cms-row cms-row-4';
+      row.innerHTML =
+        '<input class="cms-input" value="' + esc(it.icon) + '" data-i="' + i + '" data-k="icon" placeholder="icon">' +
+        '<input class="cms-input" value="' + esc(it.name) + '" data-i="' + i + '" data-k="name" placeholder="name">' +
+        '<input class="cms-input" value="' + esc(it.badge) + '" data-i="' + i + '" data-k="badge" placeholder="badge">' +
+        '<input class="cms-input cms-input-long" value="' + esc(it.category) + '" data-i="' + i + '" data-k="category" placeholder="category">' +
+        '<button class="cms-btn cms-btn-ghost cms-btn-sm" data-ri="' + i + '">×</button>';
+      box.appendChild(row);
+    });
+    var arr = state.content.pages.explore.aiStrip;
+    box.querySelectorAll('input[data-k]').forEach(function (inp) {
+      inp.oninput = inp.onchange = function () { arr[inp.getAttribute('data-i')][inp.getAttribute('data-k')] = inp.value; markDirty(); };
+    });
+    box.querySelectorAll('button[data-ri]').forEach(function (b) {
+      b.onclick = function () { arr.splice(b.getAttribute('data-ri'), 1); renderAll(); markDirty(); };
+    });
   }
 
   /* audit */
@@ -238,6 +470,12 @@
     var a = state.content.pages.audit;
     bind('audit-meta-title', a.meta.title, function (v) { a.meta.title = v; markDirty(); });
     bind('audit-meta-desc', a.meta.description, function (v) { a.meta.description = v; markDirty(); });
+    bind('audit-meta-ogtitle', a.meta.ogTitle, function (v) { a.meta.ogTitle = v; markDirty(); });
+    bind('audit-meta-ogdesc', a.meta.ogDescription, function (v) { a.meta.ogDescription = v; markDirty(); });
+    bind('audit-meta-ogtype', a.meta.ogType, function (v) { a.meta.ogType = v; markDirty(); });
+    bind('audit-meta-themecolor', a.meta.themeColor, function (v) { a.meta.themeColor = v; markDirty(); });
+    bind('audit-header-cta', a.headerCtaHref, function (v) { a.headerCtaHref = v; markDirty(); });
+    bind('audit-services-heading', a.servicesHeading, function (v) { a.servicesHeading = v; markDirty(); });
     bind('audit-hero-t1', (a.hero.titleLines||[])[0], function (v) { if (!a.hero.titleLines) a.hero.titleLines = []; a.hero.titleLines[0] = v; markDirty(); });
     bind('audit-hero-t2', (a.hero.titleLines||[])[1], function (v) { if (!a.hero.titleLines) a.hero.titleLines = []; a.hero.titleLines[1] = v; markDirty(); });
     bind('audit-hero-lead', a.hero.lead, function (v) { a.hero.lead = v; markDirty(); });
@@ -248,6 +486,7 @@
     listBox('audit-stages-editor', a.framework.stages || [], function () { markDirty(); renderAll(); }, 'stage');
     bind('audit-ind-kicker', a.industries.kicker, function (v) { a.industries.kicker = v; markDirty(); });
     bind('audit-ind-title', a.industries.title, function (v) { a.industries.title = v; markDirty(); });
+    bind('audit-ind-aria', a.industries.ariaLabel, function (v) { a.industries.ariaLabel = v; markDirty(); });
     bind('audit-ind-lead', a.industries.lead, function (v) { a.industries.lead = v; markDirty(); });
     document.getElementById('btn-add-audit-proof').onclick = function () { (a.hero.proof || (a.hero.proof = [])).push('New proof'); renderAll(); markDirty(); };
   }
@@ -360,9 +599,56 @@
   }
 
   /* media */
+  // Cloudinary list returns {resources, totalCount, nextCursor}; the local
+  // endpoint returns a flat array. Normalise both into state.media entries.
   function loadMedia() {
-    apiFetch('/api/v1/media').then(function (r) { return r.json(); }).then(function (j) { if (j.status === 'success') { state.media = j.data || []; renderMedia(); } });
-    apiFetch('/api/v1/media/cloudinary/list').then(function (r) { return r.json(); }).then(function (j) { if (j.status === 'success' && Array.isArray(j.data)) { j.data.forEach(function (m) { if (!state.media.find(function (x) { return x.path === m.secure_url; })) state.media.push({ name: m.public_id, path: m.secure_url, type: m.resource_type, source: 'cloudinary' }); }); renderMedia(); } }).catch(function () {});
+    apiFetch('/api/v1/media').then(function (r) { return r.json(); }).then(function (j) {
+      if (j.status === 'success') { state.media = j.data || []; renderMedia(); }
+    });
+    apiFetch('/api/v1/media/cloudinary/list').then(function (r) { return r.json(); }).then(function (j) {
+      if (j.status !== 'success') return;
+      var payload = j.data || {};
+      var resources = Array.isArray(payload) ? payload : (payload.resources || []);
+      resources.forEach(function (m) {
+        var url = m.secureUrl || m.url;
+        if (!url) return;
+        if (!state.media.find(function (x) { return x.path === url; })) {
+          state.media.push({
+            name: m.publicId,
+            path: url,
+            type: m.resourceType,
+            format: m.format,
+            bytes: m.bytes,
+            width: m.width,
+            height: m.height,
+            source: 'cloudinary'
+          });
+        }
+      });
+      renderMedia();
+    }).catch(function () {});
+  }
+
+  // Images (including animated GIF) preview as <img>; video previews as
+  // <video>; anything else falls back to a labelled tile.
+  function mediaKind(m, src) {
+    var type = String(m.type || '').toLowerCase();
+    var format = String(m.format || '').toLowerCase();
+    var ext = (String(src).split('?')[0].split('.').pop() || '').toLowerCase();
+    if (type === 'video' || ['mp4', 'webm', 'mov', 'm4v', 'ogv'].indexOf(ext) !== -1) return 'video';
+    if (type === 'raw' || format === 'raw') return 'file';
+    return 'image';
+  }
+
+  function mediaPreview(m, src) {
+    var kind = mediaKind(m, src);
+    if (kind === 'video') {
+      return '<video src="' + esc(src) + '" muted playsinline preload="metadata"></video>';
+    }
+    if (kind === 'file') {
+      return '<div class="media-file-tile"><span>' + esc((m.format || 'FILE').toUpperCase()) + '</span></div>';
+    }
+    return '<img src="' + esc(src) + '" alt="" loading="lazy">';
   }
 
   function renderMedia() {
@@ -373,11 +659,7 @@
     state.media.forEach(function (m) {
       var card = document.createElement('div'); card.className = 'media-card';
       var src = m.path || ('./assets/' + m.name);
-      if ((m.type || '').indexOf('video') !== -1 || src.match(/\.(mp4|webm)$/i)) {
-        card.innerHTML = '<video src="' + esc(src) + '" muted></video><div class="media-meta"><span>' + esc(m.name) + '</span></div>';
-      } else {
-        card.innerHTML = '<img src="' + esc(src) + '" alt=""><div class="media-meta"><span>' + esc(m.name) + '</span></div>';
-      }
+      card.innerHTML = mediaPreview(m, src) + '<div class="media-meta"><span>' + esc(m.name) + '</span></div>';
       card.onclick = function () { if (state.pickTarget) { state.pickTarget(src); closeMediaPicker(); } };
       grid.appendChild(card);
     });
@@ -393,7 +675,7 @@
     state.media.forEach(function (m) {
       var card = document.createElement('div'); card.className = 'media-card';
       var src = m.path || ('./assets/' + m.name);
-      card.innerHTML = '<img src="' + esc(src) + '" alt=""><div class="media-meta"><span>' + esc(m.name) + '</span></div>';
+      card.innerHTML = mediaPreview(m, src) + '<div class="media-meta"><span>' + esc(m.name) + '</span></div>';
       card.onclick = function () { if (state.pickTarget) { state.pickTarget(src); closeMediaPicker(); } };
       grid.appendChild(card);
     });
@@ -413,16 +695,94 @@
     if (inp) inp.onchange = function () { uploadFiles(inp.files); inp.value = ''; };
   }
   function uploadFiles(files) {
-    Array.from(files).forEach(function (file) {
-      var reader = new FileReader();
-      reader.onload = function () {
-        var data = reader.result.split(',')[1];
-        apiFetch('/api/v1/media/upload', { method: 'POST', body: { name: file.name, type: file.type, data: data } }).then(function (r) { return r.json(); }).then(function (j) {
-          if (j.status === 'success') { toast('Uploaded ' + file.name, 'success'); loadMedia(); } else { toast(j.message || 'Upload failed', 'error'); }
-        }).catch(function (e) { toast('Upload error: ' + e.message, 'error'); });
-      };
-      reader.readAsDataURL(file);
+    var list = Array.from(files || []);
+    if (list.length === 0) return;
+    list.forEach(function (file) {
+      var ext = (file.name.split('.').pop() || '').toLowerCase();
+      var allowed = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg', 'mp4', 'webm', 'mov', 'm4v'];
+      if (allowed.indexOf(ext) === -1) {
+        toast('Unsupported file type: ' + file.name, 'error');
+        return;
+      }
+      var maxBytes = 200 * 1024 * 1024;
+      if (file.size > maxBytes) {
+        toast('File too large: ' + file.name, 'error');
+        return;
+      }
+
+      // Try direct signed Cloudinary upload first (browser -> Cloudinary).
+      // Falls back to the existing server base64 upload if Cloudinary is not configured.
+      uploadToCloudinary(file).catch(function (err) {
+        console.warn('Cloudinary direct upload failed, falling back to server upload:', err.message);
+        uploadViaServer(file);
+      });
     });
+  }
+
+  function resourceTypeForFile(file) {
+    var ext = (file.name.split('.').pop() || '').toLowerCase();
+    if (['mp4', 'webm', 'mov', 'm4v', 'ogv'].indexOf(ext) !== -1) return 'video';
+    if (['svg'].indexOf(ext) !== -1) return 'raw';
+    return 'image';
+  }
+
+  function uploadToCloudinary(file) {
+    return apiFetch('/api/v1/media/cloudinary/config').then(function (r) { return r.json(); }).then(function (cfg) {
+      if (cfg.status !== 'success' || !cfg.data || cfg.data.configured !== true) {
+        throw new Error('Cloudinary not configured');
+      }
+      return apiFetch('/api/v1/media/cloudinary/sign', { method: 'POST', body: { resourceType: resourceTypeForFile(file) } }).then(function (r) { return r.json(); });
+    }).then(function (signedRes) {
+      if (signedRes.status !== 'success') throw new Error(signedRes.message || 'sign failed');
+      var s = signedRes.data;
+      var fd = new FormData();
+      fd.append('file', file);
+      fd.append('api_key', s.apiKey);
+      fd.append('timestamp', s.timestamp);
+      fd.append('signature', s.signature);
+      fd.append('folder', s.folder);
+      if (s.resourceType) fd.append('resource_type', s.resourceType);
+
+      return new Promise(function (resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', s.uploadUrl);
+        xhr.upload.onprogress = function (e) {
+          if (e.lengthComputable) {
+            var pct = Math.round((e.loaded / e.total) * 100);
+            toast('Uploading ' + file.name + ' ' + pct + '%', 'info');
+          }
+        };
+        xhr.onload = function () {
+          try {
+            var json = JSON.parse(xhr.responseText || '{}');
+            if (xhr.status >= 200 && xhr.status < 300 && json.secure_url) {
+              toast('Uploaded ' + file.name, 'success');
+              loadMedia();
+              resolve(json);
+            } else {
+              reject(new Error((json.error && json.error.message) || 'upload failed'));
+            }
+          } catch (err) {
+            reject(err);
+          }
+        };
+        xhr.onerror = function () { reject(new Error('network error')); };
+        xhr.send(fd);
+      });
+    });
+  }
+
+  function uploadViaServer(file) {
+    var reader = new FileReader();
+    reader.onloadstart = function () { toast('Uploading ' + file.name + '...', 'info'); };
+    reader.onload = function () {
+      var data = reader.result.split(',')[1];
+      apiFetch('/api/v1/media/upload', { method: 'POST', body: { filename: file.name, name: file.name, type: file.type, data: data, base64Data: reader.result } }).then(function (r) { return r.json(); }).then(function (j) {
+        if (j.status === 'success') { toast('Uploaded ' + file.name, 'success'); loadMedia(); } else { toast(j.message || 'Upload failed', 'error'); }
+      }).catch(function (e) { toast('Upload error: ' + (e.message || 'failed'), 'error'); });
+    };
+    reader.onerror = function () { toast('Failed to read file: ' + file.name, 'error'); };
+    reader.readAsDataURL(file);
   }
 
   /* snapshots */

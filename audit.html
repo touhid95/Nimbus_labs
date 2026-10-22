@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <title>{{pages.audit.meta.title}}</title>
   <meta name="description" content="{{pages.audit.meta.description}}">
-  <meta name="theme-color" content="#ffffff">
-  <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="icon" type="image/png" href="./assets/logo_tight.png">
+  <meta name="theme-color" content="{{pages.audit.meta.themeColor}}">
+  <link rel="manifest" href="{{site.assets.manifest}}">
+  <link rel="icon" type="image/png" href="{{site.assets.favicon}}">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Services &amp; Business Audit // AI Labs by Nimbus">
-  <meta property="og:description" content="A full-spectrum enterprise AI innovation and autonomous systems engineering partner. We study how you work, then build only what you need.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="./assets/logo.png">
+  <meta property="og:title" content="{{pages.audit.meta.ogTitle}}">
+  <meta property="og:description" content="{{pages.audit.meta.ogDescription}}">
+  <meta property="og:type" content="{{pages.audit.meta.ogType}}">
+  <meta property="og:image" content="{{site.assets.ogImage}}">
 
   <!-- Google Fonts matching Clay's typography (Outfit, Plus Jakarta Sans, JetBrains Mono) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,31 +29,27 @@
     <div class="clay-header__container">
       
       <!-- Brand Logo (Minimal icon + Clay typography) -->
-      <a href="./" class="clay-logo" aria-label="AI Labs by Nimbus — Home">
-        <img src="./assets/logo_tight.png" alt="AI Labs by Nimbus" class="clay-logo__img">
-        <span class="clay-logo__text">NIMBUS</span>
-        <span class="clay-logo__sub">/ AI LABS</span>
+      <a href="{{site.header.logoHref}}" class="clay-logo" aria-label="{{site.header.logoAriaLabel}}">
+        <img src="{{site.header.logoImage}}" alt="{{site.header.logoAlt}}" class="clay-logo__img">
+        <span class="clay-logo__text">{{site.header.logoText}}</span>
+        <span class="clay-logo__sub">{{site.header.logoSub}}</span>
       </a>
 
       <!-- Center Nav Links -->
-      <nav class="clay-nav" aria-label="Main Navigation">
+      <nav class="clay-nav" aria-label="{{site.header.navAriaLabel}}">
         <ul class="clay-nav__list">
-          <li class="clay-nav__item">
-            <a href="./explore" class="clay-nav__link">Products</a>
+          {{#site.header.nav}}
+          <li class="clay-nav__item{{#this.active.audit}} is-active{{/this.active.audit}}"{{#this.active.audit}} aria-current="page"{{/this.active.audit}}>
+            <a href="{{this.href}}" class="clay-nav__link">{{#this.active.audit}}<span>{{this.label}}</span><span class="clay-nav__active-line"></span>{{/this.active.audit}}{{^this.active.audit}}{{this.label}}{{/this.active.audit}}</a>
           </li>
-          <li class="clay-nav__item is-active" aria-current="page">
-            <a href="./services" class="clay-nav__link">
-              <span>Audits and services</span>
-              <span class="clay-nav__active-line"></span>
-            </a>
-          </li>
+          {{/site.header.nav}}
         </ul>
       </nav>
 
       <!-- Right Contact Action -->
       <div class="clay-header__action">
-        <a href="#contact" class="clay-contact-btn">Book Audit</a>
-        <button id="clay-menu-btn" class="clay-burger-btn" aria-label="Open mobile menu" aria-expanded="false">
+        <a href="{{pages.audit.headerCtaHref}}" class="clay-contact-btn">{{site.header.contactBtnText}}</a>
+        <button id="clay-menu-btn" class="clay-burger-btn" aria-label="{{site.header.menuBtnLabel}}" aria-expanded="false">
           <span class="burger-bar"></span>
           <span class="burger-bar"></span>
         </button>
@@ -63,11 +59,12 @@
 
     <!-- Mobile Drawer -->
     <div id="clay-mobile-drawer" class="clay-mobile-drawer">
-      <div class="clay-mobile-links">
-        <a href="./explore" class="mobile-link">Products</a>
-        <a href="./services" class="mobile-link is-active">Audits and services</a>
-        <a href="#contact" class="clay-contact-btn mobile-cta">Book Audit</a>
-      </div>
+      <nav class="clay-mobile-links" aria-label="{{site.header.mobileNavAriaLabel}}">
+        {{#site.header.nav}}
+        <a href="{{this.href}}" class="mobile-link{{#this.active.audit}} is-active{{/this.active.audit}}">{{this.label}}</a>
+        {{/site.header.nav}}
+        <a href="{{pages.audit.headerCtaHref}}" class="clay-contact-btn mobile-cta">{{site.header.contactBtnText}}</a>
+      </nav>
     </div>
   </header>
 
@@ -99,7 +96,7 @@
     <!-- ================= SERVICES & AUDIT LIST (Clay's Alternating Cards & 3D Stages) ================= -->
     <section class="clay-services-section" id="services-list">
       <div class="clay-container">
-        <h2 class="clay-visually-hidden">Services and Audit Spectrum</h2>
+        <h2 class="clay-visually-hidden">{{pages.audit.servicesHeading}}</h2>
 
         <ul class="clay-services-cards">
           {{#services}}
@@ -170,7 +167,7 @@
     </section>
 
     <!-- ================= 3. INDUSTRIES SECTION (Dapper Pinned Curtain Stage: 600vh) ================= -->
-    <section class="clay-industries-section xp-dapper-section" id="services-industries" aria-label="Mission-Critical Sectors">
+    <section class="clay-industries-section xp-dapper-section" id="services-industries" aria-label="{{pages.audit.industries.ariaLabel}}">
       <div class="clay-industries-sticky" id="industries-dapper-sticky">
         
         <!-- Pinned Top Header (Visible across all slides) -->
@@ -240,7 +237,7 @@
           </div>
 
           <!-- Footer Navigation Columns -->
-          <nav class="clay-footer-nav" aria-label="Footer Nav">
+          <nav class="clay-footer-nav" aria-label="{{site.footer.navAriaLabel}}">
             <ul class="clay-footer-nav-list">
               {{#pages.audit.footerNav}}
               <li><a href="{{this.href}}" class="{{this.linkClass}}">{{this.label}}</a></li>

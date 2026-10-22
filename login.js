@@ -7,6 +7,22 @@
   var submitBtn = document.getElementById('submit-btn');
   var statusBox = document.getElementById('status');
 
+  var i18n = {};
+  try {
+    var node = document.getElementById('login-i18n');
+    if (node && node.textContent) {
+      i18n = JSON.parse(node.textContent);
+    }
+  } catch (err) {
+    console.warn('Unable to read login strings:', err);
+  }
+
+  function t(key, fallback) {
+    var value = i18n[key];
+    if (typeof value === 'string' && value.length) return value;
+    return fallback;
+  }
+
   function setStatus(message, kind) {
     statusBox.textContent = message;
     statusBox.className = 'status is-visible ' + (kind === 'error' ? 'is-error' : 'is-info');
@@ -26,14 +42,14 @@
 
   function setBusy(busy) {
     submitBtn.disabled = busy;
-    submitBtn.textContent = busy ? 'Authenticating…' : 'Enter Matrix';
+    submitBtn.textContent = busy ? t('busyLabel', 'Authenticating…') : t('submitLabel', 'Enter Matrix');
   }
 
   revealBtn.addEventListener('click', function () {
     var isHidden = passwordInput.type === 'password';
     passwordInput.type = isHidden ? 'text' : 'password';
-    revealBtn.textContent = isHidden ? 'Hide' : 'Show';
-    revealBtn.setAttribute('aria-label', isHidden ? 'Hide passphrase' : 'Show passphrase');
+    revealBtn.textContent = isHidden ? t('hideLabel', 'Hide') : t('revealLabel', 'Show');
+    revealBtn.setAttribute('aria-label', isHidden ? t('hideAriaLabel', 'Hide passphrase') : t('revealAriaLabel', 'Show passphrase'));
     passwordInput.focus();
   });
 
@@ -43,7 +59,7 @@
 
     var password = passwordInput.value;
     if (!password) {
-      setStatus('Enter the admin passphrase to continue.', 'error');
+      setStatus(t('errorEmpty', 'Enter the admin passphrase to continue.'), 'error');
       passwordInput.focus();
       return;
     }
@@ -63,16 +79,17 @@
       })
       .then(function (result) {
         if (!result.ok) {
-          setStatus(result.body && result.body.message ? result.body.message : 'Authentication failed.', 'error');
+          var msg = result.body && result.body.message ? result.body.message : t('errorAuth', 'Authentication failed.');
+          setStatus(msg, 'error');
           setBusy(false);
           passwordInput.select();
           return;
         }
-        setStatus('Authenticated. Opening the CMS Matrix…', 'info');
+        setStatus(t('statusSuccess', 'Authenticated. Opening the CMS Matrix…'), 'info');
         window.location.assign(safeNext());
       })
       .catch(function () {
-        setStatus('Network error. Check that the server is running.', 'error');
+        setStatus(t('errorNetwork', 'Network error. Check that the server is running.'), 'error');
         setBusy(false);
       });
   });
@@ -84,7 +101,7 @@
       if (body && body.data && body.data.authenticated) {
         window.location.assign(safeNext());
       } else if (body && body.data && body.data.authConfigured === false) {
-        setStatus('Admin access is not configured on the server. Set ADMIN_PASSWORD in .env and restart.', 'error');
+        setStatus(t('errorNotConfigured', 'Admin access is not configured on the server. Set ADMIN_PASSWORD in .env and restart.'), 'error');
       }
     })
     .catch(function () { /* stay on the form */ });

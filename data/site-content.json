@@ -11,16 +11,49 @@
   },
   "site": {
     "brand": "AI Labs by Nimbus",
-    "nav": [
-      {
-        "label": "Products",
-        "href": "./explore"
-      },
-      {
-        "label": "Audits and services",
-        "href": "./services"
-      }
-    ],
+    "header": {
+      "logoImage": "./assets/logo_tight.png",
+      "logoAlt": "AI Labs by Nimbus",
+      "logoText": "NIMBUS",
+      "logoSub": "/ AI LABS",
+      "logoHref": "./",
+      "logoAriaLabel": "AI Labs by Nimbus — Home",
+      "navAriaLabel": "Main Navigation",
+      "mobileNavAriaLabel": "Mobile Navigation",
+      "contactBtnText": "Book Audit",
+      "menuBtnLabel": "Open mobile menu",
+      "preloaderLogo": "./assets/logo_tight.png",
+      "preloaderLogoAlt": "AI Labs by Nimbus",
+      "nav": [
+        {
+          "id": "products",
+          "label": "Products",
+          "href": "./explore",
+          "active": {
+            "home": false,
+            "explore": true,
+            "audit": false
+          }
+        },
+        {
+          "id": "services",
+          "label": "Audits and services",
+          "href": "./services",
+          "active": {
+            "home": false,
+            "explore": false,
+            "audit": true
+          }
+        }
+      ]
+    },
+    "assets": {
+      "manifest": "./manifest.webmanifest",
+      "favicon": "./assets/logo_tight.png",
+      "appleTouchIcon": "./assets/icon-192.png",
+      "appleAppTitle": "Nimbus Labs",
+      "ogImage": "./assets/logo.png"
+    },
     "footerGroups": [
       {
         "title": "EXPLORE",
@@ -103,6 +136,7 @@
       "locationCity": "Dhaka, Bangladesh",
       "locationAddressLine1": "Gulshan 2, Dhaka 1212",
       "locationAddressLine2": "Bangladesh · Frontier Artificial Intelligence & Autonomous Systems",
+      "navAriaLabel": "Footer Nav",
       "legal": [
         {
           "label": "Privacy",
@@ -478,6 +512,7 @@
       "locationCity": "Dhaka, Bangladesh",
       "locationAddressLine1": "Gulshan 2, Dhaka 1212",
       "locationAddressLine2": "Bangladesh · Frontier Artificial Intelligence & Autonomous Systems",
+      "navAriaLabel": "Footer Nav",
       "legal": [
         {
           "label": "Privacy",
@@ -528,21 +563,160 @@
     "home": {
       "meta": {
         "title": "AI Labs by Nimbus | Frontier Artificial Intelligence & Autonomous Systems",
-        "description": "AI Labs by Nimbus researches next-generation generative models, collaborative multi-agent architectures, and hyper-scalable deep learning systems."
+        "description": "AI Labs by Nimbus researches next-generation generative models, collaborative multi-agent architectures, and hyper-scalable deep learning systems.",
+        "ogTitle": "AI Labs by Nimbus | Frontier Intelligence",
+        "ogDescription": "Pioneering the next frontier of artificial intelligence, autonomous agentic systems, and neural architectures.",
+        "ogType": "website",
+        "themeColor": "#020016"
       },
+      "headerCtaHref": "./services#contact",
       "hero": {
         "title": "AI LABS",
         "titleHighlight": "BY NIMBUS",
         "tagline": "We study how you work, then build only what you need.",
         "primaryBtnText": "Explore Product",
         "primaryBtnLink": "./explore",
+        "primaryBtnAriaLabel": "Explore Nimbus Labs products and services",
         "secondaryBtnText": "Book Audit",
         "secondaryBtnLink": "./audit",
-        "preloaderStatus": "INITIALIZING NIMBUS NEURAL CLUSTER..."
+        "preloaderStatus": "INITIALIZING NIMBUS NEURAL CLUSTER...",
+        "layers": [
+          {
+            "id": "layer-01",
+            "className": "hero-01",
+            "src": "./assets/hero-01.png",
+            "alt": "Sky background"
+          },
+          {
+            "id": "layer-02",
+            "className": "hero-02",
+            "src": "./assets/hero-02.png",
+            "alt": "Mountain ridges 2"
+          },
+          {
+            "id": "layer-03",
+            "className": "hero-03",
+            "src": "./assets/hero-03.png",
+            "alt": "Mountain ridges 3"
+          },
+          {
+            "id": "layer-04",
+            "className": "hero-04",
+            "src": "./assets/hero-04.png",
+            "alt": "Mountain ridges 4"
+          },
+          {
+            "id": "layer-05",
+            "className": "hero-05",
+            "src": "./assets/hero-05.png",
+            "alt": "Foothills 5"
+          },
+          {
+            "id": "layer-06",
+            "className": "hero-06",
+            "src": "./assets/hero-06.png",
+            "alt": "Pine ridges 6"
+          },
+          {
+            "id": "layer-cloud1",
+            "className": "hero-cloud1",
+            "src": "./assets/hero-cloud1.png",
+            "alt": "Cloud atmosphere 1"
+          },
+          {
+            "id": "layer-cloud2",
+            "className": "hero-cloud2",
+            "src": "./assets/hero-cloud2.png",
+            "alt": "Cloud atmosphere 2"
+          },
+          {
+            "id": "layer-cloud3",
+            "className": "hero-cloud3",
+            "src": "./assets/hero-cloud3.png",
+            "alt": "Cloud atmosphere 3"
+          },
+          {
+            "id": "layer-cloud4",
+            "className": "hero-cloud4",
+            "src": "./assets/hero-cloud4.png",
+            "alt": "Cloud atmosphere 4"
+          },
+          {
+            "id": "layer-cloud5",
+            "className": "hero-cloud5",
+            "src": "./assets/hero-cloud5.png",
+            "alt": "Cloud atmosphere 5"
+          },
+          {
+            "id": "layer-cloud6",
+            "className": "hero-cloud6",
+            "src": "./assets/hero-cloud6.png",
+            "alt": "Cloud atmosphere 6"
+          },
+          {
+            "id": "layer-cloud7",
+            "className": "hero-cloud7",
+            "src": "./assets/hero-cloud7.png",
+            "alt": "Cloud atmosphere 7"
+          },
+          {
+            "id": "layer-cloud8",
+            "className": "hero-cloud8",
+            "src": "./assets/hero-cloud8.png",
+            "alt": "Cloud atmosphere 8"
+          },
+          {
+            "id": "layer-07",
+            "className": "hero-07",
+            "src": "./assets/hero-07.png",
+            "alt": "Ridge forest 7"
+          },
+          {
+            "id": "layer-08",
+            "className": "hero-08",
+            "src": "./assets/hero-08.png",
+            "alt": "Foreground hills 8"
+          },
+          {
+            "id": "layer-09",
+            "className": "hero-09",
+            "src": "./assets/hero-09.png",
+            "alt": "Valley slopes 9"
+          },
+          {
+            "id": "layer-10",
+            "className": "hero-10",
+            "src": "./assets/hero-10.png",
+            "alt": "Near pine trees 10"
+          }
+        ]
       },
       "dapper": {
         "subheader": "AI LABS BY NIMBUS",
-        "chapterCount": 5
+        "chapterCount": 5,
+        "chapterPrefix": "CHAPTER",
+        "chapterStart": "01",
+        "chapterSeparator": "/",
+        "captionPrefix": "//",
+        "tagTop": "FRONTIER COGNITION",
+        "tagBottom": "RESEARCH DOMAINS",
+        "tagPrefix": "CHAPTER 0",
+        "tagSeparator": "//",
+        "video": {
+          "src": "assets/research-cognition.webm",
+          "type": "video/webm"
+        },
+        "controls": {
+          "pauseLabel": "Pause",
+          "resumeLabel": "Resume",
+          "soundLabel": "Sound",
+          "mutedLabel": "Muted",
+          "pauseAriaLabel": "Pause or Resume Video",
+          "pauseTitle": "Pause / Resume",
+          "soundAriaLabel": "Toggle Sound",
+          "soundTitle": "Mute / Unmute",
+          "groupAriaLabel": "Video Controls"
+        }
       },
       "footerNav": [
         {
@@ -571,8 +745,13 @@
     "explore": {
       "meta": {
         "title": "Solutions Catalogue // AI Labs by Nimbus",
-        "description": "Explore the Nimbus Labs solutions catalogue: autonomous systems, reasoning cores, agent swarms and edge inference."
+        "description": "Explore the Nimbus Labs solutions catalogue: autonomous systems, reasoning cores, agent swarms and edge inference.",
+        "ogTitle": "Explore Products & Services | AI Labs by Nimbus",
+        "ogDescription": "A field catalogue of upcoming Nimbus Labs products and services.",
+        "ogType": "website",
+        "themeColor": "#020016"
       },
+      "headerCtaHref": "./services#contact",
       "hero": {
         "eyebrow": "Fast, Precise, Reliable, to the Point",
         "titleLineOne": "SOLUTIONS",
@@ -582,6 +761,11 @@
         "primaryBtnLink": "#products",
         "secondaryBtnText": "Book Audit",
         "secondaryBtnLink": "./audit",
+        "preloaderStatus": "OPENING NIMBUS FIELD CATALOGUE...",
+        "decor": {
+          "contour": "./assets/explore/contour.svg",
+          "ridge": "./assets/explore/horizon-ridge.svg"
+        },
         "rail": [
           "SOLUTIONS",
           "PRODUCTS",
@@ -593,6 +777,95 @@
           "Active Programme"
         ],
         "scrollHint": "Scroll to explore"
+      },
+      "aiStripAriaLabel": "Supported AI Ecosystem",
+      "aiStrip": [
+        {
+          "icon": "chatgpt",
+          "name": "ChatGPT",
+          "badge": "OEM DIRECT",
+          "category": "Reasoning & Neural Chat"
+        },
+        {
+          "icon": "claude",
+          "name": "Claude",
+          "badge": "ENTERPRISE OEM",
+          "category": "Cognitive Architecture"
+        },
+        {
+          "icon": "gemini",
+          "name": "Gemini",
+          "badge": "OEM DIRECT",
+          "category": "Multimodal Foundation"
+        },
+        {
+          "icon": "perplexity",
+          "name": "Perplexity",
+          "badge": "OEM DIRECT",
+          "category": "Real-Time Synthesis"
+        },
+        {
+          "icon": "grok",
+          "name": "Grok",
+          "badge": "ENTERPRISE OEM",
+          "category": "Real-Time Compute"
+        },
+        {
+          "icon": "cursor",
+          "name": "Cursor",
+          "badge": "OEM DIRECT",
+          "category": "AI Development Studio"
+        },
+        {
+          "icon": "copilot",
+          "name": "Copilot",
+          "badge": "ENTERPRISE OEM",
+          "category": "Pair Programming"
+        },
+        {
+          "icon": "devin-ai",
+          "name": "Devin AI",
+          "badge": "OEM DIRECT",
+          "category": "Autonomous Engineer"
+        },
+        {
+          "icon": "midjourney",
+          "name": "Midjourney",
+          "badge": "OEM DIRECT",
+          "category": "Visual Synthesis"
+        },
+        {
+          "icon": "adobe-firefly",
+          "name": "Adobe Firefly",
+          "badge": "ENTERPRISE OEM",
+          "category": "Commercial Media Models"
+        },
+        {
+          "icon": "grammarly",
+          "name": "Grammarly",
+          "badge": "OEM DIRECT",
+          "category": "Communication Engine"
+        },
+        {
+          "icon": "notebooklm",
+          "name": "NotebookLM",
+          "badge": "OEM DIRECT",
+          "category": "Grounded Research Core"
+        }
+      ],
+      "noscript": {
+        "title": "JavaScript is required for the interactive catalogue.",
+        "body": "This Explore catalogue renders its product and service entries with JavaScript. Enable JavaScript to view the placeholder catalogue."
+      },
+      "ui": {
+        "chapterPrefix": "// CHAPTER 0",
+        "chapterSeparator": " / ",
+        "chapterDash": "—",
+        "deployLabel": "Deploy",
+        "exploreLabel": "Explore",
+        "productFallback": "Product",
+        "defaultBrandTag": "SOLUTIONS",
+        "categoryFallback": "SYSTEMS"
       },
       "closing": {
         "eyebrow": "Ready when you are",
@@ -622,8 +895,14 @@
     "audit": {
       "meta": {
         "title": "Services & Business Audit // AI Labs by Nimbus",
-        "description": "AI Labs by Nimbus delivers full-spectrum AI product strategy, operational business audits, autonomous multi-agent systems, sovereign intelligence, and accelerated systems engineering."
+        "description": "AI Labs by Nimbus delivers full-spectrum AI product strategy, operational business audits, autonomous multi-agent systems, sovereign intelligence, and accelerated systems engineering.",
+        "ogTitle": "Services & Business Audit // AI Labs by Nimbus",
+        "ogDescription": "A full-spectrum enterprise AI innovation and autonomous systems engineering partner. We study how you work, then build only what you need.",
+        "ogType": "website",
+        "themeColor": "#ffffff"
       },
+      "headerCtaHref": "#contact",
+      "servicesHeading": "Services and Audit Spectrum",
       "hero": {
         "titleLines": [
           "Autonomous AI",
@@ -665,6 +944,7 @@
       "industries": {
         "kicker": "// IMPACT DOMAINS · FIELD TELEMETRY",
         "title": "Mission-Critical Sectors",
+        "ariaLabel": "Mission-Critical Sectors",
         "lead": "We partner with forward-thinking enterprises, sovereign institutions, and quantitative funds facing complex computational bottlenecks.",
         "sectorCount": 6,
         "sectors": [
@@ -796,6 +1076,30 @@
         }
       ],
       "footerCtaLink": "#contact"
+    },
+    "login": {
+      "meta": {
+        "title": "Admin Access — AI Labs by Nimbus"
+      },
+      "kicker": "// Nimbus Control Plane",
+      "title": "Admin Access",
+      "subtitle": "Authenticate to open the CMS Matrix. Sessions expire after 8 hours and are bound to this browser.",
+      "passwordLabel": "Passphrase",
+      "passwordPlaceholder": "Enter admin passphrase",
+      "revealLabel": "Show",
+      "hideLabel": "Hide",
+      "revealAriaLabel": "Show passphrase",
+      "hideAriaLabel": "Hide passphrase",
+      "submitLabel": "Enter Matrix",
+      "busyLabel": "Authenticating…",
+      "backLinkText": "Return to site",
+      "backLinkHref": "/",
+      "errorEmpty": "Enter the admin passphrase to continue.",
+      "errorInvalid": "Invalid passphrase. Access denied.",
+      "errorAuth": "Authentication failed.",
+      "errorNetwork": "Network error. Check that the server is running.",
+      "errorNotConfigured": "Admin access is not configured on the server. Set ADMIN_PASSWORD in .env and restart.",
+      "statusSuccess": "Authenticated. Opening the CMS Matrix…"
     }
   }
 }

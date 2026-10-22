@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>Admin Access — AI Labs by Nimbus</title>
+  <title>{{pages.login.meta.title}}</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -205,35 +205,36 @@
 <body>
   <main class="login-shell">
     <section class="login-card" aria-labelledby="login-title">
-      <p class="login-kicker">// Nimbus Control Plane</p>
-      <h1 class="login-title" id="login-title">Admin Access</h1>
-      <p class="login-sub">Authenticate to open the CMS Matrix. Sessions expire after 8 hours and are bound to this browser.</p>
+      <p class="login-kicker">{{pages.login.kicker}}</p>
+      <h1 class="login-title" id="login-title">{{pages.login.title}}</h1>
+      <p class="login-sub">{{pages.login.subtitle}}</p>
 
       <form id="login-form" novalidate>
-        <label class="field-label" for="password">Passphrase</label>
+        <label class="field-label" for="password">{{pages.login.passwordLabel}}</label>
         <div class="field-wrap">
           <input
             class="field-input"
             id="password"
             name="password"
             type="password"
-            placeholder="Enter admin passphrase"
+            placeholder="{{pages.login.passwordPlaceholder}}"
             autocomplete="current-password"
             spellcheck="false"
             required
             autofocus>
-          <button class="reveal-btn" id="reveal-btn" type="button" aria-label="Show passphrase">Show</button>
+          <button class="reveal-btn" id="reveal-btn" type="button" aria-label="{{pages.login.revealAriaLabel}}">{{pages.login.revealLabel}}</button>
         </div>
 
-        <button class="submit-btn" id="submit-btn" type="submit">Enter Matrix</button>
+        <button class="submit-btn" id="submit-btn" type="submit">{{pages.login.submitLabel}}</button>
 
         <p class="status" id="status" role="status" aria-live="polite"></p>
       </form>
 
-      <p class="login-foot"><a href="/">Return to site</a></p>
+      <p class="login-foot"><a href="{{pages.login.backLinkHref}}">{{pages.login.backLinkText}}</a></p>
     </section>
   </main>
 
+  <script type="application/json" id="login-i18n">{{pages.login|json}}</script>
   <script src="/login.js"></script>
 </body>
 </html>
