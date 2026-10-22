@@ -36,7 +36,10 @@
   function safeNext() {
     var params = new URLSearchParams(window.location.search);
     var next = params.get('next') || '';
-    if (next.charAt(0) !== '/' || next.charAt(1) === '/') return '/cms';
+    if (next.charAt(0) !== '/') return '/cms';
+    if (next.charAt(1) === '/') return '/cms';
+    // Loop guard: never redirect back to /login or to /cms when next is bad.
+    if (next === '/login' || next.indexOf('/login?') === 0) return '/cms';
     return next;
   }
 
@@ -94,11 +97,14 @@
       });
   });
 
-  // Already signed in? Skip the form.
+  // Already signed in? Skip the form only when authenticated === true.
+  // Never redirect if there is no valid cookie / session is invalid.
+  var sessionChecked = false;
   fetch('/api/v1/auth/session', { credentials: 'same-origin' })
     .then(function (response) { return response.json(); })
     .then(function (body) {
-      if (body && body.data && body.data.authenticated) {
+      sessionChecked = true;
+      if (body && body.data && body.data.authenticated === true) {
         window.location.assign(safeNext());
       } else if (body && body.data && body.data.authConfigured === false) {
         setStatus(t('errorNotConfigured', 'Admin access is not configured on the server. Set ADMIN_PASSWORD in .env and restart.'), 'error');

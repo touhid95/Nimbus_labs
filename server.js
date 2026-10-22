@@ -25,9 +25,18 @@ const UPLOADS_DIR = path.join(__dirname, 'assets', 'uploads');
 
 const auth = createAuth({
   adminPassword: process.env.ADMIN_PASSWORD || '',
-  secret: process.env.SESSION_SECRET || 'nimbus::' + (process.env.ADMIN_PASSWORD || 'unset'),
+  secret: process.env.SESSION_SECRET || '',
   secure: IS_PRODUCTION
 });
+
+if (!process.env.ADMIN_PASSWORD || !String(process.env.ADMIN_PASSWORD).trim()) {
+  console.error('FATAL: ADMIN_PASSWORD is not configured. Set ADMIN_PASSWORD in .env and restart the server.');
+  process.exit(1);
+}
+if (!process.env.SESSION_SECRET || !String(process.env.SESSION_SECRET).trim()) {
+  console.error('FATAL: SESSION_SECRET is not configured. Set SESSION_SECRET in .env and restart the server.');
+  process.exit(1);
+}
 
 const cors = createCors({
   allowedOrigins: [SITE_ORIGIN],
