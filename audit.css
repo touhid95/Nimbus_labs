@@ -364,11 +364,11 @@ body.clay-body {
 }
 
 /* Even cards: Content Left, Visual Right */
-.clay-service-card--even .clay-card-visual {
+.clay-service-card:nth-child(even) .clay-card-visual {
   order: 2;
 }
 
-.clay-service-card--even .clay-card-content {
+.clay-service-card:nth-child(even) .clay-card-content {
   order: 1;
 }
 
@@ -1021,10 +1021,10 @@ body.clay-body {
     grid-template-columns: 1fr;
     gap: 48px;
   }
-  .clay-service-card--even .clay-card-visual {
+  .clay-service-card:nth-child(even) .clay-card-visual {
     order: 1;
   }
-  .clay-service-card--even .clay-card-content {
+  .clay-service-card:nth-child(even) .clay-card-content {
     order: 2;
   }
   .clay-locations-list {

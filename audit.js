@@ -281,6 +281,10 @@
     var slides = layersContainer.querySelectorAll('.clay-industry-slide');
     if (!slides.length) return;
 
+    // The sector total follows the number of sectors in the content.
+    var counterTotal = document.getElementById('active-sector-total');
+    if (counterTotal) counterTotal.textContent = pad(slides.length);
+
     var isTicking = false;
 
     function pad(n) {

@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-  <title>AI Labs by Nimbus | Frontier Artificial Intelligence & Autonomous Systems</title>
-  <meta name="description" content="AI Labs by Nimbus researches next-generation generative models, collaborative multi-agent architectures, and hyper-scalable deep learning systems.">
-  <meta name="theme-color" content="#020016">
-  <link rel="manifest" href="./manifest.webmanifest">
+  <title>{{pages.home.meta.title}}</title>
+  <meta name="description" content="{{pages.home.meta.description}}">
+  <meta name="theme-color" content="{{pages.home.meta.themeColor}}">
+  <link rel="manifest" href="{{site.assets.manifest}}">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Nimbus Labs">
-  <link rel="apple-touch-icon" href="./assets/icon-192.png">
+  <meta name="apple-mobile-web-app-title" content="{{site.assets.appleAppTitle}}">
+  <link rel="apple-touch-icon" href="{{site.assets.appleTouchIcon}}">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="AI Labs by Nimbus | Frontier Intelligence">
-  <meta property="og:description" content="Pioneering the next frontier of artificial intelligence, autonomous agentic systems, and neural architectures.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="./assets/logo.png">
+  <meta property="og:title" content="{{pages.home.meta.ogTitle}}">
+  <meta property="og:description" content="{{pages.home.meta.ogDescription}}">
+  <meta property="og:type" content="{{pages.home.meta.ogType}}">
+  <meta property="og:image" content="{{site.assets.ogImage}}">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +25,7 @@
 
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./dapper.css?v=2">
-  <link rel="icon" type="image/png" href="./assets/logo_tight.png">
+  <link rel="icon" type="image/png" href="{{site.assets.favicon}}">
 </head>
 <body>
 
@@ -33,9 +33,9 @@
   <div id="preloader" class="preloader">
     <div class="preloader__item">
       <div class="preloader__logo-container">
-        <img src="./assets/logo_tight.png" alt="AI Labs by Nimbus" class="preloader__logo">
+        <img src="{{site.header.preloaderLogo}}" alt="{{site.header.preloaderLogoAlt}}" class="preloader__logo">
       </div>
-      <div class="preloader__status-text">INITIALIZING NIMBUS NEURAL CLUSTER...</div>
+      <div class="preloader__status-text">{{pages.home.hero.preloaderStatus}}</div>
       <div class="preloader__loading-bar">
         <div id="preloader-progress" class="preloader__progressbar"></div>
       </div>
@@ -50,28 +50,27 @@
     <div class="clay-header__container">
       
       <!-- Brand Logo (Minimal icon + Clay typography) -->
-      <a href="./" class="clay-logo" aria-label="AI Labs by Nimbus — Home">
-        <img src="./assets/logo_tight.png" alt="AI Labs by Nimbus" class="clay-logo__img">
-        <span class="clay-logo__text">NIMBUS</span>
-        <span class="clay-logo__sub">/ AI LABS</span>
+      <a href="{{site.header.logoHref}}" class="clay-logo" aria-label="{{site.header.logoAriaLabel}}">
+        <img src="{{site.header.logoImage}}" alt="{{site.header.logoAlt}}" class="clay-logo__img">
+        <span class="clay-logo__text">{{site.header.logoText}}</span>
+        <span class="clay-logo__sub">{{site.header.logoSub}}</span>
       </a>
 
       <!-- Center Nav Links -->
-      <nav class="clay-nav" aria-label="Main Navigation">
+      <nav class="clay-nav" aria-label="{{site.header.navAriaLabel}}">
         <ul class="clay-nav__list">
-          <li class="clay-nav__item">
-            <a href="./explore" class="clay-nav__link">Products</a>
+          {{#site.header.nav}}
+          <li class="clay-nav__item{{#this.active.home}} is-active{{/this.active.home}}"{{#this.active.home}} aria-current="page"{{/this.active.home}}>
+            <a href="{{this.href}}" class="clay-nav__link">{{#this.active.home}}<span>{{this.label}}</span><span class="clay-nav__active-line"></span>{{/this.active.home}}{{^this.active.home}}{{this.label}}{{/this.active.home}}</a>
           </li>
-          <li class="clay-nav__item">
-            <a href="./services" class="clay-nav__link">Audits and services</a>
-          </li>
+          {{/site.header.nav}}
         </ul>
       </nav>
 
       <!-- Right Contact Action -->
       <div class="clay-header__action">
-        <a href="./services#contact" class="clay-contact-btn">Book Audit</a>
-        <button id="clay-menu-btn" class="clay-burger-btn" aria-label="Open mobile menu" aria-expanded="false">
+        <a href="{{pages.home.headerCtaHref}}" class="clay-contact-btn">{{site.header.contactBtnText}}</a>
+        <button id="clay-menu-btn" class="clay-burger-btn" aria-label="{{site.header.menuBtnLabel}}" aria-expanded="false">
           <span class="burger-bar"></span>
           <span class="burger-bar"></span>
         </button>
@@ -81,11 +80,12 @@
 
     <!-- Mobile Drawer -->
     <div id="clay-mobile-drawer" class="clay-mobile-drawer">
-      <div class="clay-mobile-links">
-        <a href="./explore" class="mobile-link">Products</a>
-        <a href="./services" class="mobile-link">Audits and services</a>
-        <a href="./services#contact" class="clay-contact-btn mobile-cta">Book Audit</a>
-      </div>
+      <nav class="clay-mobile-links" aria-label="{{site.header.mobileNavAriaLabel}}">
+        {{#site.header.nav}}
+        <a href="{{this.href}}" class="mobile-link{{#this.active.home}} is-active{{/this.active.home}}">{{this.label}}</a>
+        {{/site.header.nav}}
+        <a href="{{pages.home.headerCtaHref}}" class="clay-contact-btn mobile-cta">{{site.header.contactBtnText}}</a>
+      </nav>
     </div>
   </header>
 
@@ -99,67 +99,31 @@
       <div class="hero-overlay-content" id="hero-text-overlay">
 
         <h1 class="hero-title">
-          <span>AI LABS</span>
-          <span class="hero-title-highlight">BY NIMBUS</span>
+          <span>{{pages.home.hero.title}}</span>
+          <span class="hero-title-highlight">{{pages.home.hero.titleHighlight}}</span>
         </h1>
 
         <p class="hero-tagline">
-          We study how you work, then build only what you need.
+          {{pages.home.hero.tagline}}
         </p>
 
         <div class="hero-buttons">
-          <a href="./explore" class="btn btn-glow" id="hero-btn-primary" aria-label="Explore Nimbus Labs products and services">
-            <span>Explore Product</span>
+          <a href="{{pages.home.hero.primaryBtnLink}}" class="btn btn-glow" id="hero-btn-primary" aria-label="{{pages.home.hero.primaryBtnAriaLabel}}">
+            <span>{{pages.home.hero.primaryBtnText}}</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <a href="./audit" class="btn btn-glass" id="hero-btn-secondary">
-            <span>Book Audit</span>
+          <a href="{{pages.home.hero.secondaryBtnLink}}" class="btn btn-glass" id="hero-btn-secondary">
+            <span>{{pages.home.hero.secondaryBtnText}}</span>
           </a>
         </div>
 
       </div>
 
-      <!-- 18-LAYER SCENERY STACK -->
+      <!-- 18-LAYER SCENERY STACK (back to front, driven by the CMS) -->
       <div class="hero-wrapper" id="hero-wrapper">
-        <!-- Layer 01: Sky & Furthest Mountains Horizon (Base relative anchor) -->
-        <img src="./assets/hero-01.png" alt="Sky background" class="hero-layer hero-01" id="layer-01" loading="eager">
-
-        <!-- Layer 02: Deep Peak Ridges -->
-        <img src="./assets/hero-02.png" alt="Mountain ridges 2" class="hero-layer hero-02" id="layer-02" loading="eager">
-
-        <!-- Layer 03: Mountain Peaks -->
-        <img src="./assets/hero-03.png" alt="Mountain ridges 3" class="hero-layer hero-03" id="layer-03" loading="eager">
-
-        <!-- Layer 04: Mountain Slopes -->
-        <img src="./assets/hero-04.png" alt="Mountain ridges 4" class="hero-layer hero-04" id="layer-04" loading="eager">
-
-        <!-- Layer 05: Foothill Crests -->
-        <img src="./assets/hero-05.png" alt="Foothills 5" class="hero-layer hero-05" id="layer-05" loading="eager">
-
-        <!-- Layer 06: Pine Ridges Midground -->
-        <img src="./assets/hero-06.png" alt="Pine ridges 6" class="hero-layer hero-06" id="layer-06" loading="eager">
-
-        <!-- CLOUDS 1 - 8 (Atmospheric Floating Layers) -->
-        <img src="./assets/hero-cloud1.png" alt="Cloud atmosphere 1" class="hero-layer hero-cloud1" id="layer-cloud1" loading="eager">
-        <img src="./assets/hero-cloud2.png" alt="Cloud atmosphere 2" class="hero-layer hero-cloud2" id="layer-cloud2" loading="eager">
-        <img src="./assets/hero-cloud3.png" alt="Cloud atmosphere 3" class="hero-layer hero-cloud3" id="layer-cloud3" loading="eager">
-        <img src="./assets/hero-cloud4.png" alt="Cloud atmosphere 4" class="hero-layer hero-cloud4" id="layer-cloud4" loading="eager">
-        <img src="./assets/hero-cloud5.png" alt="Cloud atmosphere 5" class="hero-layer hero-cloud5" id="layer-cloud5" loading="eager">
-        <img src="./assets/hero-cloud6.png" alt="Cloud atmosphere 6" class="hero-layer hero-cloud6" id="layer-cloud6" loading="eager">
-        <img src="./assets/hero-cloud7.png" alt="Cloud atmosphere 7" class="hero-layer hero-cloud7" id="layer-cloud7" loading="eager">
-        <img src="./assets/hero-cloud8.png" alt="Cloud atmosphere 8" class="hero-layer hero-cloud8" id="layer-cloud8" loading="eager">
-
-        <!-- Layer 07: Near Ridge Forest -->
-        <img src="./assets/hero-07.png" alt="Ridge forest 7" class="hero-layer hero-07" id="layer-07" loading="eager">
-
-        <!-- Layer 08: Foreground Hills -->
-        <img src="./assets/hero-08.png" alt="Foreground hills 8" class="hero-layer hero-08" id="layer-08" loading="eager">
-
-        <!-- Layer 09: Valley Slopes -->
-        <img src="./assets/hero-09.png" alt="Valley slopes 9" class="hero-layer hero-09" id="layer-09" loading="eager">
-
-        <!-- Layer 10: Near Pine Trees & Cliff Edge -->
-        <img src="./assets/hero-10.png" alt="Near pine trees 10" class="hero-layer hero-10" id="layer-10" loading="eager">
+        {{#pages.home.hero.layers}}
+        <img src="{{this.src}}" alt="{{this.alt}}" class="hero-layer {{this.className}}" id="{{this.id}}" loading="eager">
+        {{/pages.home.hero.layers}}
       </div>
     </section>
 
@@ -180,7 +144,7 @@
             <div class="dapper-layer-bg is--4" id="dapper-layer-4">
               <div class="dapper-video-wrapper" id="dapper-video-wrapper">
                 <video id="cognition-video" class="dapper-video-element" playsinline preload="none">
-                  <source src="assets/research-cognition.webm" type="video/webm">
+                  <source src="{{pages.home.dapper.video.src}}" type="{{pages.home.dapper.video.type}}">
                 </video>
               </div>
             </div>
@@ -191,20 +155,18 @@
           <!-- Centered Kinetic Typography Rail (Exclusion blend in front) -->
           <div class="dapper-header-wrapper">
             <div class="dapper-header-rail" id="dapper-header-rail">
-              <h2 class="dapper-hero-text" data-slide="1">FRONTIER</h2>
-              <h2 class="dapper-hero-text" data-slide="2">NEURAL</h2>
-              <h2 class="dapper-hero-text" data-slide="3">AGENTIC</h2>
-              <h2 class="dapper-hero-text" data-slide="4">COGNITION</h2>
-              <h2 class="dapper-hero-text" data-slide="5">NIMBUS</h2>
+              {{#homepage.dapper.chapters}}
+              <h2 class="dapper-hero-text" data-slide="{{this.index}}">{{this.name}}</h2>
+              {{/homepage.dapper.chapters}}
             </div>
           </div>
 
           <!-- Rotated Side Subheaders -->
           <div class="dapper-subheader-wrapper left">
-            <div class="dapper-subheader">AI LABS BY NIMBUS</div>
+            <div class="dapper-subheader">{{pages.home.dapper.subheader}}</div>
           </div>
           <div class="dapper-subheader-wrapper right">
-            <div class="dapper-subheader" id="dapper-chapter-indicator">CHAPTER 01 / 05</div>
+            <div class="dapper-subheader" id="dapper-chapter-indicator">{{pages.home.dapper.chapterPrefix}} {{pages.home.dapper.chapterStart}} {{pages.home.dapper.chapterSeparator}} {{pages.home.dapper.chapterCount}}</div>
           </div>
 
           <!-- Horizontal Sub-Pixel Separator Line -->
@@ -212,8 +174,8 @@
 
           <!-- Bottom-Left Cinematic HUD Description Caption -->
           <div class="dapper-caption-wrapper" id="dapper-caption-wrapper" aria-live="polite">
-            <span class="dapper-caption-prefix">//</span>
-            <span class="dapper-caption-text" id="dapper-caption-text">DECENTRALIZED MULTI-AGENT SWARMS & MULTIMODAL REASONING ENGINES</span>
+            <span class="dapper-caption-prefix">{{pages.home.dapper.captionPrefix}}</span>
+            <span class="dapper-caption-text" id="dapper-caption-text">{{homepage.dapper.chapters.0.caption}}</span>
           </div>
 
           <!-- Bottom Progress Bar -->
@@ -222,8 +184,8 @@
           </div>
 
           <!-- Floating Video Controls (Revealed during Chapter 4) -->
-          <div class="cognition-controls dapper-controls" id="cognition-controls" aria-label="Video Controls">
-            <button type="button" class="cognition-btn" id="cognition-pause-btn" aria-label="Pause or Resume Video" title="Pause / Resume">
+          <div class="cognition-controls dapper-controls" id="cognition-controls" aria-label="{{pages.home.dapper.controls.groupAriaLabel}}">
+            <button type="button" class="cognition-btn" id="cognition-pause-btn" aria-label="{{pages.home.dapper.controls.pauseAriaLabel}}" title="{{pages.home.dapper.controls.pauseTitle}}">
               <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
                 <rect x="6" y="4" width="4" height="16" rx="1.5"></rect>
                 <rect x="14" y="4" width="4" height="16" rx="1.5"></rect>
@@ -231,10 +193,10 @@
               <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="display:none;">
                 <polygon points="6,4 20,12 6,20"></polygon>
               </svg>
-              <span class="btn-text" id="pause-btn-text">Pause</span>
+              <span class="btn-text" id="pause-btn-text">{{pages.home.dapper.controls.pauseLabel}}</span>
             </button>
 
-            <button type="button" class="cognition-btn" id="cognition-sound-btn" aria-label="Toggle Sound" title="Mute / Unmute">
+            <button type="button" class="cognition-btn" id="cognition-sound-btn" aria-label="{{pages.home.dapper.controls.soundAriaLabel}}" title="{{pages.home.dapper.controls.soundTitle}}">
               <svg class="icon-sound-on" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
                 <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
                 <path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"></path>
@@ -244,7 +206,7 @@
                 <line x1="23" y1="9" x2="17" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
                 <line x1="17" y1="9" x2="23" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
               </svg>
-              <span class="btn-text" id="sound-btn-text">Sound</span>
+              <span class="btn-text" id="sound-btn-text">{{pages.home.dapper.controls.soundLabel}}</span>
             </button>
 
           </div>
@@ -258,24 +220,23 @@
         
         <div class="clay-footer-top">
           <div class="clay-talk-wrap">
-            <h2 class="clay-talk-heading">Let’s build what you actually need.</h2>
+            <h2 class="clay-talk-heading">{{site.footer.talkHeading}}</h2>
             <div class="clay-talk-contacts">
-              <a href="mailto:contact@ailabsnimbus.com" class="clay-talk-email">contact@ailabsnimbus.com</a>
-              <a href="./services#contact" class="clay-talk-link">
-                <span>Book Diagnostic Audit</span>
+              <a href="{{site.footer.emailHref}}" class="clay-talk-email">{{site.footer.email}}</a>
+              <a href="{{pages.home.footerCtaLink}}" class="clay-talk-link">
+                <span>{{site.footer.ctaText}}</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
-              <span class="clay-talk-note">Direct access to Principal Systems Engineers &middot; Under 24h response time</span>
+              <span class="clay-talk-note">{{site.footer.note}}</span>
             </div>
           </div>
 
           <!-- Footer Navigation Columns -->
-          <nav class="clay-footer-nav" aria-label="Footer Nav">
+          <nav class="clay-footer-nav" aria-label="{{site.footer.navAriaLabel}}">
             <ul class="clay-footer-nav-list">
-              <li><a href="./explore" class="f-link">Products</a></li>
-              <li><a href="./services" class="f-link">Audits &amp; Services</a></li>
-              <li><a href="#dapper" class="f-link">Chapters</a></li>
-              <li><a href="./services#contact" class="f-link">Book Audit</a></li>
+              {{#pages.home.footerNav}}
+              <li><a href="{{this.href}}" class="{{this.linkClass}}">{{this.label}}</a></li>
+              {{/pages.home.footerNav}}
             </ul>
           </nav>
         </div>
@@ -283,11 +244,11 @@
         <!-- Sovereign Research Location (Bangladesh) -->
         <ul class="clay-locations-list">
           <li class="location-item">
-            <span class="location-country-badge">AI Labs by Nimbus</span>
-            <span class="location-city">Dhaka, Bangladesh</span>
+            <span class="location-country-badge">{{site.footer.locationBadge}}</span>
+            <span class="location-city">{{site.footer.locationCity}}</span>
             <address class="location-address">
-              Gulshan 2, Dhaka 1212<br>
-              Bangladesh &middot; Sovereign AI Engineering Hub &amp; Autonomous Systems
+              {{site.footer.locationAddressLine1}}<br>
+              {{site.footer.locationAddressLine2}}
             </address>
           </li>
         </ul>
@@ -295,12 +256,12 @@
         <!-- Bottom Copyright Bar -->
         <div class="clay-footer-bottom">
           <div class="copyright-line">
-            &copy; 2026 AI Labs by Nimbus. All rights reserved. &middot; Frontier Artificial Intelligence &amp; Autonomous Systems.
+            {{site.footer.copyrightText}} {{site.footer.copyrightSuffix}}
           </div>
           <div class="legal-links">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Security Proofs</a>
+            {{#site.footer.legal}}
+            <a href="{{this.href}}">{{this.label}}</a>
+            {{/site.footer.legal}}
           </div>
         </div>
 
@@ -309,6 +270,8 @@
 
   </main>
 
+  <script type="application/json" id="dapper-chapters">{{homepage.dapper.chapters|json}}</script>
+  <script type="application/json" id="dapper-ui">{{pages.home.dapper|json}}</script>
   <script src="./script.js?v=2"></script>
 </body>
 </html>

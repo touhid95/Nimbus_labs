@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-  <title>Nimbus CMS Matrix // AI Labs Content Engine</title>
-  <meta name="description" content="Content Management Matrix for AI Labs by Nimbus. Manage flagship solutions, homepage chapters, and asset pipelines.">
+  <title>Nimbus CMS // AI Labs Content Engine</title>
+  <meta name="description" content="Content Management System for AI Labs by Nimbus">
   <meta name="theme-color" content="#020016">
   <link rel="icon" type="image/png" href="./assets/logo_tight.png">
-
-  <!-- Google Fonts matching Nimbus brand design system -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./cms.css">
 </head>
-<body class="cms-body">
 
-  <!-- TOP HUD BAR -->
+<body class="cms-body">
   <header class="cms-hud-header" id="cms-header">
     <div class="cms-hud-left">
       <a href="./" class="cms-brand-link" title="Nimbus Labs Homepage">
@@ -26,582 +23,506 @@
       </a>
       <div class="cms-hud-title-wrap">
         <span class="cms-hud-tag">CMS // CONTROL MATRIX</span>
-        <span class="cms-hud-subtag">AUTONOMOUS CONTENT ENGINE</span>
+        <span class="cms-hud-subtag">AI LABS BY NIMBUS</span>
       </div>
-      <div class="cms-system-status" id="cms-system-status">
+      <div class="cms-system-status">
         <span class="status-pulse-dot"></span>
         <span class="status-text" id="status-label">CLUSTER ONLINE</span>
       </div>
-    </div>
-
-    <div class="cms-hud-actions">
-      <!-- Quick View Links -->
-      <div class="cms-view-links">
-        <a href="./" target="_blank" rel="noopener" class="cms-btn cms-btn-ghost" title="View Home in new tab">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          <span>Home</span>
-        </a>
-        <a href="./explore" target="_blank" rel="noopener" class="cms-btn cms-btn-ghost" title="View Explore Showcase">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-          <span>Explore</span>
-        </a>
-        <a href="./audit" target="_blank" rel="noopener" class="cms-btn cms-btn-ghost" title="View Business Audit page">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          <span>Audit</span>
-        </a>
+      <div class="cms-draft-state" id="draft-state">
+        <span class="draft-dot"></span>
+        <span class="draft-text" id="draft-state-text">No draft</span>
       </div>
-
-      <!-- Change indicator -->
+    </div>
+    <div class="cms-hud-actions">
+      <div class="cms-view-links">
+        <a href="./" target="_blank" rel="noopener" class="cms-btn cms-btn-ghost"><span>Home</span></a>
+        <a href="./explore" target="_blank" rel="noopener" class="cms-btn cms-btn-ghost"><span>Explore</span></a>
+        <a href="./audit" target="_blank" rel="noopener" class="cms-btn cms-btn-ghost"><span>Audit</span></a>
+      </div>
       <div class="cms-save-indicator" id="save-indicator">
         <span class="save-dot"></span>
         <span class="save-text" id="save-status-text">All changes synced</span>
       </div>
-
-      <!-- Save Button -->
-      <button type="button" class="cms-btn cms-btn-primary" id="btn-save-all" title="Save changes (Ctrl+S)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-        <span>Save Changes</span>
-        <kbd class="cms-kbd">Ctrl+S</kbd>
-      </button>
+      <button type="button" class="cms-btn cms-btn-ghost" id="btn-preview"><span>Preview</span></button>
+      <button type="button" class="cms-btn cms-btn-ghost" id="btn-discard"><span>Discard Draft</span></button>
+      <button type="button" class="cms-btn cms-btn-primary" id="btn-publish"><span>Publish</span></button>
     </div>
   </header>
 
-  <!-- CMS WORKSPACE LAYOUT -->
   <div class="cms-workspace">
-
-    <!-- NAVIGATION SIDEBAR -->
     <aside class="cms-sidebar" aria-label="CMS Navigation">
       <nav class="cms-nav-tabs" role="tablist">
-        <button type="button" class="cms-tab-btn is-active" data-tab="tab-products" role="tab" aria-selected="true" id="tab-btn-products">
-          <span class="tab-icon">⚡</span>
-          <span class="tab-label">Solutions Showcase</span>
-          <span class="tab-count" id="badge-products-count">5</span>
-        </button>
-
-        <button type="button" class="cms-tab-btn" data-tab="tab-meta" role="tab" aria-selected="false" id="tab-btn-meta">
-          <span class="tab-icon">🌌</span>
-          <span class="tab-label">Explore Meta</span>
-        </button>
-
-        <button type="button" class="cms-tab-btn" data-tab="tab-services" role="tab" aria-selected="false" id="tab-btn-services">
-          <span class="tab-icon">🔮</span>
-          <span class="tab-label">Services Spectrum</span>
-          <span class="tab-count" id="badge-services-count">4</span>
-        </button>
-
-        <button type="button" class="cms-tab-btn" data-tab="tab-homepage" role="tab" aria-selected="false" id="tab-btn-homepage">
-          <span class="tab-icon">🏔️</span>
-          <span class="tab-label">Homepage &amp; Chapters</span>
-        </button>
-
-        <button type="button" class="cms-tab-btn" data-tab="tab-media" role="tab" aria-selected="false" id="tab-btn-media">
-          <span class="tab-icon">🖼️</span>
-          <span class="tab-label">Media Asset Vault</span>
-        </button>
-
-        <button type="button" class="cms-tab-btn" data-tab="tab-revisions" role="tab" aria-selected="false" id="tab-btn-revisions">
-          <span class="tab-icon">⏱️</span>
-          <span class="tab-label">Snapshots &amp; JSON</span>
-        </button>
+        <button type="button" class="cms-tab-btn is-active" data-tab="tab-global" role="tab">Global &amp; Site</button>
+        <button type="button" class="cms-tab-btn" data-tab="tab-home" role="tab">Home Page</button>
+        <button type="button" class="cms-tab-btn" data-tab="tab-explore" role="tab">Explore Page</button>
+        <button type="button" class="cms-tab-btn" data-tab="tab-audit" role="tab">Audit Page</button>
+        <button type="button" class="cms-tab-btn" data-tab="tab-products" role="tab">Products</button>
+        <button type="button" class="cms-tab-btn" data-tab="tab-services" role="tab">Services</button>
+        <button type="button" class="cms-tab-btn" data-tab="tab-media" role="tab">Media</button>
+        <button type="button" class="cms-tab-btn" data-tab="tab-snapshots" role="tab">Snapshots &amp; Rollback</button>
       </nav>
-
-      <!-- Sidebar Footer HUD -->
       <div class="cms-sidebar-meta">
-        <div class="meta-row">
-          <span class="meta-label">SCHEMA</span>
-          <span class="meta-val">CMS-SPEC v1.0</span>
-        </div>
-        <div class="meta-row">
-          <span class="meta-label">PIPELINE</span>
-          <span class="meta-val">STATIC + REST</span>
-        </div>
-        <div class="meta-row">
-          <span class="meta-label">LAST SYNC</span>
-          <span class="meta-val" id="last-sync-time">Just now</span>
-        </div>
+        <div class="meta-row"><span class="meta-label">SCHEMA</span><span class="meta-val">v2</span></div>
+        <div class="meta-row"><span class="meta-label">LAST AUTOSAVE</span><span class="meta-val" id="last-autosave-time">—</span></div>
       </div>
     </aside>
 
-    <!-- MAIN EDITING PANELS -->
     <main class="cms-main-content">
-
-      <!-- ================= TAB 1: PRODUCTS & SOLUTIONS SHOWCASE ================= -->
-      <section class="cms-panel is-active" id="tab-products" role="tabpanel">
-        
+      <!-- GLOBAL -->
+      <section class="cms-panel is-active" id="tab-global" role="tabpanel">
         <div class="cms-panel-header">
-          <div>
-            <h1 class="cms-panel-title">Solutions Showcase // Dapper Curtain Matrix</h1>
-            <p class="cms-panel-desc">Manage the flagship autonomous solutions presented on <code>/explore</code>. Dynamic 500vh pinned stage, marquee links, and visual themes.</p>
-          </div>
-          <div class="cms-panel-actions">
-            <button type="button" class="cms-btn cms-btn-outline" id="btn-add-product">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              <span>Add Solution</span>
-            </button>
-          </div>
+          <h1 class="cms-panel-title">Global Site Settings</h1>
+          <p class="cms-panel-desc">Shared footer, navigation, branding, and contact details.</p>
         </div>
-
-        <div class="cms-product-manager">
-          <!-- Left: Product Navigation Rail -->
-          <div class="cms-product-rail">
-            <div class="rail-header">
-              <span class="rail-title">// REGISTERED SOLUTIONS</span>
-              <span class="rail-counter" id="rail-counter">5 PRODUCTS</span>
-            </div>
-            <ul class="cms-product-list" id="cms-product-list">
-              <!-- Rendered dynamically by cms.js -->
-            </ul>
-          </div>
-
-          <!-- Center: Form Editor -->
-          <div class="cms-editor-column">
-            <div class="cms-card">
-              <div class="cms-card-header">
-                <span class="card-title">// SOLUTION SPECIFICATION</span>
-                <div class="card-controls">
-                  <button type="button" class="cms-btn-xs" id="btn-duplicate-product" title="Duplicate this product">Duplicate</button>
-                  <button type="button" class="cms-btn-xs cms-btn-danger" id="btn-delete-product" title="Delete this product">Delete</button>
-                </div>
-              </div>
-
-              <div class="cms-card-body">
-                <form id="product-form" autocomplete="off">
-                  
-                  <!-- Identifiers -->
-                  <div class="cms-form-grid-2">
-                    <div class="cms-field">
-                      <label for="prod-label" class="cms-label">Product Name / Label <span class="required">*</span></label>
-                      <input type="text" id="prod-label" class="cms-input" placeholder="e.g. Nimbus Horizon" maxlength="45" required>
-                      <span class="field-hint">Displayed in slide heading &amp; navbar tag (max 45 chars)</span>
-                    </div>
-
-                    <div class="cms-field">
-                      <label for="prod-id" class="cms-label">Slug ID <span class="required">*</span></label>
-                      <input type="text" id="prod-id" class="cms-input cms-mono" placeholder="e.g. product-01" pattern="^[a-z0-9]+(-[a-z0-9]+)*$" required>
-                      <span class="field-hint">Unique URL slug for deep-linking (lowercase, dashes)</span>
-                    </div>
-                  </div>
-
-                  <div class="cms-form-grid-3">
-                    <div class="cms-field">
-                      <label for="prod-badge" class="cms-label">Badge Tag</label>
-                      <input type="text" id="prod-badge" class="cms-input" placeholder="e.g. Flagship Architecture" maxlength="30">
-                    </div>
-
-                    <div class="cms-field">
-                      <label for="prod-category" class="cms-label">Domain Category <span class="required">*</span></label>
-                      <input type="text" id="prod-category" class="cms-input" placeholder="e.g. Autonomous Systems" maxlength="50" required>
-                    </div>
-
-                    <div class="cms-field">
-                      <label for="prod-status" class="cms-label">Deployment Status <span class="required">*</span></label>
-                      <select id="prod-status" class="cms-select">
-                        <option value="Active Programme">Active Programme</option>
-                        <option value="In Deployment">In Deployment</option>
-                        <option value="In Design">In Design</option>
-                        <option value="Exploration">Exploration</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <!-- Summaries -->
-                  <div class="cms-field">
-                    <div class="label-with-counter">
-                      <label for="prod-summary" class="cms-label">Executive Summary <span class="required">*</span></label>
-                      <span class="char-counter" id="summary-counter">0 / 120</span>
-                    </div>
-                    <input type="text" id="prod-summary" class="cms-input" placeholder="1-line high-impact executive summary" maxlength="120" required>
-                  </div>
-
-                  <div class="cms-field">
-                    <div class="label-with-counter">
-                      <label for="prod-desc" class="cms-label">Problem-Solving Narrative <span class="required">*</span></label>
-                      <span class="char-counter" id="desc-counter">0 / 350</span>
-                    </div>
-                    <textarea id="prod-desc" class="cms-textarea" rows="3" placeholder="Detailed problem-solving description explaining why off-the-shelf software fails and how this solution isolates the bottleneck." maxlength="350" required></textarea>
-                  </div>
-
-                  <!-- Technical Features Checklist -->
-                  <div class="cms-field">
-                    <div class="label-with-action">
-                      <label class="cms-label">Core Technical Features Checklist <span class="required">*</span> (2 to 5 items)</label>
-                      <button type="button" class="cms-btn-xs" id="btn-add-feature">+ Add Feature</button>
-                    </div>
-                    <div class="cms-features-builder" id="features-container">
-                      <!-- Features rendered dynamically -->
-                    </div>
-                  </div>
-
-                  <!-- Visual & Theme Settings -->
-                  <div class="cms-subheading">// VISUAL &amp; THEME COMPOSITION</div>
-
-                  <div class="cms-form-grid-3">
-                    <div class="cms-field">
-                      <label for="prod-theme" class="cms-label">Theme Key</label>
-                      <select id="prod-theme" class="cms-select">
-                        <option value="plum">Plum (Deep Mulberry)</option>
-                        <option value="rose">Rose (Sunset Rose)</option>
-                        <option value="violet">Violet (Electric Purple)</option>
-                        <option value="cognition">Cognition (Paper White)</option>
-                        <option value="midnight">Midnight (Obsidian Nimbus)</option>
-                        <option value="custom">Custom Theme</option>
-                      </select>
-                    </div>
-
-                    <div class="cms-field">
-                      <label for="prod-bg" class="cms-label">Background Color <span class="required">*</span></label>
-                      <div class="cms-color-picker-wrap">
-                        <input type="color" id="prod-bg-picker" class="cms-color-box" value="#2f122e">
-                        <input type="text" id="prod-bg" class="cms-input cms-mono" value="#2f122e" pattern="^#([A-Fa-f0-9]{6})$" required>
-                      </div>
-                    </div>
-
-                    <div class="cms-field">
-                      <label for="prod-contrast" class="cms-label">Contrast Mode <span class="required">*</span></label>
-                      <select id="prod-contrast" class="cms-select">
-                        <option value="dark">Dark Mode (White Text)</option>
-                        <option value="light">Light Mode (Obsidian Text)</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <!-- Image & Asset Picker -->
-                  <div class="cms-field">
-                    <label for="prod-image" class="cms-label">Showcase Image Asset</label>
-                    <div class="cms-input-group">
-                      <input type="text" id="prod-image" class="cms-input cms-mono" placeholder="./assets/explore/supercomputer.jpg">
-                      <button type="button" class="cms-btn cms-btn-outline" id="btn-open-media-modal">Choose Image</button>
-                    </div>
-                  </div>
-
-                  <!-- Procedural Fallback Visual -->
-                  <div class="cms-form-grid-3">
-                    <div class="cms-field">
-                      <label for="prod-glyph" class="cms-label">HUD Glyph (Max 10 chars)</label>
-                      <input type="text" id="prod-glyph" class="cms-input cms-mono" placeholder="HORIZON" maxlength="10">
-                    </div>
-
-                    <div class="cms-field">
-                      <label for="prod-pattern" class="cms-label">Procedural Pattern</label>
-                      <select id="prod-pattern" class="cms-select">
-                        <option value="orbit">Orbit (Planetary Rings)</option>
-                        <option value="contour">Contour (Topography)</option>
-                        <option value="grid">Grid (Matrix Coordinate)</option>
-                        <option value="aurora">Aurora (Gradient Flow)</option>
-                        <option value="pulse">Pulse (Radiating Waves)</option>
-                      </select>
-                    </div>
-
-                    <div class="cms-field">
-                      <label for="prod-link" class="cms-label">CTA Link</label>
-                      <input type="text" id="prod-link" class="cms-input cms-mono" value="#contact">
-                    </div>
-                  </div>
-
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right: Live Real-Time Slide Simulator (WYSIWYG) -->
-          <div class="cms-preview-column">
-            <div class="cms-card cms-preview-card">
-              <div class="cms-card-header">
-                <span class="card-title">// LIVE SLIDE SIMULATOR</span>
-                <span class="preview-badge" id="preview-mode-tag">REALTIME</span>
-              </div>
-              <div class="cms-simulator-viewport" id="slide-preview-container">
-                <!-- Live preview DOM injected here -->
-                <div class="sim-slide" id="sim-slide" data-contrast="dark" style="background-color: #2f122e;">
-                  <div class="sim-media-frame">
-                    <img src="./assets/explore/supercomputer.jpg" alt="Preview" class="sim-img" id="sim-img">
-                    <div class="sim-hud">
-                      <span id="sim-glyph">// HORIZON</span>
-                      <span id="sim-chap-num">01 / 05</span>
-                    </div>
-                  </div>
-                  <div class="sim-content">
-                    <div class="sim-meta">
-                      <span class="sim-chap" id="sim-chap">// CHAPTER 01 / 05 — AUTONOMOUS SYSTEMS</span>
-                      <span class="sim-badge" id="sim-badge">Flagship Architecture</span>
-                    </div>
-                    <h2 class="sim-title" id="sim-title">Nimbus Horizon</h2>
-                    <p class="sim-summary" id="sim-summary">Frontier computational foundation and autonomous problem-solving architecture.</p>
-                    <p class="sim-desc" id="sim-desc">Nimbus Horizon delivers dedicated, mission-critical autonomous intelligence.</p>
-                    <ul class="sim-features" id="sim-features">
-                      <li>&mdash; Autonomous task decomposition</li>
-                      <li>&mdash; Real-time neural synthesis</li>
-                    </ul>
-                    <div class="sim-btn">Deploy Solution &rarr;</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ================= TAB 2: EXPLORE PAGE META ================= -->
-      <section class="cms-panel" id="tab-meta" role="tabpanel">
-        <div class="cms-panel-header">
-          <div>
-            <h1 class="cms-panel-title">Explore Page Meta // Header &amp; Hero Typography</h1>
-            <p class="cms-panel-desc">Configure the field catalogue kicker, main hero typography, lead copy, and metadata indicators.</p>
-          </div>
-        </div>
-
-        <div class="cms-form-container">
+        <div class="cms-grid">
           <div class="cms-card">
-            <div class="cms-card-header">
-              <span class="card-title">// HERO COPY CONFIGURATION</span>
+            <div class="cms-card-header"><h2 class="cms-card-title">Footer</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field"><span class="cms-label">Brand Title</span><input class="cms-input" id="site-brand-title"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Brand Description</span><textarea class="cms-textarea" id="site-brand-desc"></textarea></label>
+              <label class="cms-field"><span class="cms-label">Logo Path</span><input class="cms-input" id="site-brand-logo"></label>
+              <label class="cms-field"><span class="cms-label">Talk Heading</span><input class="cms-input" id="site-talk-heading"></label>
+              <label class="cms-field"><span class="cms-label">Email</span><input class="cms-input" id="site-email"></label>
+              <label class="cms-field"><span class="cms-label">Email Href</span><input class="cms-input" id="site-email-href"></label>
+              <label class="cms-field"><span class="cms-label">Note</span><input class="cms-input" id="site-note"></label>
+              <label class="cms-field"><span class="cms-label">Location Badge</span><input class="cms-input" id="site-location-badge"></label>
+              <label class="cms-field"><span class="cms-label">Location City</span><input class="cms-input" id="site-location-city"></label>
+              <label class="cms-field"><span class="cms-label">Address Line 1</span><input class="cms-input" id="site-addr1"></label>
+              <label class="cms-field"><span class="cms-label">Address Line 2</span><input class="cms-input" id="site-addr2"></label>
+              <label class="cms-field"><span class="cms-label">Copyright Text</span><input class="cms-input" id="site-copyright"></label>
+              <label class="cms-field"><span class="cms-label">Copyright Suffix</span><input class="cms-input" id="site-copyright-suffix"></label>
             </div>
+          </div>
+          <div class="cms-card">
+            <div class="cms-card-header"><h2 class="cms-card-title">Footer Link Groups</h2><button class="cms-btn cms-btn-ghost cms-btn-sm" id="btn-add-footer-group">+ Add Group</button></div>
+            <div class="cms-card-body" id="footer-groups-editor"></div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Footer Nav (Page-specific)</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <div class="cms-subcard"><div class="cms-subcard-header">Home</div><div id="home-footernav"></div></div>
+              <div class="cms-subcard"><div class="cms-subcard-header">Explore</div><div id="explore-footernav"></div></div>
+              <div class="cms-subcard"><div class="cms-subcard-header">Audit</div><div id="audit-footernav"></div></div>
+            </div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Header</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field"><span class="cms-label">Logo Image</span><input class="cms-input" id="site-header-logo-image"></label>
+              <label class="cms-field"><span class="cms-label">Logo Alt</span><input class="cms-input" id="site-header-logo-alt"></label>
+              <label class="cms-field"><span class="cms-label">Logo Text</span><input class="cms-input" id="site-header-logo-text"></label>
+              <label class="cms-field"><span class="cms-label">Logo Sub</span><input class="cms-input" id="site-header-logo-sub"></label>
+              <label class="cms-field"><span class="cms-label">Logo Href</span><input class="cms-input" id="site-header-logo-href"></label>
+              <label class="cms-field"><span class="cms-label">Logo Aria Label</span><input class="cms-input" id="site-header-logo-aria"></label>
+              <label class="cms-field"><span class="cms-label">Nav Aria Label</span><input class="cms-input" id="site-header-nav-aria"></label>
+              <label class="cms-field"><span class="cms-label">Mobile Nav Aria Label</span><input class="cms-input" id="site-header-mobile-nav-aria"></label>
+              <label class="cms-field"><span class="cms-label">Contact Button Text</span><input class="cms-input" id="site-header-contact-text"></label>
+              <label class="cms-field"><span class="cms-label">Menu Button Label</span><input class="cms-input" id="site-header-menu-label"></label>
+              <label class="cms-field"><span class="cms-label">Preloader Logo</span><input class="cms-input" id="site-header-preloader-logo"></label>
+              <label class="cms-field"><span class="cms-label">Preloader Logo Alt</span><input class="cms-input" id="site-header-preloader-alt"></label>
+              <label class="cms-field"><span class="cms-label">Footer Nav Aria Label</span><input class="cms-input" id="site-footer-nav-aria"></label>
+            </div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Header Navigation</h2><button class="cms-btn cms-btn-ghost cms-btn-sm" id="btn-add-header-nav">+ Add</button></div>
+            <div class="cms-card-body" id="header-nav-editor"></div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Shared Assets</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field"><span class="cms-label">Web Manifest</span><input class="cms-input" id="site-assets-manifest"></label>
+              <label class="cms-field"><span class="cms-label">Favicon</span><input class="cms-input" id="site-assets-favicon"></label>
+              <label class="cms-field"><span class="cms-label">Apple Touch Icon</span><input class="cms-input" id="site-assets-apple-icon"></label>
+              <label class="cms-field"><span class="cms-label">Apple App Title</span><input class="cms-input" id="site-assets-apple-title"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">OG Image</span><input class="cms-input" id="site-assets-og-image"></label>
+            </div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Sign-In Screen</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field cms-field-full"><span class="cms-label">Page Title</span><input class="cms-input" id="login-meta-title"></label>
+              <label class="cms-field"><span class="cms-label">Kicker</span><input class="cms-input" id="login-kicker"></label>
+              <label class="cms-field"><span class="cms-label">Title</span><input class="cms-input" id="login-title"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Subtitle</span><textarea class="cms-textarea" id="login-subtitle"></textarea></label>
+              <label class="cms-field"><span class="cms-label">Password Label</span><input class="cms-input" id="login-password-label"></label>
+              <label class="cms-field"><span class="cms-label">Password Placeholder</span><input class="cms-input" id="login-password-placeholder"></label>
+              <label class="cms-field"><span class="cms-label">Reveal Label</span><input class="cms-input" id="login-reveal-label"></label>
+              <label class="cms-field"><span class="cms-label">Hide Label</span><input class="cms-input" id="login-hide-label"></label>
+              <label class="cms-field"><span class="cms-label">Reveal Aria Label</span><input class="cms-input" id="login-reveal-aria"></label>
+              <label class="cms-field"><span class="cms-label">Hide Aria Label</span><input class="cms-input" id="login-hide-aria"></label>
+              <label class="cms-field"><span class="cms-label">Submit Label</span><input class="cms-input" id="login-submit-label"></label>
+              <label class="cms-field"><span class="cms-label">Busy Label</span><input class="cms-input" id="login-busy-label"></label>
+              <label class="cms-field"><span class="cms-label">Back Link Text</span><input class="cms-input" id="login-back-text"></label>
+              <label class="cms-field"><span class="cms-label">Back Link Href</span><input class="cms-input" id="login-back-href"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Error — Empty</span><input class="cms-input" id="login-error-empty"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Error — Invalid</span><input class="cms-input" id="login-error-invalid"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Error — Auth</span><input class="cms-input" id="login-error-auth"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Error — Network</span><input class="cms-input" id="login-error-network"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Error — Not Configured</span><input class="cms-input" id="login-error-not-configured"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Status — Success</span><input class="cms-input" id="login-status-success"></label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOME -->
+      <section class="cms-panel" id="tab-home" role="tabpanel">
+        <div class="cms-panel-header">
+          <h1 class="cms-panel-title">Home Page</h1>
+          <p class="cms-panel-desc">Hero, preloader, and Dapper kinetic chapters.</p>
+        </div>
+        <div class="cms-grid">
+          <div class="cms-card">
+            <div class="cms-card-header"><h2 class="cms-card-title">Meta</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field"><span class="cms-label">Page Title</span><input class="cms-input" id="home-meta-title"></label>
+              <label class="cms-field"><span class="cms-label">Description</span><input class="cms-input" id="home-meta-desc"></label>
+              <label class="cms-field"><span class="cms-label">OG Title</span><input class="cms-input" id="home-meta-ogtitle"></label>
+              <label class="cms-field"><span class="cms-label">OG Type</span><input class="cms-input" id="home-meta-ogtype"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">OG Description</span><textarea class="cms-textarea" id="home-meta-ogdesc"></textarea></label>
+              <label class="cms-field"><span class="cms-label">Theme Color</span><input class="cms-input" id="home-meta-themecolor"></label>
+              <label class="cms-field"><span class="cms-label">Header CTA Link</span><input class="cms-input" id="home-header-cta"></label>
+            </div>
+          </div>
+          <div class="cms-card">
+            <div class="cms-card-header"><h2 class="cms-card-title">Hero</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field"><span class="cms-label">Title</span><input class="cms-input" id="home-hero-title"></label>
+              <label class="cms-field"><span class="cms-label">Title Highlight</span><input class="cms-input" id="home-hero-highlight"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Tagline</span><input class="cms-input" id="home-hero-tagline"></label>
+              <label class="cms-field"><span class="cms-label">Primary Button</span><input class="cms-input" id="home-hero-pbtn"></label>
+              <label class="cms-field"><span class="cms-label">Primary Link</span><input class="cms-input" id="home-hero-plink"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Primary Button Aria Label</span><input class="cms-input" id="home-hero-pbtn-aria"></label>
+              <label class="cms-field"><span class="cms-label">Secondary Button</span><input class="cms-input" id="home-hero-sbtn"></label>
+              <label class="cms-field"><span class="cms-label">Secondary Link</span><input class="cms-input" id="home-hero-slink"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Preloader Status</span><input class="cms-input" id="home-preloader"></label>
+            </div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Dapper Chapters</h2></div>
+            <div class="cms-card-body" id="home-chapters-editor"></div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Dapper UI Strings</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field"><span class="cms-label">Chapter Prefix</span><input class="cms-input" id="home-dapper-chapter-prefix"></label>
+              <label class="cms-field"><span class="cms-label">Chapter Start</span><input class="cms-input" id="home-dapper-chapter-start"></label>
+              <label class="cms-field"><span class="cms-label">Chapter Separator</span><input class="cms-input" id="home-dapper-chapter-sep"></label>
+              <label class="cms-field"><span class="cms-label">Caption Prefix</span><input class="cms-input" id="home-dapper-caption-prefix"></label>
+              <label class="cms-field"><span class="cms-label">Tag Top</span><input class="cms-input" id="home-dapper-tag-top"></label>
+              <label class="cms-field"><span class="cms-label">Tag Bottom</span><input class="cms-input" id="home-dapper-tag-bottom"></label>
+              <label class="cms-field"><span class="cms-label">Tag Prefix</span><input class="cms-input" id="home-dapper-tag-prefix"></label>
+              <label class="cms-field"><span class="cms-label">Tag Separator</span><input class="cms-input" id="home-dapper-tag-sep"></label>
+              <label class="cms-field"><span class="cms-label">Video Source</span><input class="cms-input" id="home-dapper-video-src"></label>
+              <label class="cms-field"><span class="cms-label">Video Type</span><input class="cms-input" id="home-dapper-video-type"></label>
+            </div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Video Controls</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field"><span class="cms-label">Pause Label</span><input class="cms-input" id="home-ctrl-pause"></label>
+              <label class="cms-field"><span class="cms-label">Resume Label</span><input class="cms-input" id="home-ctrl-resume"></label>
+              <label class="cms-field"><span class="cms-label">Sound Label</span><input class="cms-input" id="home-ctrl-sound"></label>
+              <label class="cms-field"><span class="cms-label">Muted Label</span><input class="cms-input" id="home-ctrl-muted"></label>
+              <label class="cms-field"><span class="cms-label">Pause Aria Label</span><input class="cms-input" id="home-ctrl-pause-aria"></label>
+              <label class="cms-field"><span class="cms-label">Pause Title</span><input class="cms-input" id="home-ctrl-pause-title"></label>
+              <label class="cms-field"><span class="cms-label">Sound Aria Label</span><input class="cms-input" id="home-ctrl-sound-aria"></label>
+              <label class="cms-field"><span class="cms-label">Sound Title</span><input class="cms-input" id="home-ctrl-sound-title"></label>
+              <label class="cms-field"><span class="cms-label">Group Aria Label</span><input class="cms-input" id="home-ctrl-group-aria"></label>
+            </div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Hero Parallax Layers</h2><button class="cms-btn cms-btn-ghost cms-btn-sm" id="btn-add-hero-layer">+ Add</button></div>
+            <div class="cms-card-body" id="home-layers-editor"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPLORE -->
+      <section class="cms-panel" id="tab-explore" role="tabpanel">
+        <div class="cms-panel-header">
+          <h1 class="cms-panel-title">Explore Page</h1>
+          <p class="cms-panel-desc">Hero, rail, meta, and closing section.</p>
+        </div>
+        <div class="cms-grid">
+          <div class="cms-card">
+            <div class="cms-card-header"><h2 class="cms-card-title">Meta</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field"><span class="cms-label">Page Title</span><input class="cms-input" id="explore-meta-title"></label>
+              <label class="cms-field"><span class="cms-label">Description</span><input class="cms-input" id="explore-meta-desc"></label>
+              <label class="cms-field"><span class="cms-label">OG Title</span><input class="cms-input" id="explore-meta-ogtitle"></label>
+              <label class="cms-field"><span class="cms-label">OG Type</span><input class="cms-input" id="explore-meta-ogtype"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">OG Description</span><textarea class="cms-textarea" id="explore-meta-ogdesc"></textarea></label>
+              <label class="cms-field"><span class="cms-label">Theme Color</span><input class="cms-input" id="explore-meta-themecolor"></label>
+              <label class="cms-field"><span class="cms-label">Header CTA Link</span><input class="cms-input" id="explore-header-cta"></label>
+            </div>
+          </div>
+          <div class="cms-card">
+            <div class="cms-card-header"><h2 class="cms-card-title">Hero</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field"><span class="cms-label">Eyebrow</span><input class="cms-input" id="explore-eyebrow"></label>
+              <label class="cms-field"><span class="cms-label">Title Line 1</span><input class="cms-input" id="explore-title1"></label>
+              <label class="cms-field"><span class="cms-label">Title Line 2</span><input class="cms-input" id="explore-title2"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Lead</span><textarea class="cms-textarea" id="explore-lead"></textarea></label>
+              <label class="cms-field"><span class="cms-label">Primary Button</span><input class="cms-input" id="explore-pbtn"></label>
+              <label class="cms-field"><span class="cms-label">Primary Link</span><input class="cms-input" id="explore-plink"></label>
+              <label class="cms-field"><span class="cms-label">Secondary Button</span><input class="cms-input" id="explore-sbtn"></label>
+              <label class="cms-field"><span class="cms-label">Secondary Link</span><input class="cms-input" id="explore-slink"></label>
+              <label class="cms-field"><span class="cms-label">Scroll Hint</span><input class="cms-input" id="explore-scroll"></label>
+              <label class="cms-field"><span class="cms-label">Preloader Status</span><input class="cms-input" id="explore-preloader"></label>
+              <label class="cms-field"><span class="cms-label">Decor — Contour</span><input class="cms-input" id="explore-decor-contour"></label>
+              <label class="cms-field"><span class="cms-label">Decor — Ridge</span><input class="cms-input" id="explore-decor-ridge"></label>
+            </div>
+          </div>
+          <div class="cms-card">
+            <div class="cms-card-header"><h2 class="cms-card-title">Hero Rail &amp; Meta Labels</h2></div>
             <div class="cms-card-body">
-              <div class="cms-field">
-                <label for="meta-kicker" class="cms-label">Catalogue Kicker Tag</label>
-                <input type="text" id="meta-kicker" class="cms-input cms-mono" value="FIELD CATALOGUE — 2026">
-                <span class="field-hint">Small eyebrow label displayed above main heading</span>
-              </div>
+              <div class="cms-subcard"><div class="cms-subcard-header">Rail Items</div><div id="explore-rail"></div><button class="cms-btn cms-btn-ghost cms-btn-sm" id="btn-add-rail">+ Add</button></div>
+              <div class="cms-subcard"><div class="cms-subcard-header">Meta Labels</div><div id="explore-metalabels"></div></div>
+            </div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Closing (OEM Block)</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field cms-field-full"><span class="cms-label">Eyebrow</span><input class="cms-input" id="explore-close-eyebrow"></label>
+              <label class="cms-field"><span class="cms-label">Title Line 1</span><input class="cms-input" id="explore-close-t1"></label>
+              <label class="cms-field"><span class="cms-label">Title Line 2</span><input class="cms-input" id="explore-close-t2"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Subtext</span><textarea class="cms-textarea cms-textarea-large" id="explore-close-sub"></textarea></label>
+              <label class="cms-field"><span class="cms-label">Primary Btn</span><input class="cms-input" id="explore-close-pbtn"></label>
+              <label class="cms-field"><span class="cms-label">Primary Link</span><input class="cms-input" id="explore-close-plink"></label>
+              <label class="cms-field"><span class="cms-label">Secondary Btn</span><input class="cms-input" id="explore-close-sbtn"></label>
+              <label class="cms-field"><span class="cms-label">Secondary Link</span><input class="cms-input" id="explore-close-slink"></label>
+              <label class="cms-field"><span class="cms-label">Tertiary Btn</span><input class="cms-input" id="explore-close-tbtn"></label>
+              <label class="cms-field"><span class="cms-label">Tertiary Link</span><input class="cms-input" id="explore-close-tlink"></label>
+            </div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Footer Legal Links</h2><button class="cms-btn cms-btn-ghost cms-btn-sm" id="btn-add-explore-legal">+ Add</button></div>
+            <div class="cms-card-body" id="explore-legal-editor"></div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">AI Ecosystem Strip</h2><button class="cms-btn cms-btn-ghost cms-btn-sm" id="btn-add-ai-strip">+ Add</button></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field cms-field-full"><span class="cms-label">Aria Label</span><input class="cms-input" id="explore-ai-strip-aria"></label>
+            </div>
+            <div class="cms-card-body" id="explore-ai-strip-editor"></div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Runtime UI Strings</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field"><span class="cms-label">Chapter Prefix</span><input class="cms-input" id="explore-ui-chapter-prefix"></label>
+              <label class="cms-field"><span class="cms-label">Chapter Separator</span><input class="cms-input" id="explore-ui-chapter-sep"></label>
+              <label class="cms-field"><span class="cms-label">Chapter Dash</span><input class="cms-input" id="explore-ui-chapter-dash"></label>
+              <label class="cms-field"><span class="cms-label">Deploy Label</span><input class="cms-input" id="explore-ui-deploy"></label>
+              <label class="cms-field"><span class="cms-label">Explore Label</span><input class="cms-input" id="explore-ui-explore"></label>
+              <label class="cms-field"><span class="cms-label">Product Fallback</span><input class="cms-input" id="explore-ui-product-fallback"></label>
+              <label class="cms-field"><span class="cms-label">Default Brand Tag</span><input class="cms-input" id="explore-ui-brand-tag"></label>
+              <label class="cms-field"><span class="cms-label">Category Fallback</span><input class="cms-input" id="explore-ui-category-fallback"></label>
+              <label class="cms-field"><span class="cms-label">Product Code Prefix</span><input class="cms-input" id="explore-ui-product-code"></label>
+            </div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Accessibility Labels</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field"><span class="cms-label">Marquee Label</span><input class="cms-input" id="explore-a11y-bridge"></label>
+              <label class="cms-field"><span class="cms-label">Bridge Rail Label</span><input class="cms-input" id="explore-a11y-rail"></label>
+              <label class="cms-field"><span class="cms-label">Products Section Label</span><input class="cms-input" id="explore-a11y-products"></label>
+              <label class="cms-field"><span class="cms-label">Slides Region Label</span><input class="cms-input" id="explore-a11y-layers"></label>
+            </div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Noscript Message</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field cms-field-full"><span class="cms-label">Title</span><input class="cms-input" id="explore-noscript-title"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Body</span><textarea class="cms-textarea" id="explore-noscript-body"></textarea></label>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              <div class="cms-form-grid-2">
-                <div class="cms-field">
-                  <label for="meta-title-1" class="cms-label">Title Line 1</label>
-                  <input type="text" id="meta-title-1" class="cms-input" value="SOLUTIONS">
-                </div>
+      <!-- AUDIT -->
+      <section class="cms-panel" id="tab-audit" role="tabpanel">
+        <div class="cms-panel-header">
+          <h1 class="cms-panel-title">Audit / Services Page</h1>
+          <p class="cms-panel-desc">Hero, framework, and industries.</p>
+        </div>
+        <div class="cms-grid">
+          <div class="cms-card">
+            <div class="cms-card-header"><h2 class="cms-card-title">Meta</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field"><span class="cms-label">Page Title</span><input class="cms-input" id="audit-meta-title"></label>
+              <label class="cms-field"><span class="cms-label">Description</span><input class="cms-input" id="audit-meta-desc"></label>
+              <label class="cms-field"><span class="cms-label">OG Title</span><input class="cms-input" id="audit-meta-ogtitle"></label>
+              <label class="cms-field"><span class="cms-label">OG Type</span><input class="cms-input" id="audit-meta-ogtype"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">OG Description</span><textarea class="cms-textarea" id="audit-meta-ogdesc"></textarea></label>
+              <label class="cms-field"><span class="cms-label">Theme Color</span><input class="cms-input" id="audit-meta-themecolor"></label>
+              <label class="cms-field"><span class="cms-label">Header CTA Link</span><input class="cms-input" id="audit-header-cta"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Services Heading</span><input class="cms-input" id="audit-services-heading"></label>
+            </div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Hero</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field"><span class="cms-label">Title Line 1</span><input class="cms-input" id="audit-hero-t1"></label>
+              <label class="cms-field"><span class="cms-label">Title Line 2</span><input class="cms-input" id="audit-hero-t2"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Lead</span><textarea class="cms-textarea" id="audit-hero-lead"></textarea></label>
+            </div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Proof Points</h2><button class="cms-btn cms-btn-ghost cms-btn-sm" id="btn-add-audit-proof">+ Add</button></div>
+            <div class="cms-card-body" id="audit-proof-editor"></div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Framework</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field"><span class="cms-label">Kicker</span><input class="cms-input" id="audit-fw-kicker"></label>
+              <label class="cms-field"><span class="cms-label">Title</span><input class="cms-input" id="audit-fw-title"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Lead</span><textarea class="cms-textarea" id="audit-fw-lead"></textarea></label>
+            </div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Framework Stages</h2></div>
+            <div class="cms-card-body" id="audit-stages-editor"></div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Industries</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field"><span class="cms-label">Kicker</span><input class="cms-input" id="audit-ind-kicker"></label>
+              <label class="cms-field"><span class="cms-label">Title</span><input class="cms-input" id="audit-ind-title"></label>
+              <label class="cms-field"><span class="cms-label">Aria Label</span><input class="cms-input" id="audit-ind-aria"></label>
+              <label class="cms-field"><span class="cms-label">Sector Start</span><input class="cms-input" id="audit-ind-sector-start"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Lead</span><textarea class="cms-textarea" id="audit-ind-lead"></textarea></label>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                <div class="cms-field">
-                  <label for="meta-title-2" class="cms-label">Title Line 2 (Highlight)</label>
-                  <input type="text" id="meta-title-2" class="cms-input" value="Tailored for Problem Solving">
-                </div>
-              </div>
-
-              <div class="cms-field">
-                <label for="meta-lead" class="cms-label">Lead Narrative Paragraph</label>
-                <textarea id="meta-lead" class="cms-textarea" rows="2">Do not pay for the whole software, pay for your problem.</textarea>
-              </div>
-
-              <div class="cms-field">
-                <label for="meta-note" class="cms-label">Catalogue Verification Note</label>
-                <input type="text" id="meta-note" class="cms-input" value="Verified catalogue">
+      <!-- PRODUCTS -->
+      <section class="cms-panel" id="tab-products" role="tabpanel">
+        <div class="cms-panel-header">
+          <h1 class="cms-panel-title">Products (Explore Catalogue)</h1>
+          <p class="cms-panel-desc">Add, reorder, duplicate and delete products. Images come from Media.</p>
+          <div class="cms-panel-actions">
+            <button class="cms-btn cms-btn-ghost" id="btn-add-product">+ Add Product</button>
+            <button class="cms-btn cms-btn-ghost" id="btn-duplicate-product">Duplicate</button>
+            <button class="cms-btn cms-btn-ghost" id="btn-delete-product">Delete</button>
+          </div>
+        </div>
+        <div class="cms-grid cms-grid-products">
+          <div class="cms-card cms-card-sidebar">
+            <div class="cms-card-header"><h2 class="cms-card-title">Catalogue</h2></div>
+            <div class="cms-card-body"><div class="cms-list" id="cms-product-list"></div></div>
+          </div>
+          <div class="cms-card cms-card-main">
+            <div class="cms-card-header"><h2 class="cms-card-title">Product Editor</h2></div>
+            <div class="cms-card-body cms-form-grid">
+              <label class="cms-field"><span class="cms-label">ID (slug)</span><input class="cms-input" id="prod-id"></label>
+              <label class="cms-field"><span class="cms-label">Label</span><input class="cms-input" id="prod-label"></label>
+              <label class="cms-field"><span class="cms-label">Badge</span><input class="cms-input" id="prod-badge"></label>
+              <label class="cms-field"><span class="cms-label">Category</span><input class="cms-input" id="prod-category"></label>
+              <label class="cms-field"><span class="cms-label">Status</span><input class="cms-input" id="prod-status"></label>
+              <label class="cms-field"><span class="cms-label">Theme</span><input class="cms-input" id="prod-theme"></label>
+              <label class="cms-field"><span class="cms-label">BG Color</span><input class="cms-input" id="prod-bg"></label>
+              <label class="cms-field"><span class="cms-label">Link</span><input class="cms-input" id="prod-link"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Summary</span><input class="cms-input" id="prod-summary"></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Description</span><textarea class="cms-textarea" id="prod-desc"></textarea></label>
+              <label class="cms-field cms-field-full"><span class="cms-label">Image</span>
+                <div class="cms-input-row"><input class="cms-input" id="prod-image"><button class="cms-btn cms-btn-ghost" type="button" id="btn-pick-prod-image">Pick from Media</button></div>
+              </label>
+              <div class="cms-field cms-field-full">
+                <span class="cms-label">Features</span>
+                <div id="features-container"></div>
+                <button class="cms-btn cms-btn-ghost cms-btn-sm" type="button" id="btn-add-feature">+ Add Feature</button>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ================= TAB 3: SERVICES SPECTRUM ================= -->
+      <!-- SERVICES -->
       <section class="cms-panel" id="tab-services" role="tabpanel">
         <div class="cms-panel-header">
-          <div>
-            <h1 class="cms-panel-title">Services Spectrum // Engagement Models</h1>
-            <p class="cms-panel-desc">Manage the structured engagement models, audits, and sovereign intelligence deployment offerings.</p>
-          </div>
-          <div class="cms-panel-actions">
-            <button type="button" class="cms-btn cms-btn-outline" id="btn-add-service">+ Add Service</button>
-          </div>
+          <h1 class="cms-panel-title">Services (Audit Cards)</h1>
+          <p class="cms-panel-desc">Service cards shown on /audit. Add, reorder, delete.</p>
+          <div class="cms-panel-actions"><button class="cms-btn cms-btn-ghost" id="btn-add-service">+ Add Service</button></div>
         </div>
-
-        <div class="cms-services-grid" id="services-grid-container">
-          <!-- Rendered dynamically by cms.js -->
+        <div class="cms-card cms-card-full">
+          <div class="cms-card-body" id="services-editor"></div>
         </div>
       </section>
 
-      <!-- ================= TAB 4: HOMEPAGE & CHAPTERS ================= -->
-      <section class="cms-panel" id="tab-homepage" role="tabpanel">
-        <div class="cms-panel-header">
-          <div>
-            <h1 class="cms-panel-title">Homepage &amp; Kinetic Chapters Matrix</h1>
-            <p class="cms-panel-desc">Manage the 18-layer parallax hero copy, 5 Dapper kinetic chapter titles &amp; captions, and global footer metadata.</p>
-          </div>
-        </div>
-
-        <div class="cms-form-container">
-          
-          <!-- Hero Section -->
-          <div class="cms-card">
-            <div class="cms-card-header">
-              <span class="card-title">// HOMEPAGE HERO TYPOGRAPHY &amp; CTAS</span>
-            </div>
-            <div class="cms-card-body">
-              <div class="cms-form-grid-2">
-                <div class="cms-field">
-                  <label for="hp-hero-title" class="cms-label">Hero Title Base</label>
-                  <input type="text" id="hp-hero-title" class="cms-input" value="AI LABS">
-                </div>
-                <div class="cms-field">
-                  <label for="hp-hero-highlight" class="cms-label">Hero Title Highlight</label>
-                  <input type="text" id="hp-hero-highlight" class="cms-input" value="BY NIMBUS">
-                </div>
-              </div>
-
-              <div class="cms-field">
-                <label for="hp-hero-tagline" class="cms-label">Hero Tagline</label>
-                <textarea id="hp-hero-tagline" class="cms-textarea" rows="2">We study how you work, then build only what you need.</textarea>
-              </div>
-
-              <div class="cms-form-grid-2">
-                <div class="cms-field">
-                  <label for="hp-btn-primary" class="cms-label">Primary CTA Button Label</label>
-                  <input type="text" id="hp-btn-primary" class="cms-input" value="Explore Product">
-                </div>
-                <div class="cms-field">
-                  <label for="hp-btn-secondary" class="cms-label">Secondary CTA Button Label</label>
-                  <input type="text" id="hp-btn-secondary" class="cms-input" value="Book Audit">
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 5 Kinetic Dapper Chapters -->
-          <div class="cms-card">
-            <div class="cms-card-header">
-              <span class="card-title">// 5 DAPPER KINETIC PINNED CHAPTERS</span>
-            </div>
-            <div class="cms-card-body">
-              <div class="cms-chapters-editor" id="chapters-editor-container">
-                <!-- Rendered dynamically -->
-              </div>
-            </div>
-          </div>
-
-          <!-- Footer & Global Status -->
-          <div class="cms-card">
-            <div class="cms-card-header">
-              <span class="card-title">// FOOTER &amp; GLOBAL CLUSTER STATUS</span>
-            </div>
-            <div class="cms-card-body">
-              <div class="cms-field">
-                <label for="hp-footer-desc" class="cms-label">Brand Mission Description</label>
-                <textarea id="hp-footer-desc" class="cms-textarea" rows="2">Advancing humanity's intelligence horizon through computational neuroscience and synthetic reasoning.</textarea>
-              </div>
-
-              <div class="cms-form-grid-2">
-                <div class="cms-field">
-                  <label for="hp-footer-copyright" class="cms-label">Copyright Notice</label>
-                  <input type="text" id="hp-footer-copyright" class="cms-input" value="© 2026 AI Labs by Nimbus. All rights reserved.">
-                </div>
-                <div class="cms-field">
-                  <label for="hp-footer-status" class="cms-label">Cluster Status Message</label>
-                  <input type="text" id="hp-footer-status" class="cms-input" value="All Global Nimbus Clusters Operational">
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ================= TAB 5: MEDIA ASSET VAULT ================= -->
+      <!-- MEDIA -->
       <section class="cms-panel" id="tab-media" role="tabpanel">
         <div class="cms-panel-header">
-          <div>
-            <h1 class="cms-panel-title">Media Asset Vault // Visual Storage</h1>
-            <p class="cms-panel-desc">Direct asset repository for showcase photography, high-resolution renders, and procedural graphics.</p>
-          </div>
-          <div class="cms-panel-actions">
-            <button type="button" class="cms-btn cms-btn-primary" id="btn-trigger-upload">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-              <span>Upload New Asset</span>
-            </button>
-            <input type="file" id="media-file-input" style="display:none;" accept="image/png,image/jpeg,image/webp,image/svg+xml,video/webm">
-          </div>
+          <h1 class="cms-panel-title">Media Vault</h1>
+          <p class="cms-panel-desc">Upload to Cloudinary or local assets. Use "Pick" in product editors.</p>
         </div>
-
-        <!-- Drag & Drop Upload Zone -->
-        <div class="cms-dropzone" id="media-dropzone">
-          <div class="dropzone-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          </div>
-          <div class="dropzone-text">
-            <strong>Drag and drop image or video assets here</strong>
-            <span>Supports .webp, .jpg, .png, .svg, .webm (Max 20MB)</span>
-          </div>
-        </div>
-
-        <!-- Media Filter Bar -->
-        <div class="cms-media-filter-bar">
-          <div class="media-filter-group">
-            <button type="button" class="cms-filter-pill is-active" data-filter="all">All Assets</button>
-            <button type="button" class="cms-filter-pill" data-filter="explore">Solutions Showcase</button>
-            <button type="button" class="cms-filter-pill" data-filter="upload">Uploaded</button>
-            <button type="button" class="cms-filter-pill" data-filter="core">Core UI Assets</button>
-          </div>
-          <div class="media-count-indicator" id="media-count-label">Loading library...</div>
-        </div>
-
-        <!-- Media Grid -->
-        <div class="cms-media-grid" id="media-library-grid">
-          <!-- Rendered dynamically -->
-        </div>
-      </section>
-
-      <!-- ================= TAB 6: SNAPSHOTS & REVISIONS ================= -->
-      <section class="cms-panel" id="tab-revisions" role="tabpanel">
-        <div class="cms-panel-header">
-          <div>
-            <h1 class="cms-panel-title">Snapshots &amp; Revisions // Version Resilience</h1>
-            <p class="cms-panel-desc">Automatic rollback checkpoints, instant JSON export, and snapshot recovery.</p>
-          </div>
-          <div class="cms-panel-actions">
-            <button type="button" class="cms-btn cms-btn-outline" id="btn-export-json">Export JSON</button>
-            <button type="button" class="cms-btn cms-btn-ghost" id="btn-import-json">Import JSON</button>
-            <input type="file" id="json-file-input" style="display:none;" accept=".json">
-          </div>
-        </div>
-
-        <div class="cms-revisions-layout">
-          <!-- Revisions List -->
-          <div class="cms-card">
-            <div class="cms-card-header">
-              <span class="card-title">// AUTOMATIC TIMESTAMPED SNAPSHOTS</span>
-            </div>
+        <div class="cms-grid">
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Upload</h2></div>
             <div class="cms-card-body">
-              <div class="cms-snapshots-list" id="snapshots-list">
-                <!-- Rendered dynamically -->
+              <div class="cms-dropzone" id="media-dropzone">
+                <div class="dropzone-inner">
+                  <div class="dropzone-title">Drop files here or click to upload</div>
+                  <div class="dropzone-sub">Images (jpg/png/webp/gif/svg), video (mp4/webm)</div>
+                  <button type="button" class="cms-btn cms-btn-primary" id="btn-trigger-upload">Choose Files</button>
+                </div>
+                <input type="file" id="media-file-input" multiple hidden>
               </div>
             </div>
           </div>
-
-          <!-- Raw JSON Inspector -->
-          <div class="cms-card">
-            <div class="cms-card-header">
-              <span class="card-title">// RAW SCHEMA INSPECTOR (LIVE)</span>
-              <button type="button" class="cms-btn-xs" id="btn-copy-raw-json">Copy JSON</button>
-            </div>
-            <div class="cms-card-body">
-              <pre class="cms-json-viewer" id="raw-json-inspector"></pre>
-            </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Library</h2><span class="cms-label" id="media-count-label">0 items</span></div>
+            <div class="cms-card-body"><div class="media-grid" id="media-library-grid"></div></div>
           </div>
         </div>
       </section>
 
+      <!-- SNAPSHOTS -->
+      <section class="cms-panel" id="tab-snapshots" role="tabpanel">
+        <div class="cms-panel-header">
+          <h1 class="cms-panel-title">Snapshots &amp; Rollback</h1>
+          <p class="cms-panel-desc">Automatic snapshots on publish. Compare changes and restore previous versions.</p>
+        </div>
+        <div class="cms-grid">
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Snapshot History</h2></div>
+            <div class="cms-card-body"><div class="snap-list" id="snapshots-list"></div></div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Changes vs Selected Snapshot</h2></div>
+            <div class="cms-card-body"><pre class="cms-pre" id="snapshot-diff"></pre></div>
+          </div>
+          <div class="cms-card cms-card-full">
+            <div class="cms-card-header"><h2 class="cms-card-title">Raw JSON</h2><div class="cms-card-actions"><button class="cms-btn cms-btn-ghost" id="btn-copy-raw">Copy</button><button class="cms-btn cms-btn-ghost" id="btn-export-json">Export</button><button class="cms-btn cms-btn-ghost" id="btn-import-json">Import</button></div></div>
+            <div class="cms-card-body"><textarea class="cms-textarea cms-textarea-json" id="raw-json-inspector"></textarea><input type="file" id="json-file-input" hidden></div>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 
-  <!-- MEDIA PICKER MODAL -->
-  <div class="cms-modal" id="media-picker-modal" aria-hidden="true">
+  <div class="cms-toast-stack" id="toast-stack"></div>
+
+  <div class="cms-modal" id="media-picker-modal">
     <div class="cms-modal-backdrop" id="modal-backdrop"></div>
     <div class="cms-modal-dialog">
-      <div class="cms-modal-header">
-        <span class="modal-title">// SELECT PRODUCT SHOWCASE ASSET</span>
-        <button type="button" class="modal-close-btn" id="modal-close-btn" aria-label="Close modal">&times;</button>
-      </div>
-      <div class="cms-modal-body">
-        <div class="modal-media-grid" id="modal-media-grid">
-          <!-- Rendered dynamically -->
-        </div>
-      </div>
-      <div class="cms-modal-footer">
-        <button type="button" class="cms-btn cms-btn-ghost" id="modal-cancel-btn">Cancel</button>
-      </div>
+      <div class="cms-modal-header"><h3 class="cms-modal-title">Pick Media</h3><button class="cms-modal-close" id="modal-close-btn">×</button></div>
+      <div class="cms-modal-body"><div class="media-grid" id="modal-media-grid"></div></div>
+      <div class="cms-modal-footer"><button class="cms-btn cms-btn-ghost" id="modal-cancel-btn">Cancel</button></div>
     </div>
   </div>
 
-  <!-- TOAST NOTIFICATION STACK -->
-  <div class="cms-toast-stack" id="toast-stack" aria-live="polite"></div>
+  <div class="cms-modal" id="preview-modal">
+    <div class="cms-modal-backdrop" id="preview-backdrop"></div>
+    <div class="cms-modal-dialog cms-modal-large">
+      <div class="cms-modal-header"><h3 class="cms-modal-title">Draft Preview</h3><div class="cms-modal-actions"><select id="preview-page-select"><option value="index.html">Home</option><option value="explore.html">Explore</option><option value="audit.html">Audit</option></select><button class="cms-modal-close" id="preview-close-btn">×</button></div></div>
+      <div class="cms-modal-body cms-modal-body-preview"><iframe id="preview-frame" title="Preview"></iframe></div>
+    </div>
+  </div>
 
-  <!-- CMS ENGINE SCRIPTS -->
-  <script src="./assets/explore/explore-data.js"></script>
   <script src="./cms.js"></script>
 </body>
+
 </html>

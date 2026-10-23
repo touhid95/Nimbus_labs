@@ -1,4 +1,5 @@
 {
+  "schemaVersion": 2,
   "meta": {
     "kicker": "FIELD CATALOGUE — 2026",
     "titleLineOne": "SOLUTIONS",
@@ -7,6 +8,180 @@
     "productsCount": 5,
     "servicesCount": 5,
     "note": "Verified catalogue"
+  },
+  "site": {
+    "brand": "AI Labs by Nimbus",
+    "header": {
+      "logoImage": "./assets/logo_tight.png",
+      "logoAlt": "AI Labs by Nimbus",
+      "logoText": "NIMBUS",
+      "logoSub": "/ AI LABS",
+      "logoHref": "./",
+      "logoAriaLabel": "AI Labs by Nimbus — Home",
+      "navAriaLabel": "Main Navigation",
+      "mobileNavAriaLabel": "Mobile Navigation",
+      "contactBtnText": "Book Audit",
+      "menuBtnLabel": "Open mobile menu",
+      "preloaderLogo": "./assets/logo_tight.png",
+      "preloaderLogoAlt": "AI Labs by Nimbus",
+      "nav": [
+        {
+          "id": "products",
+          "label": "Products",
+          "href": "./explore",
+          "active": {
+            "home": false,
+            "explore": true,
+            "audit": false
+          }
+        },
+        {
+          "id": "services",
+          "label": "Audits and services",
+          "href": "./services",
+          "active": {
+            "home": false,
+            "explore": false,
+            "audit": true
+          }
+        }
+      ]
+    },
+    "assets": {
+      "manifest": "./manifest.webmanifest",
+      "favicon": "./assets/logo_tight.png",
+      "appleTouchIcon": "./assets/icon-192.png",
+      "appleAppTitle": "Nimbus Labs",
+      "ogImage": "./assets/logo.png"
+    },
+    "footerGroups": [
+      {
+        "title": "EXPLORE",
+        "links": [
+          {
+            "label": "Solutions",
+            "href": "#products"
+          },
+          {
+            "label": "Partner",
+            "href": "#closing"
+          },
+          {
+            "label": "Home",
+            "href": "./"
+          }
+        ]
+      },
+      {
+        "title": "RESOURCES",
+        "links": [
+          {
+            "label": "Chapters",
+            "href": "./#dapper"
+          },
+          {
+            "label": "Documentation",
+            "href": "./#hero"
+          },
+          {
+            "label": "Compute Grants",
+            "href": "./#contact"
+          },
+          {
+            "label": "Contact",
+            "href": "mailto:contact@ailabsnimbus.com",
+            "external": true
+          }
+        ]
+      },
+      {
+        "title": "CONNECT",
+        "links": [
+          {
+            "label": "GitHub",
+            "href": "https://github.com",
+            "external": true
+          },
+          {
+            "label": "HuggingFace",
+            "href": "https://huggingface.co",
+            "external": true
+          },
+          {
+            "label": "X / Twitter",
+            "href": "https://twitter.com",
+            "external": true
+          },
+          {
+            "label": "LinkedIn",
+            "href": "https://linkedin.com",
+            "external": true
+          }
+        ]
+      }
+    ],
+    "footer": {
+      "brandTitle": "AI Labs by Nimbus",
+      "brandDesc": "Advancing humanity's intelligence horizon through computational neuroscience and synthetic reasoning.",
+      "brandLogo": "./assets/logo_tight.png",
+      "copyrightYear": 2026,
+      "copyrightText": "© 2026 AI Labs by Nimbus. All rights reserved.",
+      "copyrightSuffix": "· Frontier Artificial Intelligence & Autonomous Systems.",
+      "talkHeading": "Let’s build what you actually need.",
+      "ctaText": "Book Diagnostic Audit",
+      "email": "contact@ailabsnimbus.com",
+      "emailHref": "mailto:contact@ailabsnimbus.com",
+      "note": "Direct access to Principal Systems Engineers · Under 24h response time",
+      "locationBadge": "Sovereign AI Engineering Hub",
+      "locationCity": "Dhaka, Bangladesh",
+      "locationAddressLine1": "Gulshan 2, Dhaka 1212",
+      "locationAddressLine2": "Bangladesh · Frontier Artificial Intelligence & Autonomous Systems",
+      "navAriaLabel": "Footer Nav",
+      "legal": [
+        {
+          "label": "Privacy",
+          "href": "#"
+        },
+        {
+          "label": "Terms",
+          "href": "#"
+        },
+        {
+          "label": "Security Proofs",
+          "href": "#"
+        }
+      ],
+      "statusText": "All Global Nimbus Clusters Operational",
+      "tel": "+1 (415) 890-AI-LABS · Sovereign Consultations",
+      "telHref": "tel:+14158902452",
+      "nav": [
+        {
+          "label": "Solutions",
+          "href": "./explore"
+        },
+        {
+          "label": "Services & Audit",
+          "href": "./services"
+        },
+        {
+          "label": "Methodology",
+          "href": "#methodology"
+        },
+        {
+          "label": "Industries",
+          "href": "#services-industries"
+        },
+        {
+          "label": "Chapters",
+          "href": "./#dapper"
+        },
+        {
+          "label": "CMS Matrix",
+          "href": "./cms"
+        }
+      ],
+      "locationAddress": "Gulshan 2, Dhaka 1212\nBangladesh · Frontier Artificial Intelligence & Autonomous Systems"
+    }
   },
   "products": [
     {
@@ -159,66 +334,126 @@
     {
       "id": "service-01",
       "label": "Service 01",
+      "kicker": "01 / OPERATIONAL DIAGNOSTICS",
       "title": "AI Business & Algorithmic Audit",
       "summary": "14-day computational audit isolating precision bottlenecks and drafting an autonomous deployment blueprint.",
       "detail": "Enterprise ROI and computational architecture are inseparable. We deconstruct workflow telemetry, isolate your single costliest operational bottleneck, and benchmark dedicated compute vs. token ROI before writing production code.",
+      "text": "Enterprise ROI and computational architecture are inseparable. Instead of locking into multi-million-dollar annual software subscriptions for generic feature bloat, our systems researchers embed across your operations to conduct an exhaustive 14-day computational audit. We deconstruct workflow telemetry, isolate the single costliest bottleneck, and engineer a dedicated autonomous blueprint targeted exclusively at eliminating it.",
       "features": [
         "Workflow latency profiling",
         "Bottleneck decomposition & dependency trees",
         "Token economics vs. dedicated compute ROI"
       ],
+      "capabilities": [
+        "Workflow Latency Profiling",
+        "Bottleneck Decomposition & Trees",
+        "Token Economics vs. Dedicated Compute",
+        "Sovereign Air-Gap Feasibility",
+        "Algorithmic Proof-of-Concept",
+        "Executive Blueprint & Fixed Roadmap"
+      ],
+      "image": "./assets/explore/supercomputer.jpg",
+      "figure": "orbs",
       "accent": "#6459e8"
     },
     {
       "id": "service-02",
       "label": "Service 02",
+      "kicker": "02 / DISTRIBUTED REASONING",
       "title": "Autonomous Multi-Agent Swarms",
       "summary": "Decentralized self-governing agent meshes executing concurrent operations with sub-second finality.",
       "detail": "Specialized multi-agent swarms operating on continuous causal verification loops and symbolic proofs to eliminate probabilistic hallucination and drift.",
+      "text": "We engineer self-governing multi-agent meshes that independently negotiate, decompose complex multi-stage objectives, and execute concurrent operations with sub-second finality. Bypassing the probabilistic drift and hallucinations of generic LLMs, our agent swarms operate on continuous causal verification loops backed by formal symbolic proofs.",
       "features": [
         "Decentralized peer-to-peer consensus",
         "Dynamic autonomous task decomposition",
         "Microsecond inter-agent event bus"
       ],
+      "capabilities": [
+        "Decentralized Peer Consensus",
+        "Autonomous Task Decomposition",
+        "Microsecond Inter-Agent Event Bus",
+        "Temporal Memory Graphs & Vectors",
+        "Deterministic Guardrails & Proofs",
+        "Self-Healing Orchestration"
+      ],
+      "image": "./assets/explore/neural.jpg",
+      "figure": "flatCircles",
       "accent": "#5eead4"
     },
     {
       "id": "service-03",
       "label": "Service 03",
+      "kicker": "03 / PRIVATE INFRASTRUCTURE",
       "title": "Sovereign AI Platforms",
       "summary": "Turnkey air-gapped cognitive intelligence layers operating strictly inside private hardware perimeters.",
       "detail": "Mission-critical inference clusters deployed on bare-metal hardware with zero external API leakage, bespoke weight fine-tuning, and audit-grade compliance.",
+      "text": "Mission-critical institutions cannot risk proprietary trade secrets, customer records, or classified telemetry on public multi-tenant cloud APIs. We deploy turnkey, air-gapped cognitive intelligence layers operating strictly inside your private hardware perimeters — delivering frontier model capabilities with zero external data egress and audit-grade compliance.",
       "features": [
         "Air-gapped bare-metal cluster topology",
         "Zero-egress network architecture",
         "Bespoke domain weight adaptation"
       ],
+      "capabilities": [
+        "Air-Gapped Bare-Metal Clusters",
+        "Zero-Egress Network Architecture",
+        "Bespoke Domain Weight Adaptation",
+        "On-Premise GPU Acceleration",
+        "SOC2, HIPAA & Defense Compliance",
+        "Native Legacy Database Bridges"
+      ],
+      "image": "./assets/explore/technology.jpg",
+      "figure": "squares",
       "accent": "#e25c80"
     },
     {
       "id": "service-04",
       "label": "Service 04",
+      "kicker": "04 / SPATIAL INTELLIGENCE",
       "title": "Synthetic Perception & Vision",
       "summary": "High-dimensional spatial latent models and real-time edge visual inspection pipelines.",
       "detail": "Bridging computational neuroscience with spatial intelligence to automate physical robotics, defense telemetry, and high-frequency visual inspection.",
+      "text": "Bridging computational neuroscience with spatial latent representations. We build real-time visual inspection pipelines, physical robotics sensor fusion, and generative synthetic dataset generators engineered for mission-critical automation across industrial robotics, sovereign defense systems, and high-frequency digital workflows.",
       "features": [
         "Spatial latent world modeling",
         "Sub-5ms edge visual inference",
         "Generative synthetic training datasets"
       ],
+      "capabilities": [
+        "Spatial Latent Modeling",
+        "Sub-5ms Visual Inference",
+        "Generative Synthetic Training Data",
+        "Heterogeneous Multimodal Fusion",
+        "Real-Time Edge Anomaly Swarms",
+        "Hardened Robotics Edge Runtimes"
+      ],
+      "image": "./assets/explore/abstract.jpg",
+      "figure": "doubleCone",
       "accent": "#a855f7"
     },
     {
       "id": "service-05",
       "label": "Service 05",
+      "kicker": "05 / BARE-METAL COMPUTE",
       "title": "Accelerated Systems Engineering",
       "summary": "Custom CUDA & Triton kernel compilation for 4-bit and 2-bit quantized neural runtimes.",
       "detail": "Compiling neural intelligence directly onto silicon. Eliminates runtime frameworks, slashes inference power consumption by 80%, and yields sub-millisecond throughput.",
+      "text": "Deploying neural runtimes directly on bare silicon. We fuse custom CUDA and Triton kernels with stripped-down 4-bit and 2-bit quantized neural weights — eliminating bloated runtime frameworks, reducing inference compute costs by up to 80%, and providing guaranteed deterministic throughput under peak institutional workloads.",
       "features": [
         "4-bit & 2-bit quantized weight compilation",
         "Custom CUDA, Triton & Metal kernel fusion",
         "Bare-metal GPU VRAM optimization"
       ],
+      "capabilities": [
+        "4-Bit & 2-Bit Quantized Weights",
+        "Custom CUDA & Triton Kernel Fusion",
+        "Bare-Metal GPU VRAM Optimization",
+        "Sub-Millisecond Execution Latency",
+        "Zero-Dependency Static Binaries",
+        "Audit-Grade Failover Checkpoints"
+      ],
+      "image": "./assets/explore/server.jpg",
+      "figure": "corners",
       "accent": "#f43f5e"
     }
   ],
@@ -262,10 +497,617 @@
       ]
     },
     "footer": {
-      "brandTitle": "AI LABS BY NIMBUS",
-      "brandDesc": "Sovereign AI engineering hub & autonomous systems research. We build decentralized multi-agent architectures and negotiate direct enterprise OEM compute access.",
-      "copyrightText": "© 2026 AI Labs by Nimbus. All rights reserved. · Sovereign AI Engineering Hub & Autonomous Systems.",
-      "location": "Gulshan 2, Dhaka 1212 · Bangladesh"
+      "brandTitle": "AI Labs by Nimbus",
+      "brandDesc": "Advancing humanity's intelligence horizon through computational neuroscience and synthetic reasoning.",
+      "brandLogo": "./assets/logo_tight.png",
+      "copyrightYear": 2026,
+      "copyrightText": "© 2026 AI Labs by Nimbus. All rights reserved.",
+      "copyrightSuffix": "· Frontier Artificial Intelligence & Autonomous Systems.",
+      "talkHeading": "Let’s build what you actually need.",
+      "ctaText": "Book Diagnostic Audit",
+      "email": "contact@ailabsnimbus.com",
+      "emailHref": "mailto:contact@ailabsnimbus.com",
+      "note": "Direct access to Principal Systems Engineers · Under 24h response time",
+      "locationBadge": "Sovereign AI Engineering Hub",
+      "locationCity": "Dhaka, Bangladesh",
+      "locationAddressLine1": "Gulshan 2, Dhaka 1212",
+      "locationAddressLine2": "Bangladesh · Frontier Artificial Intelligence & Autonomous Systems",
+      "navAriaLabel": "Footer Nav",
+      "legal": [
+        {
+          "label": "Privacy",
+          "href": "#"
+        },
+        {
+          "label": "Terms",
+          "href": "#"
+        },
+        {
+          "label": "Security Proofs",
+          "href": "#"
+        }
+      ],
+      "statusText": "All Global Nimbus Clusters Operational",
+      "tel": "+1 (415) 890-AI-LABS · Sovereign Consultations",
+      "telHref": "tel:+14158902452",
+      "nav": [
+        {
+          "label": "Solutions",
+          "href": "./explore"
+        },
+        {
+          "label": "Services & Audit",
+          "href": "./services"
+        },
+        {
+          "label": "Methodology",
+          "href": "#methodology"
+        },
+        {
+          "label": "Industries",
+          "href": "#services-industries"
+        },
+        {
+          "label": "Chapters",
+          "href": "./#dapper"
+        },
+        {
+          "label": "CMS Matrix",
+          "href": "./cms"
+        }
+      ],
+      "locationAddress": "Gulshan 2, Dhaka 1212\nBangladesh · Frontier Artificial Intelligence & Autonomous Systems"
+    }
+  },
+  "pages": {
+    "home": {
+      "meta": {
+        "title": "AI Labs by Nimbus | Frontier Artificial Intelligence & Autonomous Systems",
+        "description": "AI Labs by Nimbus researches next-generation generative models, collaborative multi-agent architectures, and hyper-scalable deep learning systems.",
+        "ogTitle": "AI Labs by Nimbus | Frontier Intelligence",
+        "ogDescription": "Pioneering the next frontier of artificial intelligence, autonomous agentic systems, and neural architectures.",
+        "ogType": "website",
+        "themeColor": "#020016"
+      },
+      "headerCtaHref": "./services#contact",
+      "hero": {
+        "title": "AI LABS",
+        "titleHighlight": "BY NIMBUS",
+        "tagline": "We study how you work, then build only what you need.",
+        "primaryBtnText": "Explore Product",
+        "primaryBtnLink": "./explore",
+        "primaryBtnAriaLabel": "Explore Nimbus Labs products and services",
+        "secondaryBtnText": "Book Audit",
+        "secondaryBtnLink": "./audit",
+        "preloaderStatus": "INITIALIZING NIMBUS NEURAL CLUSTER...",
+        "layers": [
+          {
+            "id": "layer-01",
+            "className": "hero-01",
+            "src": "./assets/hero-01.png",
+            "alt": "Sky background"
+          },
+          {
+            "id": "layer-02",
+            "className": "hero-02",
+            "src": "./assets/hero-02.png",
+            "alt": "Mountain ridges 2"
+          },
+          {
+            "id": "layer-03",
+            "className": "hero-03",
+            "src": "./assets/hero-03.png",
+            "alt": "Mountain ridges 3"
+          },
+          {
+            "id": "layer-04",
+            "className": "hero-04",
+            "src": "./assets/hero-04.png",
+            "alt": "Mountain ridges 4"
+          },
+          {
+            "id": "layer-05",
+            "className": "hero-05",
+            "src": "./assets/hero-05.png",
+            "alt": "Foothills 5"
+          },
+          {
+            "id": "layer-06",
+            "className": "hero-06",
+            "src": "./assets/hero-06.png",
+            "alt": "Pine ridges 6"
+          },
+          {
+            "id": "layer-cloud1",
+            "className": "hero-cloud1",
+            "src": "./assets/hero-cloud1.png",
+            "alt": "Cloud atmosphere 1"
+          },
+          {
+            "id": "layer-cloud2",
+            "className": "hero-cloud2",
+            "src": "./assets/hero-cloud2.png",
+            "alt": "Cloud atmosphere 2"
+          },
+          {
+            "id": "layer-cloud3",
+            "className": "hero-cloud3",
+            "src": "./assets/hero-cloud3.png",
+            "alt": "Cloud atmosphere 3"
+          },
+          {
+            "id": "layer-cloud4",
+            "className": "hero-cloud4",
+            "src": "./assets/hero-cloud4.png",
+            "alt": "Cloud atmosphere 4"
+          },
+          {
+            "id": "layer-cloud5",
+            "className": "hero-cloud5",
+            "src": "./assets/hero-cloud5.png",
+            "alt": "Cloud atmosphere 5"
+          },
+          {
+            "id": "layer-cloud6",
+            "className": "hero-cloud6",
+            "src": "./assets/hero-cloud6.png",
+            "alt": "Cloud atmosphere 6"
+          },
+          {
+            "id": "layer-cloud7",
+            "className": "hero-cloud7",
+            "src": "./assets/hero-cloud7.png",
+            "alt": "Cloud atmosphere 7"
+          },
+          {
+            "id": "layer-cloud8",
+            "className": "hero-cloud8",
+            "src": "./assets/hero-cloud8.png",
+            "alt": "Cloud atmosphere 8"
+          },
+          {
+            "id": "layer-07",
+            "className": "hero-07",
+            "src": "./assets/hero-07.png",
+            "alt": "Ridge forest 7"
+          },
+          {
+            "id": "layer-08",
+            "className": "hero-08",
+            "src": "./assets/hero-08.png",
+            "alt": "Foreground hills 8"
+          },
+          {
+            "id": "layer-09",
+            "className": "hero-09",
+            "src": "./assets/hero-09.png",
+            "alt": "Valley slopes 9"
+          },
+          {
+            "id": "layer-10",
+            "className": "hero-10",
+            "src": "./assets/hero-10.png",
+            "alt": "Near pine trees 10"
+          }
+        ]
+      },
+      "dapper": {
+        "subheader": "AI LABS BY NIMBUS",
+        "chapterCount": 5,
+        "chapterPrefix": "CHAPTER",
+        "chapterStart": "01",
+        "chapterSeparator": "/",
+        "captionPrefix": "//",
+        "tagTop": "FRONTIER COGNITION",
+        "tagBottom": "RESEARCH DOMAINS",
+        "tagPrefix": "CHAPTER 0",
+        "tagSeparator": "//",
+        "video": {
+          "src": "assets/research-cognition.webm",
+          "type": "video/webm"
+        },
+        "controls": {
+          "pauseLabel": "Pause",
+          "resumeLabel": "Resume",
+          "soundLabel": "Sound",
+          "mutedLabel": "Muted",
+          "pauseAriaLabel": "Pause or Resume Video",
+          "pauseTitle": "Pause / Resume",
+          "soundAriaLabel": "Toggle Sound",
+          "soundTitle": "Mute / Unmute",
+          "groupAriaLabel": "Video Controls"
+        }
+      },
+      "footerNav": [
+        {
+          "label": "Products",
+          "href": "./explore",
+          "linkClass": "f-link"
+        },
+        {
+          "label": "Audits & Services",
+          "href": "./services",
+          "linkClass": "f-link"
+        },
+        {
+          "label": "Chapters",
+          "href": "#dapper",
+          "linkClass": "f-link"
+        },
+        {
+          "label": "Book Audit",
+          "href": "./services#contact",
+          "linkClass": "f-link"
+        }
+      ],
+      "footerCtaLink": "./services#contact"
+    },
+    "explore": {
+      "meta": {
+        "title": "Solutions Catalogue // AI Labs by Nimbus",
+        "description": "Explore the Nimbus Labs solutions catalogue: autonomous systems, reasoning cores, agent swarms and edge inference.",
+        "ogTitle": "Explore Products & Services | AI Labs by Nimbus",
+        "ogDescription": "A field catalogue of upcoming Nimbus Labs products and services.",
+        "ogType": "website",
+        "themeColor": "#020016"
+      },
+      "headerCtaHref": "./services#contact",
+      "hero": {
+        "eyebrow": "Fast, Precise, Reliable, to the Point",
+        "titleLineOne": "SOLUTIONS",
+        "titleLineTwo": "Tailored for Problem Solving",
+        "lead": "Do not pay for the whole software, pay for your problem.",
+        "primaryBtnText": "Browse Solutions",
+        "primaryBtnLink": "#products",
+        "secondaryBtnText": "Book Audit",
+        "secondaryBtnLink": "./audit",
+        "preloaderStatus": "OPENING NIMBUS FIELD CATALOGUE...",
+        "decor": {
+          "contour": "./assets/explore/contour.svg",
+          "ridge": "./assets/explore/horizon-ridge.svg"
+        },
+        "rail": [
+          "SOLUTIONS",
+          "PRODUCTS",
+          "CONTACT"
+        ],
+        "metaLabels": [
+          "Tailored Solutions",
+          "Flagship Deployments",
+          "Active Programme"
+        ],
+        "scrollHint": "Scroll to explore"
+      },
+      "aiStripAriaLabel": "Supported AI Ecosystem",
+      "a11y": {
+        "bridgeAriaLabel": "Feature marquee",
+        "railAriaLabel": "Product Showcase Links",
+        "productsAriaLabel": "Solutions Matrix",
+        "layersAriaLabel": "Product showcase slides"
+      },
+      "aiStrip": [
+        {
+          "icon": "chatgpt",
+          "name": "ChatGPT",
+          "badge": "OEM DIRECT",
+          "category": "Reasoning & Neural Chat"
+        },
+        {
+          "icon": "claude",
+          "name": "Claude",
+          "badge": "ENTERPRISE OEM",
+          "category": "Cognitive Architecture"
+        },
+        {
+          "icon": "gemini",
+          "name": "Gemini",
+          "badge": "OEM DIRECT",
+          "category": "Multimodal Foundation"
+        },
+        {
+          "icon": "perplexity",
+          "name": "Perplexity",
+          "badge": "OEM DIRECT",
+          "category": "Real-Time Synthesis"
+        },
+        {
+          "icon": "grok",
+          "name": "Grok",
+          "badge": "ENTERPRISE OEM",
+          "category": "Real-Time Compute"
+        },
+        {
+          "icon": "cursor",
+          "name": "Cursor",
+          "badge": "OEM DIRECT",
+          "category": "AI Development Studio"
+        },
+        {
+          "icon": "copilot",
+          "name": "Copilot",
+          "badge": "ENTERPRISE OEM",
+          "category": "Pair Programming"
+        },
+        {
+          "icon": "devin-ai",
+          "name": "Devin AI",
+          "badge": "OEM DIRECT",
+          "category": "Autonomous Engineer"
+        },
+        {
+          "icon": "midjourney",
+          "name": "Midjourney",
+          "badge": "OEM DIRECT",
+          "category": "Visual Synthesis"
+        },
+        {
+          "icon": "adobe-firefly",
+          "name": "Adobe Firefly",
+          "badge": "ENTERPRISE OEM",
+          "category": "Commercial Media Models"
+        },
+        {
+          "icon": "grammarly",
+          "name": "Grammarly",
+          "badge": "OEM DIRECT",
+          "category": "Communication Engine"
+        },
+        {
+          "icon": "notebooklm",
+          "name": "NotebookLM",
+          "badge": "OEM DIRECT",
+          "category": "Grounded Research Core"
+        }
+      ],
+      "noscript": {
+        "title": "JavaScript is required for the interactive catalogue.",
+        "body": "This Explore catalogue renders its product and service entries with JavaScript. Enable JavaScript to view the placeholder catalogue."
+      },
+      "ui": {
+        "chapterPrefix": "// CHAPTER 0",
+        "chapterSeparator": " / ",
+        "chapterDash": "—",
+        "deployLabel": "Deploy",
+        "exploreLabel": "Explore",
+        "productFallback": "Product",
+        "productCodePrefix": "PRD-",
+        "defaultBrandTag": "SOLUTIONS",
+        "categoryFallback": "SYSTEMS"
+      },
+      "closing": {
+        "eyebrow": "Ready when you are",
+        "titleLineOne": "BUY AT OEM.",
+        "titleLineTwo": "Consult us before procuring enterprise AI.",
+        "sub": "The catalogue is still forming. Partner with the lab early to shape what comes next — or head back and keep exploring.",
+        "primaryBtnText": "Partner With Our Lab",
+        "primaryBtnLink": "mailto:contact@ailabsnimbus.com",
+        "secondaryBtnText": "Back to Home",
+        "secondaryBtnLink": "./",
+        "tertiaryBtnText": "Back to Home",
+        "tertiaryBtnLink": "./",
+        "title": "See further. Build with <em>Nimbus</em>."
+      },
+      "legal": [
+        {
+          "label": "Security Proofs",
+          "href": "mailto:contact@ailabsnimbus.com"
+        },
+        {
+          "label": "Advisory Terms",
+          "href": "mailto:contact@ailabsnimbus.com"
+        }
+      ],
+      "footerNote": "· Explore page — placeholder content."
+    },
+    "audit": {
+      "meta": {
+        "title": "Services & Business Audit // AI Labs by Nimbus",
+        "description": "AI Labs by Nimbus delivers full-spectrum AI product strategy, operational business audits, autonomous multi-agent systems, sovereign intelligence, and accelerated systems engineering.",
+        "ogTitle": "Services & Business Audit // AI Labs by Nimbus",
+        "ogDescription": "A full-spectrum enterprise AI innovation and autonomous systems engineering partner. We study how you work, then build only what you need.",
+        "ogType": "website",
+        "themeColor": "#ffffff"
+      },
+      "headerCtaHref": "#contact",
+      "servicesHeading": "Services and Audit Spectrum",
+      "hero": {
+        "titleLines": [
+          "Autonomous AI",
+          "engineering partner"
+        ],
+        "lead": "Skip bloated SaaS and per-seat taxes. We audit your workflows, isolate your costliest bottleneck, and engineer dedicated autonomous systems to eliminate it — with 100% sovereign code ownership.",
+        "proof": [
+          "14-Day Diagnostic Audit",
+          "100% Sovereign Air-Gap Feasibility",
+          "Bare-Metal Silicon Compilation",
+          "Zero Vendor Lock-In"
+        ]
+      },
+      "framework": {
+        "kicker": "OUR ENGAGEMENT FRAMEWORK",
+        "title": "From diagnosis to sovereign deployment.",
+        "lead": "We reject 12-month software consulting retainers. We operate on a fixed-scope, high-velocity 3-stage delivery lifecycle designed to produce working systems, not slides.",
+        "stages": [
+          {
+            "index": 1,
+            "step": "STAGE 01",
+            "title": "The 14-Day Audit",
+            "text": "We embed with your engineering leadership, deconstruct workflow telemetry, benchmark latency sinkholes, and calculate dedicated compute vs. token ROI before writing production code."
+          },
+          {
+            "index": 2,
+            "step": "STAGE 02",
+            "title": "The 30-Day Sandbox",
+            "text": "We deploy an air-gapped prototype targeted directly at the isolated bottleneck in your private staging environment. Real operational stress tests with zero synthetic fluff."
+          },
+          {
+            "index": 3,
+            "step": "STAGE 03",
+            "title": "Sovereign Production Handoff",
+            "text": "Turnkey bare-metal deployment inside your private perimeter. 100% source code, model weights, and architectural documentation handoff with zero recurring vendor lock-in."
+          }
+        ]
+      },
+      "industries": {
+        "kicker": "// IMPACT DOMAINS · FIELD TELEMETRY",
+        "title": "Mission-Critical Sectors",
+        "ariaLabel": "Mission-Critical Sectors",
+        "lead": "We partner with forward-thinking enterprises, sovereign institutions, and quantitative funds facing complex computational bottlenecks.",
+        "sectorStart": "01",
+        "sectorCount": 6,
+        "sectors": [
+          {
+            "index": 1,
+            "chapter": "// SECTOR 01 / 06 — CAPITAL MARKETS",
+            "name": "Fintech & Quantitative Finance",
+            "bg": "#2f122e",
+            "color": "#ffffff",
+            "members": [
+              "High-Frequency Execution Kernels",
+              "Autonomous Risk Modeling",
+              "Deterministic Compliance Proofs",
+              "Real-Time Fraud Swarms",
+              "Algorithmic Portfolio Synthesis",
+              "Sub-Millisecond Settlement Telemetry"
+            ]
+          },
+          {
+            "index": 2,
+            "chapter": "// SECTOR 02 / 06 — ENTERPRISE SYSTEMS",
+            "name": "B2B & Enterprise Infrastructure",
+            "bg": "#e25c80",
+            "color": "#ffffff",
+            "members": [
+              "Autonomous Workflow Mesh",
+              "Proprietary Knowledge Bridges",
+              "Air-Gapped Operational Copilots",
+              "Automated ERP Synthesis",
+              "Deterministic Document Verification",
+              "Zero-Cloud API Migrations"
+            ]
+          },
+          {
+            "index": 3,
+            "chapter": "// SECTOR 03 / 06 — DEFENSE & SECURITY",
+            "name": "Sovereign & Critical Infrastructure",
+            "bg": "#6459e8",
+            "color": "#ffffff",
+            "members": [
+              "Air-Gapped SCADA Telemetry",
+              "Offline-First Edge Controllers",
+              "Hardware-Isolated Runtimes",
+              "Formal Mathematical Proofs",
+              "Zero-Leak Threat Elimination",
+              "Grid Load Balancing"
+            ]
+          },
+          {
+            "index": 4,
+            "chapter": "// SECTOR 04 / 06 — HARDWARE ACCELERATION",
+            "name": "Technology & Compute Platforms",
+            "bg": "#0f3d3e",
+            "color": "#ffffff",
+            "members": [
+              "Distributed GPU Orchestration",
+              "Sub-5ms Inference Compilation",
+              "Decentralized Consensus Buses",
+              "Quantized Neural Kernels",
+              "Zero-Dependency Static Architectures",
+              "Bare-Metal Optimization"
+            ]
+          },
+          {
+            "index": 5,
+            "chapter": "// SECTOR 05 / 06 — BIOMEDICAL COGNITION",
+            "name": "Healthcare & Life Sciences",
+            "bg": "#3a102a",
+            "color": "#ffffff",
+            "members": [
+              "Computational Neuroscience",
+              "Air-Gapped Clinical Trial Telemetry",
+              "Protein Latent Modeling",
+              "HIPAA Sovereign Perimeters",
+              "Diagnostic Review Acceleration",
+              "Zero-Data-Retention Pipelines"
+            ]
+          },
+          {
+            "index": 6,
+            "chapter": "// SECTOR 06 / 06 — ROBOTICS & MOBILITY",
+            "name": "Autonomous Logistics & Mobility",
+            "bg": "#020016",
+            "color": "#ffffff",
+            "members": [
+              "Swarm Routing Consensus",
+              "Real-Time Fleet Balancing",
+              "Decentralized Warehouse Depots",
+              "Predictive Latency Resolution",
+              "Sub-Second Dispatch Loops",
+              "Fault-Tolerant Checkpoints"
+            ]
+          }
+        ]
+      },
+      "contact": {
+        "heading": "Let’s build what you actually need."
+      },
+      "footerNav": [
+        {
+          "label": "Products",
+          "href": "./explore",
+          "linkClass": "f-link"
+        },
+        {
+          "label": "Audits & Services",
+          "href": "./services",
+          "linkClass": "f-link is-active"
+        },
+        {
+          "label": "Methodology",
+          "href": "#methodology",
+          "linkClass": "f-link"
+        },
+        {
+          "label": "Industries",
+          "href": "#services-industries",
+          "linkClass": "f-link"
+        },
+        {
+          "label": "Chapters",
+          "href": "./#dapper",
+          "linkClass": "f-link"
+        },
+        {
+          "label": "Book Audit",
+          "href": "#contact",
+          "linkClass": "f-link"
+        }
+      ],
+      "footerCtaLink": "#contact"
+    },
+    "login": {
+      "meta": {
+        "title": "Admin Access — AI Labs by Nimbus"
+      },
+      "kicker": "// Nimbus Control Plane",
+      "title": "Admin Access",
+      "subtitle": "Authenticate to open the CMS Matrix. Sessions expire after 8 hours and are bound to this browser.",
+      "passwordLabel": "Passphrase",
+      "passwordPlaceholder": "Enter admin passphrase",
+      "revealLabel": "Show",
+      "hideLabel": "Hide",
+      "revealAriaLabel": "Show passphrase",
+      "hideAriaLabel": "Hide passphrase",
+      "submitLabel": "Enter Matrix",
+      "busyLabel": "Authenticating…",
+      "backLinkText": "Return to site",
+      "backLinkHref": "/",
+      "errorEmpty": "Enter the admin passphrase to continue.",
+      "errorInvalid": "Invalid passphrase. Access denied.",
+      "errorAuth": "Authentication failed.",
+      "errorNetwork": "Network error. Check that the server is running.",
+      "errorNotConfigured": "Admin access is not configured on the server. Set ADMIN_PASSWORD in .env and restart.",
+      "statusSuccess": "Authenticated. Opening the CMS Matrix…"
     }
   }
 }

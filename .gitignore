@@ -44,3 +44,7 @@ graphify-out/cache/
 !.agents/
 !.agents/**
 
+
+# Generated at runtime
+assets/explore/explore-data.js
+
