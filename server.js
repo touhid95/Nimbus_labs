@@ -882,9 +882,9 @@ const server = http.createServer(async (req, res) => {
   });
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   // Keep the static explore-data.js contract in sync with the CMS content.
   contentStore.sync();
-  console.log(`Nimbus Labs server running at http://localhost:${PORT}/`);
+  console.log(`Nimbus Labs server running at http://0.0.0.0:${PORT}/`);
   console.log(`CMS Matrix control panel at http://localhost:${PORT}/cms`);
 });

@@ -10,30 +10,46 @@
 
 ---
 
-## 🚀 Quick Start with Docker (Recommended)
+## 🐳 Running with Docker
 
-Run the entire application in a lightweight, production-hardened Alpine container:
+The image runs as the non-root `node` user, installs production dependencies with
+`npm ci --omit=dev`, and listens on `0.0.0.0:3000`.
 
-```bash
-# Clone the repository
-git clone https://github.com/<your-username>/ai-labs-nimbus.git
-cd ai-labs-nimbus
+```powershell
+# 1. Create your environment file (never commit it)
+Copy-Item .env.example .env
 
-# Build and run with Docker Compose
-docker-compose up -d
+# 2. Fill in ADMIN_PASSWORD, SESSION_SECRET, and any Cloudinary values
+notepad .env
+
+# 3. Build and start
+docker compose up -d --build
+
+# 4. Follow the logs
+docker compose logs -f
 ```
 
-Access the application in your browser at:
-👉 **`http://localhost:3000/`**
+Open **`http://localhost:3000/`**. The CMS lives at `http://localhost:3000/login`
+and redirects to `/cms` after authentication.
+
+- `data/` is bind-mounted to `/app/data`, so `site-content.json`, drafts, and
+  backups survive `docker compose restart` / `down`.
+- `assets/explore/explore-data.js` is regenerated from the CMS content every time
+  the container starts; it does not need to be committed or copied in.
+- The session cookie is only marked `Secure` when the request is HTTPS (directly
+  or via `X-Forwarded-Proto`), so login still works on `http://localhost`.
+- Stop the stack with `docker compose down` (add `-v` only if you intentionally
+  want to drop named volumes; the bind-mounted `data/` folder is untouched).
+
+> On a Linux host the bind-mounted `data/` directory must be writable by UID
+> 1000 (`sudo chown -R 1000:1000 data`). Docker Desktop on Windows/macOS handles
+> this automatically.
 
 ### Alternative: Direct Docker CLI
 
 ```bash
-# Build image
 docker build -t ai-labs-nimbus .
-
-# Run container
-docker run -d -p 3000:3000 --name ai-labs-nimbus ai-labs-nimbus
+docker run -d -p 3000:3000 --env-file .env -v "%cd%/data:/app/data" --name ai-labs-nimbus ai-labs-nimbus
 ```
 
 ---
