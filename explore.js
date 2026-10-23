@@ -267,6 +267,7 @@
     var chapterDash = UI.chapterDash || '—';
     var deployLabel = UI.deployLabel || 'Deploy';
     var productFallback = UI.productFallback || 'Product';
+    var productCodePrefix = UI.productCodePrefix || 'PRD-';
     var categoryFallback = UI.categoryFallback || 'SYSTEMS';
     var productTotal = pad(products.length);
 
@@ -302,7 +303,7 @@
             '<img src="' + p.image + '" alt="' + (p.label || productFallback) + '" class="xp-dapper-img" loading="lazy">' +
             '<div class="xp-dapper-media__overlay"></div>' +
             '<div class="xp-dapper-media-hud">' +
-              '<span>// ' + (p.visual && p.visual.glyph ? p.visual.glyph : ('PRD-' + pad(i + 1))) + '</span>' +
+              '<span>// ' + (p.visual && p.visual.glyph ? p.visual.glyph : (productCodePrefix + pad(i + 1))) + '</span>' +
               '<span>' + pad(i + 1) + ' / ' + productTotal + '</span>' +
             '</div>' +
           '</div>' +
@@ -323,7 +324,7 @@
               '<p class="xp-dapper-desc">' + (p.description || '') + '</p>' +
               featuresHtml +
               '<div class="xp-dapper-actions">' +
-                '<a href="' + (p.link || '#contact') + '" class="xp-dapper-btn" aria-label="' + deployLabel + ' ' + (p.label || 'product') + '">' +
+                '<a href="' + (p.link || '#contact') + '" class="xp-dapper-btn" aria-label="' + deployLabel + ' ' + (p.label || productFallback) + '">' +
                   '<span>' + deployLabel + ' ' + (p.label || productFallback) + '</span>' +
                   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
                 '</a>' +
@@ -438,7 +439,7 @@
         .split(' ')
         .join(' <i>◆</i> ') + ' <i>◆</i>';
 
-      html += '<a href="#' + p.id + '" class="xp-bridge__word ' + (isFill ? 'is-fill ' : '') + 'xp-bridge__link" data-slide-index="' + i + '" aria-label="' + exploreLabel + ' ' + (p.label || 'product') + '">' +
+      html += '<a href="#' + p.id + '" class="xp-bridge__word ' + (isFill ? 'is-fill ' : '') + 'xp-bridge__link" data-slide-index="' + i + '" aria-label="' + exploreLabel + ' ' + (p.label || productFallback) + '">' +
         wordsWithDiamonds +
       '</a>';
     });
