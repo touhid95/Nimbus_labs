@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
   "meta": {
-    "kicker": "FIELD CATALOGUE — 2026",
-    "titleLineOne": "SOLUTIONS",
-    "titleLineTwo": "TAILORED FOR PROBLEM SOLVING",
-    "lead": "Do not pay for the whole software, pay for your problem.",
-    "productsCount": 5,
+    "kicker": "PRODUCT CATALOGUE — 2026",
+    "titleLineOne": "PRODUCTS",
+    "titleLineTwo": "BUILT FOR REAL PROBLEMS",
+    "lead": "Seven products. Each one solving something real.",
+    "productsCount": 7,
     "servicesCount": 5,
     "note": "Verified catalogue"
   },
@@ -186,75 +186,69 @@
   "products": [
     {
       "id": "product-01",
-      "label": "Nimbus Horizon",
-      "badge": "Flagship Architecture",
-      "category": "Autonomous Systems & Infrastructure",
-      "status": "Active Programme",
-      "summary": "Frontier computational foundation and autonomous problem-solving architecture.",
-      "description": "Nimbus Horizon delivers dedicated, mission-critical autonomous intelligence. Rather than paying enterprise licenses for bloated generic software suites, Horizon isolates the core bottleneck and runs precision agents targeted exclusively at solving that problem.",
+      "label": "The Melange",
+      "badge": "Political Intelligence",
+      "category": "Media & News Intelligence",
+      "status": "Live",
+      "summary": "Political intelligence, on one desk.",
+      "description": "A media-intelligence dashboard that reads online news from Bangladesh automatically and scores every story for tone, stance and hostility. All of it appears on a single screen. Melange collects stories from many outlets, scores them automatically, and shows them live — so you see what is breaking, what is spreading across outlets, and where the tone is shifting, without opening a dozen tabs.",
       "features": [
-        "Autonomous task decomposition & dependency resolution",
-        "Real-time neural synthesis & deterministic verification",
-        "Direct problem-targeted compute allocation",
-        "Self-healing orchestration workflows"
+        "Live feed of national and Bangla outlets with timestamps",
+        "Pulse charts (24h / 48h / 7d) showing coverage spikes",
+        "Tone, stance and hostility scoring on every article",
+        "Claims flagging, watchlists, entities and alerts",
+        "Bilingual interface: English and \u09ac\u09be\u0982\u09b2\u09be"
       ],
-      "link": "#contact",
+      "link": "https://the-melange-masud1901s-projects.vercel.app/",
       "image": "./assets/explore/supercomputer.jpg",
       "theme": "plum",
       "bg": "#2f122e",
       "contrast": "dark",
       "visual": {
-        "palette": [
-          "#6459e8",
-          "#5eead4",
-          "#f43f5e"
-        ],
+        "palette": ["#6459e8", "#5eead4", "#f43f5e"],
         "pattern": "orbit",
-        "glyph": "HORIZON"
+        "glyph": "MELANGE"
       }
     },
     {
       "id": "product-02",
-      "label": "Frontier Reasoning Core",
-      "badge": "Cognitive Engine",
-      "category": "Synthetic Intelligence & Reasoning Engines",
-      "status": "Active Programme",
-      "summary": "Deep logical synthesis engine engineered for complex operational decisions.",
-      "description": "Bypasses standard pattern prediction in favor of continuous step-by-step cognitive deduction. Solves domain-specific analytical problems where off-the-shelf LLMs hallucinate or fail.",
+      "label": "Space Prep",
+      "badge": "Spaced Repetition",
+      "category": "Learning & Test Preparation",
+      "status": "Live",
+      "summary": "Learn with spaced repetition. Master your test preparation.",
+      "description": "A self-paced learning and test-prep platform that uses spaced repetition — flashcards that come back just before you would forget them — together with quizzes and structured modules. Stop re-reading. Start remembering. Space Prep schedules reviews for you, gives instant feedback, and shows your mastery so you always know what to study next.",
       "features": [
-        "Formal symbolic verification & proof loops",
-        "Multi-hop causal reasoning trees",
-        "Zero-hallucination domain guardrails",
-        "Deterministic structured execution"
+        "Spaced-repetition flashcards with a daily \u2018cards due\u2019 queue",
+        "90+ built-in quizzes with instant feedback",
+        "9 beginner-friendly modules: Power Query, DAX, visualisations and more",
+        "Dashboard and leaderboard to track progress and compete with peers",
+        "Batch codes to join a class or cohort"
       ],
-      "link": "#contact",
+      "link": "https://space-prep.vercel.app/",
       "image": "./assets/explore/neural.jpg",
       "theme": "rose",
       "bg": "#e25c80",
       "contrast": "dark",
       "visual": {
-        "palette": [
-          "#5eead4",
-          "#6459e8",
-          "#2f122e"
-        ],
+        "palette": ["#5eead4", "#6459e8", "#2f122e"],
         "pattern": "contour",
-        "glyph": "REASONING"
+        "glyph": "SPACEPREP"
       }
     },
     {
       "id": "product-03",
-      "label": "Autonomous Swarm Fabric",
-      "badge": "Distributed Systems",
-      "category": "Decentralized Multi-Agent Systems",
-      "status": "In Deployment",
-      "summary": "Cooperative multi-agent mesh delivering coordinated task execution at scale.",
-      "description": "Enables hundreds of specialized agents to negotiate, distribute tasks, and solve complex business operations concurrently with consensus-driven output.",
+      "label": "Dialo",
+      "badge": "Sales Automation",
+      "category": "AI Voice & Lead Intelligence",
+      "status": "In Development",
+      "summary": "A lead-intelligence engine that makes AI call for your product.",
+      "description": "A sales-automation tool that finds and qualifies leads, then uses an AI voice agent to call them on your behalf. Cold calling is slow, repetitive and expensive. Most leads go cold because nobody calls them in time. Dialo finds the right leads and has AI make the first call — your team only steps in when someone is genuinely interested.",
       "features": [
-        "Decentralized peer-to-peer agent consensus",
-        "Dynamic load-balancing & role handoffs",
-        "Fault-tolerant state checkpoints",
-        "Sub-second inter-agent messaging"
+        "Lead intelligence to find and prioritise prospects",
+        "AI-powered outbound calling for your product or service",
+        "Qualification of interest before a human gets involved",
+        "Call outcomes and lead status in one place"
       ],
       "link": "#contact",
       "image": "./assets/explore/server.jpg",
@@ -262,71 +256,112 @@
       "bg": "#6459e8",
       "contrast": "dark",
       "visual": {
-        "palette": [
-          "#e25c80",
-          "#a855f7",
-          "#020016"
-        ],
+        "palette": ["#e25c80", "#a855f7", "#020016"],
         "pattern": "aurora",
-        "glyph": "SWARMS"
+        "glyph": "DIALO"
       }
     },
     {
       "id": "product-04",
-      "label": "Synthetic Intelligence Matrix",
-      "badge": "Enterprise Platform",
-      "category": "Enterprise Cognitive Deployment",
-      "status": "In Design",
-      "summary": "On-premise secure cognitive layer directly mapped to your private operational data.",
-      "description": "Integrates natively into your private infrastructure to analyze, model, and automate proprietary workflows without sending internal data to public multi-tenant clouds.",
+      "label": "Khela Connect",
+      "badge": "Sports Social",
+      "category": "Community & Sports Platform",
+      "status": "In Development",
+      "summary": "Connect with your peers over turf games.",
+      "description": "A social platform for sports players that connects them with others to organise, join and play turf games such as football and cricket. Turf games fall apart when you cannot find enough players. Group chats get messy, and last-minute dropouts spoil the plan. Khela Connect lets you find nearby players, set up matches and fill your squad, so every game actually happens.",
       "features": [
-        "Zero-leak air-gapped deployment architecture",
-        "Native integration with legacy data stores",
-        "Custom specialized fine-tuned adapter weights",
-        "Audit-grade compliance & telemetry"
+        "Discover players and teams nearby",
+        "Create or join turf games in your city",
+        "Connect with peers at your sport and skill level",
+        "Build a local sports community"
       ],
       "link": "#contact",
       "image": "./assets/explore/technology.jpg",
       "theme": "cognition",
-      "bg": "#fcf7f8",
-      "contrast": "light",
+      "bg": "#0f3d3e",
+      "contrast": "dark",
       "visual": {
-        "palette": [
-          "#7c72ff",
-          "#5eead4",
-          "#05021a"
-        ],
+        "palette": ["#5eead4", "#6459e8", "#020016"],
         "pattern": "grid",
-        "glyph": "MATRIX"
+        "glyph": "KHELA"
       }
     },
     {
       "id": "product-05",
-      "label": "Quantum-Edge Protocol",
-      "badge": "Low-Latency Compute",
-      "category": "Edge & Accelerated Infrastructure",
-      "status": "Exploration",
-      "summary": "Ultra-low latency micro-models engineered for sub-millisecond edge execution.",
-      "description": "Stripped-down, quantized neural runtimes designed for edge devices, embedded controllers, and instant sub-millisecond response loops.",
+      "label": "Prompt Grabber",
+      "badge": "Prompt Engineering",
+      "category": "AI Productivity & Developer Tools",
+      "status": "Live — v2.2.1",
+      "summary": "Collect your prompts. Pool your AI skills and super prompts.",
+      "description": "A tool that connects to your AI chats, collects the prompts you use, and keeps them in a cloud pool you can reuse. Your best prompts are scattered across chat histories, notes and screenshots. You rewrite them every time. Prompt Grabber captures prompts as you work and stores them in one searchable cloud library — so your best prompts are always one click away on any device.",
       "features": [
-        "4-bit & 2-bit quantized neural weights",
-        "Direct hardware accelerator kernel compilation",
-        "Sub-5ms inference turnaround",
-        "Offline-first sovereign edge autonomy"
+        "Prompt capture from your AI workflow",
+        "A cloud pool that syncs across devices",
+        "Library for reusable AI skills and super prompts",
+        "Quick reuse instead of rewriting",
+        "Backend powered by Supabase"
       ],
-      "link": "#contact",
+      "link": "https://github.com/touhid95/Prompt_Grabber_Cloud_Pool_v2.2.1",
       "image": "./assets/explore/abstract.jpg",
       "theme": "midnight",
       "bg": "#020016",
       "contrast": "dark",
       "visual": {
-        "palette": [
-          "#f8b4c4",
-          "#e25c80",
-          "#6459e8"
-        ],
+        "palette": ["#f8b4c4", "#e25c80", "#6459e8"],
         "pattern": "pulse",
-        "glyph": "EDGE-AI"
+        "glyph": "PROMPTS"
+      }
+    },
+    {
+      "id": "product-06",
+      "label": "DevLens",
+      "badge": "Chrome Extension",
+      "category": "Frontend Developer Tools",
+      "status": "In Development",
+      "summary": "A Chrome extension that helps you prompt your frontend faster.",
+      "description": "A developer extension for localhost sites. It lets you point at any element in your running app and hand an AI assistant exactly the context it needs, so vibe coding is faster and more accurate. Telling an AI \u201cchange that button on the left\u201d does not work. DevLens identifies the source of the element you are looking at, maps its dependencies, and copies a compact, precise context block for your AI prompt.",
+      "features": [
+        "Hover source inspector: hover any element to see its component source, Ctrl+Click copies context",
+        "Dependency graphs and change-impact analysis",
+        "Position mode: Ctrl+Shift overlay for grid, flex and coordinate context",
+        "Automatic style detection — picks up your stack without setup",
+        "Clean toolbar: red when inactive, green when active"
+      ],
+      "link": "#contact",
+      "image": "./assets/explore/supercomputer.jpg",
+      "theme": "plum",
+      "bg": "#1a1040",
+      "contrast": "dark",
+      "visual": {
+        "palette": ["#a855f7", "#6459e8", "#5eead4"],
+        "pattern": "orbit",
+        "glyph": "DEVLENS"
+      }
+    },
+    {
+      "id": "product-07",
+      "label": "BARTA",
+      "badge": "News & Retention",
+      "category": "News Reading & Spaced Retention",
+      "status": "In Development",
+      "summary": "Stay updated with the news, and actually remember it.",
+      "description": "A news-reader app that keeps you current and helps you retain what you read. \u2018Barta\u2019 (\u09ac\u09be\u09b0\u09cd\u09a4\u09be) means \u2018news\u2019 in Bangla. It combines AI summaries, spaced repetition, keyword tagging and mind maps, so a story becomes knowledge you keep rather than a headline you forget.",
+      "features": [
+        "AI summaries: short, clear takes so you read more in less time",
+        "Spaced repetition (SM-2): key facts return at the right intervals",
+        "Keyword tagging: organise and find stories by topic, person or place",
+        "Mind maps: see how stories and topics connect",
+        "Clean mobile-first feed, modern and easy to scan daily"
+      ],
+      "link": "#contact",
+      "image": "./assets/explore/neural.jpg",
+      "theme": "rose",
+      "bg": "#3a102a",
+      "contrast": "dark",
+      "visual": {
+        "palette": ["#f43f5e", "#a855f7", "#6459e8"],
+        "pattern": "contour",
+        "glyph": "BARTA"
       }
     }
   ],
@@ -744,37 +779,37 @@
     },
     "explore": {
       "meta": {
-        "title": "Solutions Catalogue // AI Labs by Nimbus",
-        "description": "Explore the Nimbus Labs solutions catalogue: autonomous systems, reasoning cores, agent swarms and edge inference.",
-        "ogTitle": "Explore Products & Services | AI Labs by Nimbus",
-        "ogDescription": "A field catalogue of upcoming Nimbus Labs products and services.",
+        "title": "Products // AI Labs by Nimbus",
+        "description": "Seven products built by AI Labs by Nimbus — media intelligence, spaced learning, sales automation, sports community, prompt tools, frontend devtools, and news retention.",
+        "ogTitle": "Products | AI Labs by Nimbus",
+        "ogDescription": "Seven real products solving real problems. Browse the Nimbus product catalogue.",
         "ogType": "website",
         "themeColor": "#020016"
       },
       "headerCtaHref": "./services#contact",
       "hero": {
-        "eyebrow": "Fast, Precise, Reliable, to the Point",
-        "titleLineOne": "SOLUTIONS",
-        "titleLineTwo": "Tailored for Problem Solving",
-        "lead": "Do not pay for the whole software, pay for your problem.",
-        "primaryBtnText": "Browse Solutions",
+        "eyebrow": "Seven products. Each one solving something real.",
+        "titleLineOne": "PRODUCTS",
+        "titleLineTwo": "Built for Real Problems",
+        "lead": "Seven products. Each one solving something real.",
+        "primaryBtnText": "Browse Products",
         "primaryBtnLink": "#products",
         "secondaryBtnText": "Book Audit",
         "secondaryBtnLink": "./audit",
-        "preloaderStatus": "OPENING NIMBUS FIELD CATALOGUE...",
+        "preloaderStatus": "LOADING NIMBUS PRODUCTS...",
         "decor": {
           "contour": "./assets/explore/contour.svg",
           "ridge": "./assets/explore/horizon-ridge.svg"
         },
         "rail": [
-          "SOLUTIONS",
           "PRODUCTS",
+          "LIVE",
           "CONTACT"
         ],
         "metaLabels": [
-          "Tailored Solutions",
-          "Flagship Deployments",
-          "Active Programme"
+          "Products",
+          "Live Now",
+          "In Development"
         ],
         "scrollHint": "Scroll to explore"
       },
