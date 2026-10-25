@@ -462,36 +462,67 @@
   will-change: transform;
   pointer-events: auto;
   transition: none;
+  transform: translate3d(0, 100%, 0);
 }
 
-/* 5 Dapper Chapter Background Layers */
+.xp-dapper-layer:first-child,
 .xp-dapper-layer.is--1 {
-  background-color: #2f122e; /* Chapter 1: Deep Plum */
+  background-color: #2f122e; /* Chapter 1: The Melange - Deep Plum */
   z-index: 1;
   transform: translate3d(0, 0, 0);
 }
 
 .xp-dapper-layer.is--2 {
-  background-color: #e25c80; /* Chapter 2: Sunset Rose */
+  background-color: #e25c80; /* Chapter 2: Space Prep - Sunset Rose */
   z-index: 2;
   transform: translate3d(0, 100%, 0);
 }
 
 .xp-dapper-layer.is--3 {
-  background-color: #6459e8; /* Chapter 3: Electric Violet */
+  background-color: #6459e8; /* Chapter 3: Dialo - Electric Violet */
   z-index: 3;
   transform: translate3d(0, 100%, 0);
 }
 
 .xp-dapper-layer.is--4 {
-  background-color: #fcf7f8; /* Chapter 4: Cognition Light White */
+  background-color: #0f3d3e; /* Chapter 4: Khela Connect - Deep Teal */
   z-index: 4;
   transform: translate3d(0, 100%, 0);
 }
 
 .xp-dapper-layer.is--5 {
-  background-color: #020016; /* Chapter 5: Midnight Nimbus */
+  background-color: #020016; /* Chapter 5: Prompt Grabber - Midnight Nimbus */
   z-index: 5;
+  transform: translate3d(0, 100%, 0);
+}
+
+.xp-dapper-layer.is--6 {
+  background-color: #1a1040; /* Chapter 6: DevLens - Deep Indigo */
+  z-index: 6;
+  transform: translate3d(0, 100%, 0);
+}
+
+.xp-dapper-layer.is--7 {
+  background-color: #3a102a; /* Chapter 7: BARTA - Deep Wine */
+  z-index: 7;
+  transform: translate3d(0, 100%, 0);
+}
+
+.xp-dapper-layer.is--8 {
+  background-color: #020016;
+  z-index: 8;
+  transform: translate3d(0, 100%, 0);
+}
+
+.xp-dapper-layer.is--9 {
+  background-color: #020016;
+  z-index: 9;
+  transform: translate3d(0, 100%, 0);
+}
+
+.xp-dapper-layer.is--10 {
+  background-color: #020016;
+  z-index: 10;
   transform: translate3d(0, 100%, 0);
 }
 
@@ -713,12 +744,13 @@
   transform: translateX(4px);
 }
 
-/* ── CONTRAST INVERSION: DARK THEMES (Plum, Rose, Violet, Midnight) ── */
+/* ── CONTRAST INVERSION: DARK THEMES (Plum, Rose, Violet, Midnight, Teal) ── */
 .xp-dapper-layer[data-contrast="dark"],
 .xp-dapper-layer[data-theme="plum"],
 .xp-dapper-layer[data-theme="rose"],
 .xp-dapper-layer[data-theme="violet"],
-.xp-dapper-layer[data-theme="midnight"] {
+.xp-dapper-layer[data-theme="midnight"],
+.xp-dapper-layer[data-theme="teal"] {
   color: #ffffff;
 }
 
@@ -761,9 +793,8 @@
   box-shadow: 0 14px 40px rgba(255, 255, 255, 0.2);
 }
 
-/* ── CONTRAST INVERSION: LIGHT COGNITION THEME (Chapter 4 #fcf7f8) ── */
-.xp-dapper-layer[data-contrast="light"],
-.xp-dapper-layer[data-theme="cognition"] {
+/* ── CONTRAST INVERSION: LIGHT THEMES ── */
+.xp-dapper-layer[data-contrast="light"] {
   background-color: #fcf7f8 !important;
   color: #020016 !important;
 }

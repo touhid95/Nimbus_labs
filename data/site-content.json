@@ -277,7 +277,7 @@
       ],
       "link": "#contact",
       "image": "./assets/explore/technology.jpg",
-      "theme": "cognition",
+      "theme": "teal",
       "bg": "#0f3d3e",
       "contrast": "dark",
       "visual": {
@@ -906,7 +906,7 @@
         "exploreLabel": "Explore",
         "productFallback": "Product",
         "productCodePrefix": "PRD-",
-        "defaultBrandTag": "SOLUTIONS",
+        "defaultBrandTag": "PRODUCTS",
         "categoryFallback": "SYSTEMS"
       },
       "closing": {

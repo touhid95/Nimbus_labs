@@ -3,7 +3,7 @@
  * Network-first for real-time fidelity, falling back to cache when offline.
  */
 
-const CACHE_NAME = 'nimbus-pwa-v21';
+const CACHE_NAME = 'nimbus-pwa-v22';
 
 const STATIC_ASSETS = [
   './',

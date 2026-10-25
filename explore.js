@@ -281,6 +281,15 @@
       layer.setAttribute('data-theme', p.theme || 'plum');
       layer.setAttribute('data-contrast', p.contrast || 'dark');
       layer.setAttribute('data-bg', p.bg || '#2f122e');
+      layer.style.zIndex = i + 1;
+      if (p.bg) {
+        layer.style.backgroundColor = p.bg;
+      }
+      if (i > 0) {
+        layer.style.transform = 'translate3d(0, 100%, 0)';
+      } else {
+        layer.style.transform = 'translate3d(0, 0, 0)';
+      }
 
       var featuresHtml = '';
       if (p.features && p.features.length) {
@@ -344,12 +353,12 @@
     // ----------------------------------------------------
     // DAPPER STICKY CURTAIN SCRUB CONTROLLER
     // Layer 1 is stationary at translateY(0%)
-    // Layers 2, 3, 4, 5 wipe up from 100% to 0% as scroll progresses
+    // Layers 2..N wipe up from 100% to 0% as scroll progresses
     // Dynamic Navbar Brand Tag tracks current product title
     // ----------------------------------------------------
     var isTicking = false;
     var brandTag = document.getElementById('brand-status-tag');
-    var currentTagText = UI.defaultBrandTag || 'SOLUTIONS';
+    var currentTagText = UI.defaultBrandTag || 'PRODUCTS';
     var isUpdatingTag = false;
 
     function setBrandTag(text) {
@@ -373,9 +382,9 @@
 
       var scrolled = -rect.top;
       var overallProgress = Math.max(0, Math.min(1.0, scrolled / totalScroll));
-      // Dynamic: (N-1) chapters for N products
+      // Dynamic: (N-1) chapters for N products, with a dwell window at the end so the final product rests
       var numChapters = products.length - 1;
-      var chapterProgress = overallProgress * numChapters;
+      var chapterProgress = Math.min(numChapters, overallProgress * (numChapters + 0.35));
 
       // Layers 2..N: each wipes up from 100% -> 0% during its chapter window
       for (var li = 1; li < layerEls.length; li++) {
@@ -386,9 +395,9 @@
       }
 
       // Dynamic Navbar Brand Tag:
-      // Show 'SOLUTIONS' in hero/bridge and closing/footer
+      // Show default tag in hero/bridge and closing/footer
       // Show active product title (uppercase) during Dapper slides
-      var targetTag = UI.defaultBrandTag || 'SOLUTIONS';
+      var targetTag = UI.defaultBrandTag || 'PRODUCTS';
       if (rect.top <= 80 && rect.bottom > winH) {
         var activeIdx = Math.max(0, Math.min(products.length - 1, Math.floor(chapterProgress + 0.5)));
         targetTag = (products[activeIdx].label || ((UI.productFallback || 'Product') + ' ' + (activeIdx + 1))).toUpperCase();
@@ -441,7 +450,8 @@
       var winH = window.innerHeight;
       var totalScroll = dapperSection.offsetHeight - winH;
       var sectionTop = dapperSection.getBoundingClientRect().top + window.pageYOffset;
-      var progress = (products.length > 1) ? (idx / (products.length - 1)) : 0;
+      var numChapters = products.length - 1;
+      var progress = (numChapters > 0) ? (idx / (numChapters + 0.35)) : 0;
       var targetScrollY = sectionTop + (progress * totalScroll);
       window.scrollTo({
         top: targetScrollY,
