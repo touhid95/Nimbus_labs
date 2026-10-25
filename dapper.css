@@ -1,0 +1,349 @@
+/* ==========================================================================
+   DAPPER KINETIC PINNED SECTION STYLESHEET
+   AI Labs by Nimbus - Sticky Pinned Kinetic Typography & Difference Layers
+   Positioned naturally in page flow: #hero -> #dapper -> #section-content
+   ========================================================================== */
+
+:root {
+  --dapper-bg-plum: #2f122e;       /* Chapter 1: FRONTIER */
+  --dapper-bg-rose: #e25c80;       /* Chapter 2: NEURAL */
+  --dapper-bg-violet: #6459e8;     /* Chapter 3: AGENTIC */
+  --dapper-bg-white: #fcf7f8;      /* Chapter 4: COGNITION (White Difference Video) */
+  --dapper-bg-midnight: #020016;   /* Chapter 5: NIMBUS */
+  --dapper-font-main: 'Outfit', 'Inter', sans-serif;
+  --dapper-font-mono: 'JetBrains Mono', monospace;
+  --dapper-hero-height: clamp(6.5rem, 15vw, 12rem);
+}
+
+/* ---------------- STICKY PINNED DAPPER SECTION ---------------- */
+.dapper-section {
+  position: relative;
+  width: 100%;
+  height: 500vh; /* 5 chapters = 500vh of natural scroll */
+  background-color: var(--dapper-bg-plum);
+  z-index: 10;
+  /* Seamless seam from hero */
+  margin-top: -1px;
+}
+
+.dapper-sticky-wrapper {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+/* ---------------- FIXED / STICKY VIEWPORT OVERLAY ---------------- */
+.dapper-viewport-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Centered Kinetic Typography — Pure Webflow diagonal snap typography */
+.dapper-header-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 90rem;
+  height: var(--dapper-hero-height);
+  overflow: hidden;
+  z-index: 110;
+  mix-blend-mode: exclusion;
+  pointer-events: none;
+}
+
+.dapper-header-rail {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(5 * var(--dapper-hero-height));
+  transition: none;
+  will-change: transform;
+}
+
+.dapper-hero-text {
+  font-family: var(--dapper-font-main);
+  font-size: clamp(4.2rem, 13vw, 10.5rem);
+  font-weight: 900;
+  line-height: var(--dapper-hero-height);
+  height: var(--dapper-hero-height);
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  flex: 0 0 var(--dapper-hero-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Rotated Side Subheaders aligned with typography rail */
+.dapper-subheader-wrapper {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 115;
+  mix-blend-mode: exclusion;
+}
+
+.dapper-subheader-wrapper.left {
+  left: 4vw;
+}
+
+.dapper-subheader-wrapper.right {
+  right: 4vw;
+}
+
+.dapper-subheader {
+  font-family: var(--dapper-font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+/* Sub-Pixel Separator Line running through the center */
+.dapper-separator {
+  position: absolute;
+  top: 50%;
+  left: 5vw;
+  right: 5vw;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.22);
+  mix-blend-mode: exclusion;
+  z-index: 105;
+}
+
+/* Bottom-Left Cinematic HUD Description Caption */
+.dapper-caption-wrapper {
+  position: absolute;
+  bottom: calc(4vh + 1.25rem + env(safe-area-inset-bottom, 0px));
+  left: 5vw;
+  max-width: min(82vw, 680px);
+  z-index: 125;
+  mix-blend-mode: exclusion;
+  pointer-events: none;
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dapper-caption-prefix {
+  font-family: var(--dapper-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+  user-select: none;
+}
+
+.dapper-caption-text {
+  font-family: var(--dapper-font-mono);
+  font-size: clamp(0.68rem, 1.2vw, 0.78rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1.5;
+  font-weight: 400;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.dapper-caption-text.is-updating {
+  opacity: 0;
+  transform: translateY(3px);
+}
+
+/* Bottom Progress Bar */
+.dapper-progress-wrapper {
+  position: absolute;
+  bottom: 4vh;
+  left: 5vw;
+  right: 5vw;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.15);
+  mix-blend-mode: exclusion;
+  z-index: 120;
+}
+
+.dapper-progress-bar {
+  height: 100%;
+  background-color: #ffffff;
+  width: 25%;
+  transition: none;
+}
+
+/* ---------------- 4 COLOR-MATCHED BACKGROUND LAYERS ---------------- */
+.dapper-layers-stack {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.dapper-layer-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: none;
+  will-change: transform;
+}
+
+/* Chapter 1: Deep Plum Horizon */
+.dapper-layer-bg.is--1 {
+  background-color: var(--dapper-bg-plum);
+  z-index: 2;
+  transform: translateY(0%);
+}
+
+/* Chapter 2: Sunset Cloud Rose */
+.dapper-layer-bg.is--2 {
+  background-color: var(--dapper-bg-rose);
+  z-index: 3;
+  transform: translateY(100%);
+}
+
+/* Chapter 3: Electric Violet Brand Signature */
+.dapper-layer-bg.is--3 {
+  background-color: var(--dapper-bg-violet);
+  z-index: 4;
+  transform: translateY(100%);
+}
+
+/* Chapter 4: White Difference Layer (#fcf7f8) hosting Synthetic Cognition Video */
+.dapper-layer-bg.is--4 {
+  background-color: var(--dapper-bg-white);
+  z-index: 5;
+  transform: translateY(100%);
+  overflow: hidden;
+}
+
+/* Chapter 5: Final Deep Midnight Nimbus Layer */
+.dapper-layer-bg.is--5 {
+  background-color: var(--dapper-bg-midnight);
+  z-index: 6;
+  transform: translateY(100%);
+}
+
+/* Embedded Full-Bleed Video inside Chapter 4 */
+.dapper-video-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  background: var(--dapper-bg-white);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dapper-layer-bg.is--4.is-playing .dapper-video-wrapper {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.dapper-video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Floating Controls inside Dapper Viewport Overlay */
+.dapper-controls {
+  position: absolute;
+  bottom: 6vh;
+  left: 50%;
+  transform: translateX(-50%) translateY(24px);
+  z-index: 130;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.45rem 0.85rem;
+  background: rgba(12, 6, 28, 0.85);
+  border: 1px solid rgba(165, 180, 252, 0.28);
+  border-radius: 9999px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(99, 102, 241, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dapper-controls.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ---------------- RESPONSIVENESS (MOBILE COMPATIBLE) ---------------- */
+@media screen and (max-width: 991px) {
+  .dapper-hero-text {
+    font-size: clamp(3rem, 10vw, 6rem);
+  }
+
+  .dapper-header-wrapper {
+    width: 90%;
+  }
+
+  .dapper-subheader-wrapper {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  :root {
+    --dapper-hero-height: clamp(4.5rem, 14vw, 7rem);
+  }
+
+  .dapper-hero-text {
+    font-size: clamp(2.4rem, 11vw, 4.5rem);
+  }
+
+  .dapper-progress-wrapper {
+    bottom: 3vh;
+    left: 4vw;
+    right: 4vw;
+  }
+
+  .dapper-separator {
+    left: 4vw;
+    right: 4vw;
+  }
+
+  .dapper-caption-wrapper {
+    bottom: calc(3vh + 1.15rem + env(safe-area-inset-bottom, 0px));
+    left: 4vw;
+    max-width: calc(100vw - 8vw);
+  }
+
+  .dapper-caption-prefix {
+    font-size: 0.62rem;
+  }
+
+  .dapper-caption-text {
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    line-height: 1.4;
+  }
+}
