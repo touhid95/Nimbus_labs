@@ -779,6 +779,12 @@
         "scrollHint": "Scroll to explore"
       },
       "aiStripAriaLabel": "Supported AI Ecosystem",
+      "a11y": {
+        "bridgeAriaLabel": "Feature marquee",
+        "railAriaLabel": "Product Showcase Links",
+        "productsAriaLabel": "Solutions Matrix",
+        "layersAriaLabel": "Product showcase slides"
+      },
       "aiStrip": [
         {
           "icon": "chatgpt",
@@ -864,6 +870,7 @@
         "deployLabel": "Deploy",
         "exploreLabel": "Explore",
         "productFallback": "Product",
+        "productCodePrefix": "PRD-",
         "defaultBrandTag": "SOLUTIONS",
         "categoryFallback": "SYSTEMS"
       },
@@ -946,6 +953,7 @@
         "title": "Mission-Critical Sectors",
         "ariaLabel": "Mission-Critical Sectors",
         "lead": "We partner with forward-thinking enterprises, sovereign institutions, and quantitative funds facing complex computational bottlenecks.",
+        "sectorStart": "01",
         "sectorCount": 6,
         "sectors": [
           {

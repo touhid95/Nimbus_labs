@@ -25,9 +25,17 @@ const UPLOADS_DIR = path.join(__dirname, 'assets', 'uploads');
 
 const auth = createAuth({
   adminPassword: process.env.ADMIN_PASSWORD || '',
-  secret: process.env.SESSION_SECRET || 'nimbus::' + (process.env.ADMIN_PASSWORD || 'unset'),
+  secret: process.env.SESSION_SECRET || '',
   secure: IS_PRODUCTION
 });
+
+const missing = [];
+if (!process.env.ADMIN_PASSWORD || !String(process.env.ADMIN_PASSWORD).trim()) missing.push('ADMIN_PASSWORD');
+if (!process.env.SESSION_SECRET || !String(process.env.SESSION_SECRET).trim()) missing.push('SESSION_SECRET');
+if (missing.length) {
+  console.error('FATAL: Missing required environment variables: ' + missing.join(', ') + '. Set them in .env and restart the server. See .env.example for placeholders.');
+  process.exit(1);
+}
 
 const cors = createCors({
   allowedOrigins: [SITE_ORIGIN],
@@ -874,9 +882,9 @@ const server = http.createServer(async (req, res) => {
   });
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   // Keep the static explore-data.js contract in sync with the CMS content.
   contentStore.sync();
-  console.log(`Nimbus Labs server running at http://localhost:${PORT}/`);
+  console.log(`Nimbus Labs server running at http://0.0.0.0:${PORT}/`);
   console.log(`CMS Matrix control panel at http://localhost:${PORT}/cms`);
 });

@@ -1,14 +1,68 @@
-.git
-.gitignore
-.agents
-.gemini
+# Secrets — never send these into the build context
+.env
+.env.*
+.env.local
+.env.*.local
+
+# Dependencies
 node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-Dockerfile*
-docker-compose*.yml
-README*.md
+
+# Version control and editor metadata
+.git
+.gitignore
+.gitattributes
+.github
+.vscode
+.idea
+
+# Agent / graph tooling (not needed at runtime)
+.ai
+.agents
+graphify-out
+*.obsidian
+
+# Runtime state that must stay on the host
+data/backups
+data/drafts
+data/audit-inquiries.json
+data/*.tmp
+
+# Documentation
 *.md
+README*
+
+# Scratch scripts and captured output (see tools/ after the cleanup)
+tools/
+*.py
+apply-strip.js
+audit-tokens.js
+build-strip.js
+check-login.js
+check-modules.js
+check-strip.js
+drop-legacy-nav.js
+extract-strip.js
+migrate-content.js
+render-compare.js
+scan-hardcoded.js
+verify-cms-api.js
+verify-cms-ids.js
+verify-explore-ui.js
+verify-render.js
+combined.js
+scan-*.txt
+tokens-report.txt
+strip-icons.json
+strip-sprite.html
+
+# Docker metadata itself
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# OS cruft
 .DS_Store
 Thumbs.db

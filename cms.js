@@ -419,6 +419,11 @@
     bind('explore-ui-product-fallback', u.productFallback, function (v) { u.productFallback = v; markDirty(); });
     bind('explore-ui-brand-tag', u.defaultBrandTag, function (v) { u.defaultBrandTag = v; markDirty(); });
     bind('explore-ui-category-fallback', u.categoryFallback, function (v) { u.categoryFallback = v; markDirty(); });
+    bind('explore-ui-product-code', u.productCodePrefix, function (v) { u.productCodePrefix = v; markDirty(); });
+    bind('explore-a11y-bridge', ex.a11y.bridgeAriaLabel, function (v) { ex.a11y.bridgeAriaLabel = v; markDirty(); });
+    bind('explore-a11y-rail', ex.a11y.railAriaLabel, function (v) { ex.a11y.railAriaLabel = v; markDirty(); });
+    bind('explore-a11y-products', ex.a11y.productsAriaLabel, function (v) { ex.a11y.productsAriaLabel = v; markDirty(); });
+    bind('explore-a11y-layers', ex.a11y.layersAriaLabel, function (v) { ex.a11y.layersAriaLabel = v; markDirty(); });
     bind('explore-noscript-title', ex.noscript.title, function (v) { ex.noscript.title = v; markDirty(); });
     bind('explore-noscript-body', ex.noscript.body, function (v) { ex.noscript.body = v; markDirty(); });
     listBox('explore-rail', ex.hero.rail || [], function () { markDirty(); renderAll(); }, 'string');
@@ -487,6 +492,7 @@
     bind('audit-ind-kicker', a.industries.kicker, function (v) { a.industries.kicker = v; markDirty(); });
     bind('audit-ind-title', a.industries.title, function (v) { a.industries.title = v; markDirty(); });
     bind('audit-ind-aria', a.industries.ariaLabel, function (v) { a.industries.ariaLabel = v; markDirty(); });
+    bind('audit-ind-sector-start', a.industries.sectorStart, function (v) { a.industries.sectorStart = v; markDirty(); });
     bind('audit-ind-lead', a.industries.lead, function (v) { a.industries.lead = v; markDirty(); });
     document.getElementById('btn-add-audit-proof').onclick = function () { (a.hero.proof || (a.hero.proof = [])).push('New proof'); renderAll(); markDirty(); };
   }
