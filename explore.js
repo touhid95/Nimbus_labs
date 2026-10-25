@@ -337,6 +337,10 @@
       layerEls.push(layer);
     });
 
+    // Set section scroll height dynamically: N products = N×100vh
+    section.style.setProperty('--dapper-scroll-height', (products.length * 100) + 'vh');
+    section.style.height = (products.length * 100) + 'vh';
+
     // ----------------------------------------------------
     // DAPPER STICKY CURTAIN SCRUB CONTROLLER
     // Layer 1 is stationary at translateY(0%)
@@ -369,30 +373,16 @@
 
       var scrolled = -rect.top;
       var overallProgress = Math.max(0, Math.min(1.0, scrolled / totalScroll));
-      var chapterProgress = overallProgress * 4; // 0.0 to 4.0 across 5 chapters
+      // Dynamic: (N-1) chapters for N products
+      var numChapters = products.length - 1;
+      var chapterProgress = overallProgress * numChapters;
 
-      // Layer 2: Sunset Rose (slides 100% -> 0% during chapter 0 to 1)
-      if (layerEls[1]) {
-        var p2 = Math.max(0, Math.min(1, chapterProgress));
-        layerEls[1].style.transform = 'translate3d(0px, ' + ((1 - p2) * 100).toFixed(2) + '%, 0px)';
-      }
-
-      // Layer 3: Electric Violet (slides 100% -> 0% during chapter 1 to 2)
-      if (layerEls[2]) {
-        var p3 = Math.max(0, Math.min(1, chapterProgress - 1));
-        layerEls[2].style.transform = 'translate3d(0px, ' + ((1 - p3) * 100).toFixed(2) + '%, 0px)';
-      }
-
-      // Layer 4: Cognition White (slides 100% -> 0% during chapter 2 to 3)
-      if (layerEls[3]) {
-        var p4 = Math.max(0, Math.min(1, chapterProgress - 2));
-        layerEls[3].style.transform = 'translate3d(0px, ' + ((1 - p4) * 100).toFixed(2) + '%, 0px)';
-      }
-
-      // Layer 5: Midnight Nimbus (slides 100% -> 0% during chapter 3 to 4)
-      if (layerEls[4]) {
-        var p5 = Math.max(0, Math.min(1, chapterProgress - 3));
-        layerEls[4].style.transform = 'translate3d(0px, ' + ((1 - p5) * 100).toFixed(2) + '%, 0px)';
+      // Layers 2..N: each wipes up from 100% -> 0% during its chapter window
+      for (var li = 1; li < layerEls.length; li++) {
+        if (layerEls[li]) {
+          var lp = Math.max(0, Math.min(1, chapterProgress - (li - 1)));
+          layerEls[li].style.transform = 'translate3d(0px, ' + ((1 - lp) * 100).toFixed(2) + '%, 0px)';
+        }
       }
 
       // Dynamic Navbar Brand Tag:
