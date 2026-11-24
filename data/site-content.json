@@ -59,12 +59,12 @@
         "title": "EXPLORE",
         "links": [
           {
-            "label": "Solutions",
+            "label": "Products",
             "href": "#products"
           },
           {
-            "label": "Partner",
-            "href": "#closing"
+            "label": "Audits & Services",
+            "href": "./services"
           },
           {
             "label": "Home",
@@ -73,15 +73,15 @@
         ]
       },
       {
-        "title": "RESOURCES",
+        "title": "COMPANY",
         "links": [
           {
-            "label": "Documentation",
-            "href": "./#hero"
+            "label": "What We Do",
+            "href": "./#dapper"
           },
           {
-            "label": "Compute Grants",
-            "href": "./#contact"
+            "label": "Book Audit",
+            "href": "./services#contact"
           },
           {
             "label": "Contact",
@@ -89,64 +89,26 @@
             "external": true
           }
         ]
-      },
-      {
-        "title": "CONNECT",
-        "links": [
-          {
-            "label": "GitHub",
-            "href": "https://github.com",
-            "external": true
-          },
-          {
-            "label": "HuggingFace",
-            "href": "https://huggingface.co",
-            "external": true
-          },
-          {
-            "label": "X / Twitter",
-            "href": "https://twitter.com",
-            "external": true
-          },
-          {
-            "label": "LinkedIn",
-            "href": "https://linkedin.com",
-            "external": true
-          }
-        ]
       }
     ],
     "footer": {
       "brandTitle": "AI Labs by Nimbus",
-      "brandDesc": "Advancing humanity's intelligence horizon through computational neuroscience and synthetic reasoning.",
+      "brandDesc": "Enterprise AI, custom AI software, cloud and self-hosted AI, and OSINT & SOCMINT solutions, built around how your team works.",
       "brandLogo": "./assets/logo_tight.png",
       "copyrightYear": 2026,
       "copyrightText": "© 2026 AI Labs by Nimbus. All rights reserved.",
-      "copyrightSuffix": "· Frontier Artificial Intelligence & Autonomous Systems.",
+      "copyrightSuffix": "· Enterprise AI, Software & Intelligence Solutions.",
       "talkHeading": "Let’s build what you actually need.",
       "ctaText": "Book Diagnostic Audit",
       "email": "contact@ailabsnimbus.com",
       "emailHref": "mailto:contact@ailabsnimbus.com",
-      "note": "Direct access to Principal Systems Engineers · Under 24h response time",
-      "locationBadge": "Sovereign AI Engineering Hub",
+      "note": "Talk directly to the engineers who will build your system.",
+      "locationBadge": "Our Office",
       "locationCity": "Dhaka, Bangladesh",
       "locationAddressLine1": "Gulshan 2, Dhaka 1212",
-      "locationAddressLine2": "Bangladesh · Frontier Artificial Intelligence & Autonomous Systems",
+      "locationAddressLine2": "Bangladesh",
       "navAriaLabel": "Footer Nav",
-      "legal": [
-        {
-          "label": "Privacy",
-          "href": "#"
-        },
-        {
-          "label": "Terms",
-          "href": "#"
-        },
-        {
-          "label": "Security Proofs",
-          "href": "#"
-        }
-      ],
+      "legal": [],
       "statusText": "All Global Nimbus Clusters Operational",
       "tel": "+1 (415) 890-AI-LABS · Sovereign Consultations",
       "telHref": "tel:+14158902452",
@@ -168,11 +130,11 @@
           "href": "#services-industries"
         },
         {
-          "label": "CMS Matrix",
-          "href": "./cms"
+          "label": "What We Do",
+          "href": "./#dapper"
         }
       ],
-      "locationAddress": "Gulshan 2, Dhaka 1212\nBangladesh · Frontier Artificial Intelligence & Autonomous Systems"
+      "locationAddress": "Gulshan 2, Dhaka 1212\nBangladesh"
     }
   },
   "products": [
@@ -583,62 +545,49 @@
       "chapters": [
         {
           "index": 1,
-          "name": "SECURITY",
-          "caption": "DECENTRALIZED MULTI-AGENT SWARMS & MULTIMODAL REASONING ENGINES"
+          "name": "ENTERPRISE AI SOLUTIONS",
+          "caption": "AI BUILT INTO YOUR OPERATIONS: WORKFLOW AUTOMATION, COPILOTS & DECISION SUPPORT FOR YOUR TEAMS"
         },
         {
           "index": 2,
-          "name": "AGENTIC",
-          "caption": "AUTONOMOUS TASK DECOMPOSITION, TOOL SYNTHESIS & DYNAMIC MEMORY GRAPHS"
+          "name": "AI SOFTWARE DEVELOPMENT",
+          "caption": "CUSTOM AI-POWERED APPS, AGENTS & INTEGRATIONS, FROM PROTOTYPE TO PRODUCTION"
         },
         {
           "index": 3,
-          "name": "RESEARCH",
-          "caption": "SUB-MILLISECOND INFERENCE ON HIGH-PERFORMANCE DISTRIBUTED GPU CLUSTERS"
+          "name": "AI CLOUD SOLUTIONS",
+          "caption": "SCALABLE MODEL TRAINING, INFERENCE & MLOPS ON THE CLOUD OF YOUR CHOICE"
         },
         {
           "index": 4,
-          "name": "UX",
-          "caption": "HIGH-DIMENSIONAL SPATIAL LATENTS, REASONING TRACES & SYNTHETIC PERCEPTION"
+          "name": "SELF-HOSTED AI",
+          "caption": "PRIVATE AI MODELS ON YOUR OWN SERVERS, SO YOUR DATA NEVER LEAVES YOUR INFRASTRUCTURE"
         },
         {
           "index": 5,
-          "name": "INNOVATION",
-          "caption": "HYPER-SCALABLE FOUNDATIONAL INFRASTRUCTURE FOR ARTIFICIAL SUPERINTELLIGENCE"
+          "name": "OSINT & SOCMINT SOLUTIONS",
+          "caption": "OPEN-SOURCE & SOCIAL MEDIA INTELLIGENCE: MONITORING, ANALYSIS & THREAT INSIGHT"
         }
       ]
     },
     "footer": {
       "brandTitle": "AI Labs by Nimbus",
-      "brandDesc": "Advancing humanity's intelligence horizon through computational neuroscience and synthetic reasoning.",
+      "brandDesc": "Enterprise AI, custom AI software, cloud and self-hosted AI, and OSINT & SOCMINT solutions, built around how your team works.",
       "brandLogo": "./assets/logo_tight.png",
       "copyrightYear": 2026,
       "copyrightText": "© 2026 AI Labs by Nimbus. All rights reserved.",
-      "copyrightSuffix": "· Frontier Artificial Intelligence & Autonomous Systems.",
+      "copyrightSuffix": "· Enterprise AI, Software & Intelligence Solutions.",
       "talkHeading": "Let’s build what you actually need.",
       "ctaText": "Book Diagnostic Audit",
       "email": "contact@ailabsnimbus.com",
       "emailHref": "mailto:contact@ailabsnimbus.com",
-      "note": "Direct access to Principal Systems Engineers · Under 24h response time",
-      "locationBadge": "Sovereign AI Engineering Hub",
+      "note": "Talk directly to the engineers who will build your system.",
+      "locationBadge": "Our Office",
       "locationCity": "Dhaka, Bangladesh",
       "locationAddressLine1": "Gulshan 2, Dhaka 1212",
-      "locationAddressLine2": "Bangladesh · Frontier Artificial Intelligence & Autonomous Systems",
+      "locationAddressLine2": "Bangladesh",
       "navAriaLabel": "Footer Nav",
-      "legal": [
-        {
-          "label": "Privacy",
-          "href": "#"
-        },
-        {
-          "label": "Terms",
-          "href": "#"
-        },
-        {
-          "label": "Security Proofs",
-          "href": "#"
-        }
-      ],
+      "legal": [],
       "statusText": "All Global Nimbus Clusters Operational",
       "tel": "+1 (415) 890-AI-LABS · Sovereign Consultations",
       "telHref": "tel:+14158902452",
@@ -660,20 +609,20 @@
           "href": "#services-industries"
         },
         {
-          "label": "CMS Matrix",
-          "href": "./cms"
+          "label": "What We Do",
+          "href": "./#dapper"
         }
       ],
-      "locationAddress": "Gulshan 2, Dhaka 1212\nBangladesh · Frontier Artificial Intelligence & Autonomous Systems"
+      "locationAddress": "Gulshan 2, Dhaka 1212\nBangladesh"
     }
   },
   "pages": {
     "home": {
       "meta": {
-        "title": "AI Labs by Nimbus | Frontier Artificial Intelligence & Autonomous Systems",
-        "description": "AI Labs by Nimbus researches next-generation generative models, collaborative multi-agent architectures, and hyper-scalable deep learning systems.",
-        "ogTitle": "AI Labs by Nimbus | Frontier Intelligence",
-        "ogDescription": "Pioneering the next frontier of artificial intelligence, autonomous agentic systems, and neural architectures.",
+        "title": "AI Labs by Nimbus | Enterprise AI, Software & Intelligence Solutions",
+        "description": "AI Labs by Nimbus builds enterprise AI solutions, custom AI software, AI cloud and self-hosted AI, and OSINT & SOCMINT solutions, shaped around how your team works.",
+        "ogTitle": "AI Labs by Nimbus | Enterprise AI & Intelligence Solutions",
+        "ogDescription": "We study how you work, then build only what you need: enterprise AI, custom AI software, cloud and self-hosted AI, and OSINT & SOCMINT.",
         "ogType": "website",
         "themeColor": "#020016"
       },
@@ -687,7 +636,7 @@
         "primaryBtnAriaLabel": "Explore Nimbus Labs products and services",
         "secondaryBtnText": "Book Audit",
         "secondaryBtnLink": "./audit",
-        "preloaderStatus": "INITIALIZING NIMBUS NEURAL CLUSTER...",
+        "preloaderStatus": "LOADING AI LABS BY NIMBUS...",
         "layers": [
           {
             "id": "layer-01",
@@ -806,8 +755,8 @@
         "chapterStart": "01",
         "chapterSeparator": "/",
         "captionPrefix": "//",
-        "tagTop": "FRONTIER COGNITION",
-        "tagBottom": "RESEARCH DOMAINS",
+        "tagTop": "WHAT WE DO",
+        "tagBottom": "OUR SERVICES",
         "tagPrefix": "CHAPTER 0",
         "tagSeparator": "//",
         "video": {
@@ -835,6 +784,11 @@
         {
           "label": "Audits & Services",
           "href": "./services",
+          "linkClass": "f-link"
+        },
+        {
+          "label": "What We Do",
+          "href": "#dapper",
           "linkClass": "f-link"
         },
         {
@@ -1022,17 +976,8 @@
         "tertiaryBtnLink": "./",
         "title": "See further. Build with <em>Nimbus</em>."
       },
-      "legal": [
-        {
-          "label": "Security Proofs",
-          "href": "mailto:contact@ailabsnimbus.com"
-        },
-        {
-          "label": "Advisory Terms",
-          "href": "mailto:contact@ailabsnimbus.com"
-        }
-      ],
-      "footerNote": "· Explore page — placeholder content."
+      "legal": [],
+      "footerNote": ""
     },
     "audit": {
       "meta": {

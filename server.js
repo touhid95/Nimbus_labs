@@ -78,9 +78,12 @@ const cloudinaryConfig = {
 const cloudinaryPreset = process.env.CLOUDINARY_UPLOAD_PRESET || 'Nimbus_Cms';
 
 // Ensure necessary directories exist
+// (Skipped silently on read-only hosts such as Vercel serverless functions.)
 [path.join(__dirname, 'data'), BACKUPS_DIR, UPLOADS_DIR].forEach(dir => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+  try {
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  } catch (err) {
+    console.warn('Could not create ' + dir + ': ' + err.message);
   }
 });
 
@@ -123,18 +126,50 @@ function readSiteContent() {
   return contentStore.read();
 }
 
-// Helper to parse JSON body from request
-function parseJsonBody(req) {
+// Request body size caps. Without a cap anyone could stream an endless body
+// into memory and crash the server, including through public endpoints.
+const BODY_LIMIT_DEFAULT = 1 * 1024 * 1024;      // 1 MB: login, small admin calls
+const BODY_LIMIT_CONTENT = 10 * 1024 * 1024;     // 10 MB: CMS content, drafts, previews
+const BODY_LIMIT_UPLOAD = 280 * 1024 * 1024;     // ~200 MB file once base64-encoded
+const BODY_LIMIT_INQUIRY = 16 * 1024;            // 16 KB: public intake form
+
+// Helper to parse JSON body from request. Rejects with err.status = 413 once
+// the body grows past maxBytes, and stops buffering what follows.
+function parseJsonBody(req, maxBytes) {
+  const limit = maxBytes || BODY_LIMIT_DEFAULT;
   return new Promise((resolve, reject) => {
+    const declared = Number(req.headers['content-length'] || 0);
+    if (declared > limit) {
+      const tooBig = new Error('Request body too large');
+      tooBig.status = 413;
+      req.resume();
+      return reject(tooBig);
+    }
+
     const chunks = [];
-    req.on('data', chunk => chunks.push(chunk));
+    let received = 0;
+    let aborted = false;
+    req.on('data', chunk => {
+      if (aborted) return;
+      received += chunk.length;
+      if (received > limit) {
+        aborted = true;
+        chunks.length = 0;
+        const tooBig = new Error('Request body too large');
+        tooBig.status = 413;
+        return reject(tooBig);
+      }
+      chunks.push(chunk);
+    });
     req.on('end', () => {
+      if (aborted) return;
       try {
         const bodyStr = Buffer.concat(chunks).toString('utf8');
         if (!bodyStr) return resolve({});
         const data = JSON.parse(bodyStr);
         resolve(data);
       } catch (err) {
+        err.status = 400;
         reject(err);
       }
     });
@@ -232,28 +267,13 @@ function getMediaFiles() {
   return mediaList.sort((a, b) => new Date(b.modified) - new Date(a.modified));
 }
 
-const server = http.createServer(async (req, res) => {
+async function handleRequest(req, res) {
   res.req = req;
 
   // Handle CORS preflight (restricted to the configured site origin)
   if (req.method === 'OPTIONS') {
     res.writeHead(204, cors.headers(req));
     return res.end();
-  }
-
-  // Legacy video upload hook (admin only — it writes straight into assets/)
-  if (req.method === 'POST' && req.url === '/save-video') {
-    if (!auth.isAuthenticated(req)) {
-      return sendJson(res, 401, { status: 'error', message: 'Authentication required' });
-    }
-    const chunks = [];
-    req.on('data', chunk => chunks.push(chunk));
-    req.on('end', () => {
-      const buffer = Buffer.concat(chunks);
-      fs.writeFileSync(path.join(__dirname, 'assets', 'research-cognition.webm'), buffer);
-      sendJson(res, 200, { success: true, bytes: buffer.length });
-    });
-    return;
   }
 
   const rawPath = req.url.split('?')[0];
@@ -327,7 +347,7 @@ const server = http.createServer(async (req, res) => {
     try {
       payload = await parseJsonBody(req);
     } catch (err) {
-      return sendJson(res, 400, { status: 'error', message: 'Invalid request body' });
+      return sendJson(res, err.status === 413 ? 413 : 400, { status: 'error', message: err.status === 413 ? 'Request body too large' : 'Invalid request body' });
     }
 
     if (!auth.verifyPassword(payload.password)) {
@@ -383,7 +403,7 @@ const server = http.createServer(async (req, res) => {
   // 2. POST /api/v1/content — Save updated site content
   if (req.method === 'POST' && reqPath === '/api/v1/content') {
     try {
-      const payload = await parseJsonBody(req);
+      const payload = await parseJsonBody(req, BODY_LIMIT_CONTENT);
       if (!payload || !payload.products) {
         return sendJson(res, 400, { status: 'error', message: 'Invalid payload structure: products required' });
       }
@@ -401,7 +421,7 @@ const server = http.createServer(async (req, res) => {
       });
     } catch (err) {
       console.error('Error saving content:', err);
-      return sendJson(res, 500, { status: 'error', message: err.message || 'Server error saving content' });
+      return sendJson(res, err.status || 500, { status: 'error', message: err.message || 'Server error saving content' });
     }
   }
 
@@ -417,7 +437,7 @@ const server = http.createServer(async (req, res) => {
   // 4. POST /api/v1/content/draft — autosave the working copy
   if (req.method === 'POST' && reqPath === '/api/v1/content/draft') {
     try {
-      const payload = await parseJsonBody(req);
+      const payload = await parseJsonBody(req, BODY_LIMIT_CONTENT);
       if (!payload || !payload.products) {
         return sendJson(res, 400, { status: 'error', message: 'Invalid payload structure: products required' });
       }
@@ -430,7 +450,7 @@ const server = http.createServer(async (req, res) => {
       });
     } catch (err) {
       console.error('Error saving draft:', err);
-      return sendJson(res, 500, { status: 'error', message: err.message || 'Server error saving draft' });
+      return sendJson(res, err.status || 500, { status: 'error', message: err.message || 'Server error saving draft' });
     }
   }
 
@@ -456,14 +476,14 @@ const server = http.createServer(async (req, res) => {
       });
     } catch (err) {
       console.error('Error publishing content:', err);
-      return sendJson(res, 500, { status: 'error', message: err.message || 'Server error publishing content' });
+      return sendJson(res, err.status || 500, { status: 'error', message: err.message || 'Server error publishing content' });
     }
   }
 
   // 7. POST /api/v1/preview — render a page with the unsaved draft
   if (req.method === 'POST' && reqPath === '/api/v1/preview') {
     try {
-      const payload = await parseJsonBody(req);
+      const payload = await parseJsonBody(req, BODY_LIMIT_CONTENT);
       const page = String((payload && payload.page) || 'index.html');
       if (!PAGE_TEMPLATES.has(page)) {
         return sendJson(res, 400, { status: 'error', message: 'Unknown preview page: ' + page });
@@ -477,7 +497,7 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, 200, { status: 'success', data: { html: html, page: page } });
     } catch (err) {
       console.error('Error rendering preview:', err);
-      return sendJson(res, 500, { status: 'error', message: err.message || 'Server error rendering preview' });
+      return sendJson(res, err.status || 500, { status: 'error', message: err.message || 'Server error rendering preview' });
     }
   }
 
@@ -503,7 +523,7 @@ const server = http.createServer(async (req, res) => {
   // 5. POST /api/v1/media/upload — Base64 file upload
   if (req.method === 'POST' && reqPath === '/api/v1/media/upload') {
     try {
-      const payload = await parseJsonBody(req);
+      const payload = await parseJsonBody(req, BODY_LIMIT_UPLOAD);
       const filename = payload && (payload.filename || payload.name);
       const base64Data = payload && (payload.base64Data || payload.data);
       if (!filename || !base64Data) {
@@ -542,7 +562,7 @@ const server = http.createServer(async (req, res) => {
       });
     } catch (err) {
       console.error('Upload error:', err);
-      return sendJson(res, 500, { status: 'error', message: err.message || 'File upload failed' });
+      return sendJson(res, err.status || 500, { status: 'error', message: err.message || 'File upload failed' });
     }
   }
 
@@ -584,7 +604,7 @@ const server = http.createServer(async (req, res) => {
     try {
       payload = await parseJsonBody(req);
     } catch (err) {
-      return sendJson(res, 400, { status: 'error', message: 'Invalid request body' });
+      return sendJson(res, err.status === 413 ? 413 : 400, { status: 'error', message: err.status === 413 ? 'Request body too large' : 'Invalid request body' });
     }
 
     const resourceType = cloudinary.normalizeResourceType(payload.resourceType);
@@ -696,7 +716,7 @@ const server = http.createServer(async (req, res) => {
     try {
       payload = await parseJsonBody(req);
     } catch (err) {
-      return sendJson(res, 400, { status: 'error', message: 'Invalid request body' });
+      return sendJson(res, err.status === 413 ? 413 : 400, { status: 'error', message: err.status === 413 ? 'Request body too large' : 'Invalid request body' });
     }
 
     const presetName = payload.name || cloudinaryPreset;
@@ -733,7 +753,7 @@ const server = http.createServer(async (req, res) => {
 
       return sendJson(res, 200, { status: 'success', data: files });
     } catch (err) {
-      return sendJson(res, 500, { status: 'error', message: err.message });
+      return sendJson(res, err.status || 500, { status: 'error', message: err.message });
     }
   }
 
@@ -757,7 +777,7 @@ const server = http.createServer(async (req, res) => {
         data: { filename: path.basename(String(filename)), changes: changes, count: changes.length }
       });
     } catch (err) {
-      return sendJson(res, 500, { status: 'error', message: err.message });
+      return sendJson(res, err.status || 500, { status: 'error', message: err.message });
     }
   }
 
@@ -783,7 +803,7 @@ const server = http.createServer(async (req, res) => {
         data: restored
       });
     } catch (err) {
-      return sendJson(res, 500, { status: 'error', message: err.message });
+      return sendJson(res, err.status || 500, { status: 'error', message: err.message });
     }
   }
 
@@ -796,15 +816,22 @@ const server = http.createServer(async (req, res) => {
     }
 
     try {
-      const payload = await parseJsonBody(req);
-      const clean = Object.assign({}, payload);
-      delete clean.honeypot;
+      const payload = await parseJsonBody(req, BODY_LIMIT_INQUIRY);
+      // Keep only plain string fields, capped in number and length.
+      const clean = {};
+      Object.keys(payload || {}).slice(0, 30).forEach((key) => {
+        if (key === 'honeypot') return;
+        const value = payload[key];
+        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+          clean[String(key).slice(0, 64)] = String(value).slice(0, 4000);
+        }
+      });
 
       // Honeypot: bots fill the hidden field. Answer as if it worked, store nothing.
       if (typeof payload.honeypot === 'string' && payload.honeypot.trim() !== '') {
         return sendJson(res, 200, {
           status: 'success',
-          message: 'Business audit diagnostic request registered. A principal research fellow will review your telemetry.',
+          message: 'Thanks, your request has been received. We will get back to you soon.',
           inquiryId: 'audit-' + Date.now()
         });
       }
@@ -825,22 +852,38 @@ const server = http.createServer(async (req, res) => {
       // Retention cap: keep the newest 500 inquiries only.
       if (inquiries.length > 500) inquiries = inquiries.slice(0, 500);
 
-      fs.writeFileSync(auditLogPath, JSON.stringify(inquiries, null, 2), 'utf8');
+      try {
+        fs.writeFileSync(auditLogPath, JSON.stringify(inquiries, null, 2), 'utf8');
+      } catch (writeErr) {
+        // Read-only host (e.g. Vercel): keep the inquiry in the platform logs
+        // instead of failing the visitor's request.
+        console.log('AUDIT_INQUIRY ' + JSON.stringify(record));
+      }
 
       return sendJson(res, 200, {
         status: 'success',
-        message: 'Business audit diagnostic request registered. A principal research fellow will review your telemetry.',
+        message: 'Thanks, your request has been received. We will get back to you soon.',
         inquiryId: record.id
       });
     } catch (err) {
       console.error('Error saving inquiry:', err);
-      return sendJson(res, 500, { status: 'error', message: err.message });
+      return sendJson(res, err.status || 500, { status: 'error', message: err.message });
     }
   }
 
   /* ------------------------------------------------------------------
      STATIC FILE SERVING
      ------------------------------------------------------------------ */
+
+  // explore-data.js is generated from the CMS content (and gitignored), so
+  // build it per request; read-only hosts never write it to disk.
+  if (req.method === 'GET' && reqPath === '/assets/explore/explore-data.js') {
+    const headers = cors.headers(req);
+    headers['Content-Type'] = 'application/javascript; charset=utf-8';
+    headers['Cache-Control'] = 'no-cache';
+    res.writeHead(200, headers);
+    return res.end(contentStore.generateExploreDataJs(contentStore.read()));
+  }
 
   const fullPath = resolveStaticPath(reqPath);
   if (!fullPath) {
@@ -880,11 +923,18 @@ const server = http.createServer(async (req, res) => {
     const stream = fs.createReadStream(fullPath);
     stream.pipe(res);
   });
-});
+}
 
-server.listen(PORT, '0.0.0.0', () => {
-  // Keep the static explore-data.js contract in sync with the CMS content.
-  contentStore.sync();
-  console.log(`Nimbus Labs server running at http://0.0.0.0:${PORT}/`);
-  console.log(`CMS Matrix control panel at http://localhost:${PORT}/cms`);
-});
+// Run as a standalone server (`node server.js`), or export the request
+// handler so a serverless host (Vercel, see api/index.js) can call it.
+if (require.main === module) {
+  const server = http.createServer(handleRequest);
+  server.listen(PORT, '0.0.0.0', () => {
+    // Keep the static explore-data.js contract in sync with the CMS content.
+    contentStore.sync();
+    console.log(`Nimbus Labs server running at http://0.0.0.0:${PORT}/`);
+    console.log(`CMS Matrix control panel at http://localhost:${PORT}/cms`);
+  });
+}
+
+module.exports = handleRequest;

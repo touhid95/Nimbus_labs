@@ -148,27 +148,32 @@
       }
     });
 
+    function closeDrawer() {
+      mobileDrawer.classList.remove('active');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      if (siteHeader) siteHeader.classList.remove('drawer-open');
+    }
+
     mobileDrawer.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        mobileDrawer.classList.remove('active');
-        menuBtn.setAttribute('aria-expanded', 'false');
-        if (siteHeader) siteHeader.classList.remove('drawer-open');
-      });
+      a.addEventListener('click', closeDrawer);
+    });
+
+    // Close when tapping outside the drawer
+    document.addEventListener('click', (e) => {
+      if (!mobileDrawer.contains(e.target) && !menuBtn.contains(e.target)) closeDrawer();
     });
   }
 
   // ----------------------------------------------------
   // 3. MASTER RENDER LOOP & DAPPER STICKY CONTROLLER
-  // 5 Chapters: 01 FRONTIER -> 02 NEURAL -> 03 AGENTIC -> 04 COGNITION (Video) -> 05 NIMBUS
+  // 5 Chapters (services): 01 ENTERPRISE AI -> 02 AI SOFTWARE -> 03 AI CLOUD -> 04 SELF-HOSTED AI -> 05 OSINT & SOCMINT
   // ----------------------------------------------------
   const dapperSection = document.getElementById('dapper');
   const dapperHeaderRail = document.getElementById('dapper-header-rail');
   const dapperProgBar = document.getElementById('dapper-progress-bar');
   const dapperChapInd = document.getElementById('dapper-chapter-indicator');
-  const dapperLayer4 = document.getElementById('dapper-layer-4');
   const brandStatusTag = document.getElementById('brand-status-tag');
   const dapperHeaderWrapper = document.querySelector('.dapper-header-wrapper');
-  const dapperControls = document.getElementById('cognition-controls');
   const dapperCaptionText = document.getElementById('dapper-caption-text');
   let currentCaptionIdx = -1;
 
@@ -189,7 +194,6 @@
   const chapterNames = dapperChapters.map(function (chapter) { return chapter.name || ''; });
   const chapterCaptions = dapperChapters.map(function (chapter) { return chapter.caption || ''; });
   const chapterCount = Math.max(1, dapperChapters.length);
-  const VIDEO_CHAPTER_INDEX = 3;
 
   function updateDapperSticky() {
     if (!dapperSection) return;
@@ -244,11 +248,11 @@
     }
 
     if (brandStatusTag) {
-      let targetTag = dapperUI.tagTop || 'FRONTIER COGNITION';
+      let targetTag = dapperUI.tagTop || 'WHAT WE DO';
       if (rect.top > 80) {
-        targetTag = dapperUI.tagTop || 'FRONTIER COGNITION';
+        targetTag = dapperUI.tagTop || 'WHAT WE DO';
       } else if (rect.bottom < 80) {
-        targetTag = dapperUI.tagBottom || 'RESEARCH DOMAINS';
+        targetTag = dapperUI.tagBottom || 'OUR SERVICES';
       } else {
         targetTag = `${dapperUI.tagPrefix || 'CHAPTER 0'}${activeIdx + 1} ${dapperUI.tagSeparator || '//'} ${chapterNames[activeIdx]}`;
       }
@@ -257,27 +261,34 @@
       }
     }
 
-    // 5. Chapter 4 Video Activation & Controls Visibility
-    if (chapterProgress >= VIDEO_CHAPTER_INDEX - 0.7 && chapterProgress < VIDEO_CHAPTER_INDEX + 0.7) {
-      if (dapperControls) dapperControls.classList.add('is-visible');
-      if (typeof window.__dapperTriggerVideoPlay === 'function') {
-        window.__dapperTriggerVideoPlay();
-      }
-    } else {
-      if (dapperControls) dapperControls.classList.remove('is-visible');
-      if (typeof window.__dapperTriggerVideoPause === 'function') {
-        window.__dapperTriggerVideoPause();
-      }
-    }
   }
 
   let startTime = performance.now();
 
+  // Respect the OS "reduce motion" setting: no cloud drift, no scroll easing.
+  const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let reduceMotion = reduceMotionQuery.matches;
+
+  // The loop only runs while something is moving: scroll easing in progress,
+  // or the hero (with its drifting clouds) on screen. Otherwise it sleeps
+  // until the next scroll/resize, instead of burning every frame.
+  let rafId = 0;
+  function ensureLoop() {
+    if (!rafId) rafId = requestAnimationFrame(render);
+  }
+
   function render(now) {
+    rafId = 0;
     const elapsed = now - startTime;
 
     // Smooth Lerp Interpolation matching Webflow smoothing: 75
-    currentScrollY += (targetScrollY - currentScrollY) * 0.075;
+    if (reduceMotion) {
+      currentScrollY = targetScrollY;
+    } else {
+      currentScrollY += (targetScrollY - currentScrollY) * 0.075;
+    }
+    const settled = Math.abs(targetScrollY - currentScrollY) < 0.5;
+    if (settled) currentScrollY = targetScrollY;
 
     // Occlusion Culling: If hero is completely scrolled off-screen, skip hero layer transforms
     let heroVisible = true;
@@ -307,7 +318,7 @@
         const cloud = cloudLayers[i];
         if (!cloud.el) continue;
 
-        const driftPercent = Math.sin(elapsed * cloud.speed + cloud.phase) * cloud.xRange;
+        const driftPercent = reduceMotion ? 0 : Math.sin(elapsed * cloud.speed + cloud.phase) * cloud.xRange;
         const translateY = scrollProgress * cloud.yFactor * 100;
 
         cloud.el.style.transform = `translate3d(${driftPercent.toFixed(3)}%, ${translateY.toFixed(3)}%, 0px)`;
@@ -326,110 +337,20 @@
     // Always update Dapper sticky state smoothly
     updateDapperSticky();
 
-    requestAnimationFrame(render);
+    // Keep going while easing, or while clouds are drifting on screen.
+    if (!settled || (heroVisible && !reduceMotion)) ensureLoop();
   }
 
-  requestAnimationFrame(render);
-
-  // ----------------------------------------------------
-  // 4. MOBILE NAVIGATION TOGGLE
-  // ----------------------------------------------------
-  const mobileBtn = document.getElementById('clay-menu-btn') || document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('clay-mobile-drawer') || document.getElementById('mobile-menu');
-
-  if (mobileBtn && mobileMenu) {
-    mobileBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const open = mobileMenu.classList.toggle('active');
-      mobileBtn.setAttribute('aria-expanded', String(open));
-    });
-
-    // Close when clicking nav links
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.remove('active');
-        mobileBtn.setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    // Close when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!mobileMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
-        mobileMenu.classList.remove('active');
-        mobileBtn.setAttribute('aria-expanded', 'false');
-      }
-    });
+  window.addEventListener('scroll', ensureLoop, { passive: true });
+  window.addEventListener('resize', ensureLoop, { passive: true });
+  const onMotionPrefChange = (e) => { reduceMotion = e.matches; ensureLoop(); };
+  if (reduceMotionQuery.addEventListener) {
+    reduceMotionQuery.addEventListener('change', onMotionPrefChange);
+  } else if (reduceMotionQuery.addListener) {
+    reduceMotionQuery.addListener(onMotionPrefChange);
   }
 
-  // ----------------------------------------------------
-  // 5. INTERACTIVE NIMBUS NEURAL ENGINE SIMULATOR
-  // ----------------------------------------------------
-  const concurrencySlider = document.getElementById('concurrency-slider');
-  const concurrencyVal = document.getElementById('concurrency-val');
-  const metricThroughput = document.getElementById('metric-throughput');
-  const metricTTFT = document.getElementById('metric-ttft');
-  const metricAcc = document.getElementById('metric-acc');
-  const metricPower = document.getElementById('metric-power');
-  const modelPills = document.querySelectorAll('.model-pills .pill');
-
-  let currentModel = 'omni';
-
-  const modelProfiles = {
-    omni: { baseTokPerSec: 33.5, ttftBase: 14.2, acc: '99.4', power: '0.08' },
-    reason: { baseTokPerSec: 54.0, ttftBase: 9.8, acc: '98.1', power: '0.04' },
-    edge: { baseTokPerSec: 110.0, ttftBase: 4.5, acc: '93.7', power: '0.015' }
-  };
-
-  function updateSimulator() {
-    const conc = parseInt(concurrencySlider ? concurrencySlider.value : 128, 10);
-    if (concurrencyVal) {
-      concurrencyVal.textContent = `${conc} Concurrent Agents`;
-    }
-
-    const prof = modelProfiles[currentModel];
-    // Throughput scales with concurrency with slight saturation curve
-    const efficiency = 1 - (conc / 2400);
-    const totalTokens = Math.round(conc * prof.baseTokPerSec * efficiency);
-    const ttft = (prof.ttftBase * (1 + (conc / 1200))).toFixed(1);
-
-    if (metricThroughput) metricThroughput.innerHTML = `${totalTokens.toLocaleString()} <span class="unit">tok/s</span>`;
-    if (metricTTFT) metricTTFT.innerHTML = `${ttft} <span class="unit">ms</span>`;
-    if (metricAcc) metricAcc.innerHTML = `${prof.acc} <span class="unit">%</span>`;
-    if (metricPower) metricPower.innerHTML = `${prof.power} <span class="unit">J/tok</span>`;
-  }
-
-  if (concurrencySlider) {
-    concurrencySlider.addEventListener('input', updateSimulator);
-  }
-
-  modelPills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      modelPills.forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      currentModel = pill.getAttribute('data-model');
-      updateSimulator();
-    });
-  });
-
-  // ----------------------------------------------------
-  // 6. MAGNETIC BUTTON INTERACTION (Desktop)
-  // Matches followUP.html magnetic button behavior
-  // ----------------------------------------------------
-  const magneticWrap = document.getElementById('magnetic-btn-wrap');
-  const magneticBtn = document.getElementById('footer-contact-btn');
-
-  if (magneticWrap && magneticBtn && window.innerWidth > 991) {
-    magneticWrap.addEventListener('mousemove', (e) => {
-      const rect = magneticWrap.getBoundingClientRect();
-      const x = e.clientX - (rect.left + rect.width / 2);
-      const y = e.clientY - (rect.top + rect.height / 2);
-      magneticBtn.style.transform = `translate3d(${x * 0.35}px, ${y * 0.35}px, 0px) scale(1.04)`;
-    });
-
-    magneticWrap.addEventListener('mouseleave', () => {
-      magneticBtn.style.transform = `translate3d(0px, 0px, 0px) scale(1)`;
-    });
-  }
+  ensureLoop();
 
   // ----------------------------------------------------
   // 7. SCROLL REVEAL (IntersectionObserver)
@@ -456,255 +377,7 @@
     revealElements.forEach(el => el.classList.add('revealed'));
   }
 
-  // ----------------------------------------------------
-  // 8. DAPPER CHAPTER 04 VIDEO CONTROLLER
-  // Drives video playback inside Dapper White Difference Layer 4,
-  // ambient audio, floating controls, and advance to Chapter 05 (Nimbus)
-  // ----------------------------------------------------
-  const cognitionVideo = document.getElementById('cognition-video');
-  const pauseBtn = document.getElementById('cognition-pause-btn');
-  const soundBtn = document.getElementById('cognition-sound-btn');
-  const pauseBtnText = document.getElementById('pause-btn-text');
-  const soundBtnText = document.getElementById('sound-btn-text');
-
-  if (cognitionVideo && dapperLayer4) {
-    let isVideoReady = false;
-    let hasStartedOnce = false;
-
-    // Helper: update Play/Pause UI
-    function setPlayState(isPlaying) {
-      const iconPause = pauseBtn ? pauseBtn.querySelector('.icon-pause') : null;
-      const iconPlay = pauseBtn ? pauseBtn.querySelector('.icon-play') : null;
-      if (iconPause && iconPlay) {
-        iconPause.style.display = isPlaying ? 'block' : 'none';
-        iconPlay.style.display = isPlaying ? 'none' : 'block';
-      }
-      if (pauseBtnText) {
-        pauseBtnText.textContent = isPlaying ? (dapperLabels.pauseLabel || 'Pause') : (dapperLabels.resumeLabel || 'Resume');
-      }
-    }
-
-    // Helper: update Sound UI
-    function setSoundState(isSoundOn) {
-      const iconSoundOn = soundBtn ? soundBtn.querySelector('.icon-sound-on') : null;
-      const iconSoundOff = soundBtn ? soundBtn.querySelector('.icon-sound-off') : null;
-      if (iconSoundOn && iconSoundOff) {
-        iconSoundOn.style.display = isSoundOn ? 'block' : 'none';
-        iconSoundOff.style.display = isSoundOn ? 'none' : 'block';
-      }
-      if (soundBtnText) {
-        soundBtnText.textContent = isSoundOn ? (dapperLabels.soundLabel || 'Sound') : (dapperLabels.mutedLabel || 'Muted');
-      }
-    }
-
-    // Deferred preloading: buffer video as user approaches Dapper
-    let preloaded = false;
-    function triggerPreload() {
-      if (preloaded) return;
-      preloaded = true;
-      cognitionVideo.preload = 'auto';
-      cognitionVideo.load();
-    }
-
-    const dapperSentinel = document.getElementById('dapper');
-    if (dapperSentinel && 'IntersectionObserver' in window) {
-      const preloadObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            triggerPreload();
-            preloadObserver.disconnect();
-          }
-        });
-      }, { rootMargin: '200px' });
-      preloadObserver.observe(dapperSentinel);
-    }
-
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) triggerPreload();
-    }, { passive: true, once: true });
-
-    // Video ready listeners
-    function onVideoCanPlay() {
-      isVideoReady = true;
-    }
-    cognitionVideo.addEventListener('canplay', onVideoCanPlay);
-    cognitionVideo.addEventListener('canplaythrough', onVideoCanPlay);
-    cognitionVideo.addEventListener('loadeddata', onVideoCanPlay);
-
-    if (cognitionVideo.readyState >= 3) {
-      isVideoReady = true;
-    }
-
-    // Trigger video playback when user enters Chapter 4 in Dapper
-    window.__dapperTriggerVideoPlay = function() {
-      if (!isVideoReady && cognitionVideo.readyState < 2) {
-        triggerPreload();
-      }
-      dapperLayer4.classList.add('is-playing');
-
-      if (!hasStartedOnce) {
-        hasStartedOnce = true;
-        cognitionVideo.muted = false;
-        const playPromise = cognitionVideo.play();
-        if (playPromise !== undefined) {
-          playPromise.then(() => {
-            setSoundState(true);
-            setPlayState(true);
-          }).catch(() => {
-            cognitionVideo.muted = true;
-            cognitionVideo.play().then(() => {
-              setSoundState(false);
-              setPlayState(true);
-            }).catch(() => {});
-          });
-        }
-      } else if (cognitionVideo.paused && !cognitionVideo.ended) {
-        cognitionVideo.play().then(() => setPlayState(true)).catch(() => {});
-      }
-    };
-
-    // Pause video when user scrolls outside Chapter 4
-    window.__dapperTriggerVideoPause = function() {
-      if (!cognitionVideo.paused && !cognitionVideo.ended) {
-        cognitionVideo.pause();
-        setPlayState(false);
-      }
-    };
-
-    // Controls: Pause / Play toggle
-    if (pauseBtn) {
-      pauseBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (cognitionVideo.paused) {
-          cognitionVideo.play().then(() => setPlayState(true)).catch(() => {});
-        } else {
-          cognitionVideo.pause();
-          setPlayState(false);
-        }
-      });
-    }
-
-    // Controls: Sound toggle
-    if (soundBtn) {
-      soundBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        cognitionVideo.muted = !cognitionVideo.muted;
-        setSoundState(!cognitionVideo.muted);
-      });
-    }
-
-    // Cinematographic Auto-Scroll to Chapter 05 (Nimbus)
-    let autoScrollRaf = null;
-
-    function cancelAutoScroll() {
-      if (autoScrollRaf) {
-        cancelAnimationFrame(autoScrollRaf);
-        autoScrollRaf = null;
-      }
-      cleanupInterruptListeners();
-    }
-
-    let canInterrupt = false;
-    function onInterrupt() {
-      if (canInterrupt) {
-        cancelAutoScroll();
-      }
-    }
-
-    function onKeyInterrupt(e) {
-      if (canInterrupt && ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Space', 'Home', 'End'].includes(e.code)) {
-        cancelAutoScroll();
-      }
-    }
-
-    function attachInterruptListeners() {
-      canInterrupt = false;
-      setTimeout(() => { canInterrupt = true; }, 350);
-      window.addEventListener('wheel', onInterrupt, { passive: true });
-      window.addEventListener('touchmove', onInterrupt, { passive: true });
-      window.addEventListener('keydown', onKeyInterrupt, { passive: true });
-    }
-
-    function cleanupInterruptListeners() {
-      window.removeEventListener('wheel', onInterrupt);
-      window.removeEventListener('touchmove', onInterrupt);
-      window.removeEventListener('keydown', onKeyInterrupt);
-    }
-
-    // Advance to Chapter 05 (Nimbus) with 100% full scroll and easeInOutCubic curve
-    function advanceToNimbus(duration = 1500) {
-      if (!dapperSection) return;
-      cancelAutoScroll();
-
-      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-      const dapperTop = dapperSection.getBoundingClientRect().top + scrollY;
-      const totalScroll = dapperSection.offsetHeight - winHeight;
-      const targetScroll = dapperTop + totalScroll; // 100% pinned progression -> Chapter 5 NIMBUS fully centered
-      const startScroll = scrollY;
-      const distance = targetScroll - startScroll;
-
-      if (Math.abs(distance) < 4) return;
-
-      const startTime = performance.now();
-      attachInterruptListeners();
-
-      function step(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(1.0, elapsed / duration);
-
-        // Smooth ease-in-out cubic easing
-        const ease = progress < 0.5
-          ? 4 * progress * progress * progress
-          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-
-        const currentY = startScroll + (distance * ease);
-        window.scrollTo(0, currentY);
-        targetScrollY = currentY;
-        currentScrollY = currentY;
-
-        if (progress < 1.0) {
-          autoScrollRaf = requestAnimationFrame(step);
-        } else {
-          window.scrollTo(0, targetScroll);
-          targetScrollY = targetScroll;
-          currentScrollY = targetScroll;
-          cleanupInterruptListeners();
-          autoScrollRaf = null;
-        }
-      }
-
-      autoScrollRaf = requestAnimationFrame(step);
-    }
-
-    // When video finishes: hold final frame for slight delay (500ms), then auto-scroll to 5th slide NIMBUS
-    let hasAutoAdvanced = false;
-
-    function handleVideoFinished() {
-      if (hasAutoAdvanced) return;
-      hasAutoAdvanced = true;
-      setPlayState(false);
-      setTimeout(() => {
-        advanceToNimbus(1500);
-      }, 500);
-    }
-
-    cognitionVideo.addEventListener('ended', handleVideoFinished);
-
-    cognitionVideo.addEventListener('timeupdate', () => {
-      if (cognitionVideo.duration && cognitionVideo.currentTime >= cognitionVideo.duration - 0.25) {
-        handleVideoFinished();
-      }
-    });
-
-    cognitionVideo.addEventListener('play', () => {
-      if (cognitionVideo.currentTime < 1) {
-        hasAutoAdvanced = false;
-      }
-    });
-  }
-
   // Initial triggers
-  updateSimulator();
   updateDapperSticky();
 
   // ----------------------------------------------------
